@@ -7,6 +7,7 @@ import CourseMitologia from "./pages/CourseMitologia";
 import CourseHistory from "./pages/CourseHistory";
 import Shop from "./pages/Shop";
 import InvasionPage from "./pages/InvasionPage";
+import SobreNosotros from "./pages/SobreNosotros";
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
       <Route path="/curso/history" element={<CourseHistory />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/invasion" element={<InvasionPage />} />
+      <Route path="/sobre-nosotros" element={<SobreNosotros />} />
     </Routes>
   );
 }

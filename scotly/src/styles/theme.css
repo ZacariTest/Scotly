@@ -1,0 +1,25 @@
+:root {
+  --color-primary: #0b1f17;  
+  --color-secondary: #f8f4e6; 
+  --color-accent: #d99a28;   
+  --color-card: #f3eede;      
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+button {
+  font-family: var(--font-body);
+}

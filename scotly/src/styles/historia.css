@@ -1,0 +1,194 @@
+/* ==========================================================
+   HISTORIA — VN
+========================================================== */
+
+.historia-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Wrapper */
+.historia-wrapper {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+  background: #000;
+}
+
+/* TÍTULO */
+.historia-title {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  color: #ffc61c;
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000, 0 0 20px rgba(255,198,28,0.5);
+  pointer-events: none;
+}
+
+/* ESCENA */
+.historia-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.historia-scene__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+/* Gradiente inferior */
+.historia-scene__gradient {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,0,0,0.5) 40%,
+    rgba(0,0,0,0.85) 100%
+  );
+}
+
+/* DIÁLOGO — posicionado abajo */
+.historia-dialogue {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  z-index: 10;
+}
+
+/* CAJA DE DIÁLOGO */
+.dialogue-box {
+  width: 100%;
+}
+
+/* Pestaña del nombre */
+.dialogue-box__nametag {
+  display: inline-block;
+  background: #ffc61c;
+  color: #0b1f17;
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 5px 20px 5px 16px;
+  border-radius: 4px 4px 0 0;
+  margin-left: 16px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 0 100%);
+}
+
+/* Caja principal */
+.dialogue-box__body {
+  background: rgba(7, 20, 16, 0.92);
+  border: 1px solid rgba(255, 198, 28, 0.2);
+  border-radius: 0 8px 8px 8px;
+  padding: 1.2rem 1.5rem 1rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Texto del diálogo */
+.dialogue-box__text {
+  font-size: 1.05rem;
+  color: #f8f4e6;
+  line-height: 1.7;
+  min-height: 60px;
+  margin-bottom: 1rem;
+}
+
+/* Footer de la caja */
+.dialogue-box__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialogue-box__progress {
+  font-size: 0.75rem;
+  color: #3a6a4a;
+  letter-spacing: 1px;
+}
+
+.dialogue-box__btn {
+  background: #ffc61c;
+  color: #0b1f17;
+  border: none;
+  padding: 7px 22px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.dialogue-box__btn:hover {
+  background: #ffe186;
+  transform: scale(1.03);
+}
+
+/* CONTROLES inferiores */
+.historia-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 0; right: 0;
+  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.historia-controls__logo {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: rgba(255,198,28,0.5);
+  letter-spacing: 2px;
+}
+
+.historia-controls__btns {
+  display: flex;
+  gap: 8px;
+}
+
+.historia-ctrl-btn {
+  background: rgba(7, 20, 16, 0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(248,244,230,0.6);
+  padding: 4px 14px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+}
+.historia-ctrl-btn:hover {
+  border-color: rgba(255,198,28,0.3);
+  color: #ffc61c;
+}
+.historia-ctrl-btn--exit {
+  border-color: rgba(224,112,112,0.2);
+  color: rgba(224,112,112,0.6);
+}
+.historia-ctrl-btn--exit:hover {
+  border-color: rgba(224,112,112,0.5);
+  color: #e07070;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .historia-title { font-size: 1rem; top: 70px; }
+  .historia-dialogue { bottom: 80px; width: 95%; }
+  .dialogue-box__text { font-size: 0.9rem; }
+}

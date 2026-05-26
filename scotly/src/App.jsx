@@ -8,6 +8,7 @@ import CourseHistory from "./pages/CourseHistory";
 import Shop from "./pages/Shop";
 import InvasionPage from "./pages/InvasionPage";
 import SobreNosotros from "./pages/SobreNosotros";
+import Donaciones from "./pages/Donaciones";
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
       <Route path="/shop" element={<Shop />} />
       <Route path="/invasion" element={<InvasionPage />} />
       <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+      <Route path="/donaciones" element={<Donaciones />} />
     </Routes>
   );
 }

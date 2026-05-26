@@ -32,6 +32,7 @@ export default function Navbar() {
   <Link to="/shop" onClick={() => setMenuOpen(false)}>Tienda</Link>
   <Link to="/curso" onClick={() => setMenuOpen(false)}>Cursos</Link>
   <Link to="/invasion">Invasión <span className="nav-event-badge">Evento</span></Link>
+  <Link to="/donaciones" onClick={() => setMenuOpen(false)}>Donar</Link>
   <Link to="/sobre-nosotros" onClick={() => setMenuOpen(false)}>Sobre Nosotros</Link>
   <Link to="/register" onClick={() => setMenuOpen(false)} className="btn btn-primary text-lg">Comenzar</Link>
 </div>

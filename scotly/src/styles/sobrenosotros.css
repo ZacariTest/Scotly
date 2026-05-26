@@ -80,11 +80,14 @@
 }
 
 .sn-block__label {
-  font-size: 0.65rem;
+  font-size: 1.4rem;
   color: #ffc61c;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 12px;
+  display: block;
+  font-family: var(--font-title);
+  font-weight: bold;
 }
 .sn-block__title {
   font-size: 1.5rem;

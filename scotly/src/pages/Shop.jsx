@@ -26,7 +26,6 @@ export default function Shop() {
     ],
     objetos: [
       { name: "Scones", img: "/img/SC1.jpg", price: 20, rarity: "common" },
-      { name: "Scones 2", img: "/img/SC1.jpg", price: 20, rarity: "common" },
     ],
   };
 

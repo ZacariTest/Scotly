@@ -98,7 +98,7 @@
 }
 .sn-block__body {
   font-size: 1rem;
-  color: #90b8a0;
+  color: #c5f6d5;
   line-height: 1.95;
   max-width: 720px;
 }
@@ -119,7 +119,7 @@
 }
 .sn-cta__sub {
   font-size: 0.9rem;
-  color: #5a8a6a;
+  color: #fff;
   margin-bottom: 16px;
   font-style: italic;
 }

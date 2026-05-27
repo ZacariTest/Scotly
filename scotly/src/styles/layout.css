@@ -581,20 +581,26 @@ html, body {
    FOOTER
 ========================================================== */
 .footer {
-  @apply w-full bg-[rgba(243,238,222,0.85)] py-8 rounded-t-2xl;
+  @apply w-full py-8;
+  background: rgba(11, 31, 23, 0.95);
+  border-top: 1px solid #1e3d2a;
 }
 .footer-content {
   @apply max-w-[1500px] mx-auto grid md:grid-cols-4 gap-6 px-4;
 }
 .footer-title {
-  @apply font-semibold text-[var(--color-primary)] mb-3
-  border-b-2 border-[var(--color-accent)] pb-1 uppercase text-sm;
+  @apply font-semibold mb-3 border-b-2 border-[var(--color-accent)] pb-1 uppercase text-sm;
+  color: #ffc61c;
 }
+
 .footer-links {
-  @apply space-y-2 text-[var(--color-primary)] text-sm;
+  @apply space-y-2 text-sm;
+  color: #7aaa8a;
 }
+
 .footer-bottom {
-  @apply text-center mt-6 text-[var(--color-primary)] text-xs;
+  @apply text-center mt-6 text-xs;
+  color: #3a6a4a;
 }
 @media (max-width: 768px) {
   .footer-content { @apply grid-cols-1 text-center gap-10; }
@@ -687,7 +693,7 @@ html, body {
 .shop-featured-info { flex: 1; }
 .shop-featured-tag { color: #ffc61c; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 4px; }
 .shop-featured-name { color: #f8f4e6; font-size: 1rem; font-weight: bold; margin: 0 0 4px; }
-.shop-featured-desc { color: #7aaa8a; font-size: 0.75rem; font-style: italic; margin: 0; }
+.shop-featured-desc { color: #c5f6d5; font-size: 0.75rem; font-style: italic; margin: 0; }
 .shop-featured-btn {
   background: #ffc61c;
   color: #0b1f17;

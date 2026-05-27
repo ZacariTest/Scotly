@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
-  // Imágenes del carrusel
   const images = [
     "/img/Banner-2.jpg",
     "/img/Banner-1.jpg",
@@ -9,8 +9,8 @@ export default function Hero() {
   ];
 
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
-  // Cambio automático (5 segundos)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
@@ -20,7 +20,6 @@ export default function Hero() {
 
   return (
     <section className="hero-section">
-      {/* Imagen actual */}
       <div className="hero-wrapper">
         <img
           src={images[current]}
@@ -29,7 +28,6 @@ export default function Hero() {
         />
         <div className="hero-overlay"></div>
 
-        {/* Contenido*/}
         <div className="hero-content">
           <h1 className="hero-title">
             Descubre la <span className="accent-title">cultura escocesa</span>
@@ -37,36 +35,28 @@ export default function Hero() {
           <p className="hero-subtitle">
             Sumergite en la historia, los mitos y los paisajes de Escocia.
           </p>
-          <a href="#courses" className="hero-btn">
+          <button className="hero-btn" onClick={() => navigate("/cursos")}>
             Explorar Cursos
-          </a>
+          </button>
         </div>
 
-        {/* Botones navegación */}
         <button
-          onClick={() =>
-            setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1))
-          }
+          onClick={() => setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
           className="hero-arrow left"
-        >
-          ‹
-        </button>
+        >‹</button>
 
         <button
           onClick={() => setCurrent((prev) => (prev + 1) % images.length)}
           className="hero-arrow right"
-        >
-          ›
-        </button>
+        >›</button>
 
-        {/* Indicadores */}
         <div className="hero-indicators">
           {images.map((_, index) => (
             <span
               key={index}
               onClick={() => setCurrent(index)}
               className={`dot ${current === index ? "active" : ""}`}
-            ></span>
+            />
           ))}
         </div>
       </div>

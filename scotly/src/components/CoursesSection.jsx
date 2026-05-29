@@ -7,8 +7,8 @@ export default function CoursesSection() {
     <section className="courses-container">
 
       <div className="courses-header">
-        <p className="courses-header__title">Explora el conocimiento</p>
-        <p className="courses-header__sub">Historia, tradiciones y cultura escocesa a tu ritmo</p>
+        <p className="courses-header__title">Región activa: Escocia</p>
+        <p className="courses-header__sub">Historia, tradiciones y mitología de las Islas Británicas — comenzá por las Highlands</p>
       </div>
 
       <div className="courses-grid">
@@ -21,7 +21,7 @@ export default function CoursesSection() {
             <img src="/img/Arte.jpg" alt="Arte Celta" className="course-card__img" />
             <div className="course-card__overlay" />
             <div className="course-card__body">
-              <span className="course-card__tag course-card__tag--dest">Destacado</span>
+              <span className="course-card__tag course-card__tag--dest">Escocia</span>
               <p className="course-card__name">Arte Celta</p>
             </div>
             <div className="course-card__arrow">›</div>
@@ -31,7 +31,7 @@ export default function CoursesSection() {
             <img src="/img/Comida.jpg" alt="Comida escocesa" className="course-card__img" />
             <div className="course-card__overlay" />
             <div className="course-card__body">
-              <span className="course-card__tag course-card__tag--dest">Destacado</span>
+              <span className="course-card__tag course-card__tag--dest">Escocia</span>
               <p className="course-card__name">Comida escocesa</p>
             </div>
             <div className="course-card__arrow">›</div>
@@ -48,7 +48,7 @@ export default function CoursesSection() {
             <div className="course-card__body">
               <span className="course-card__tag course-card__tag--game">Misión interactiva</span>
               <p className="course-card__name">Historia de Escocia</p>
-              <p className="course-card__desc">Revive la historia a través de decisiones y narrativa</p>
+              <p className="course-card__desc">Revivís la historia a través de decisiones y narrativa</p>
             </div>
             <div className="course-card__arrow">›</div>
           </div>
@@ -56,26 +56,24 @@ export default function CoursesSection() {
 
         {/* Columna derecha */}
         <div className="courses-col">
-          <p className="courses-col__label">Cursos principales</p>
+          <p className="courses-col__label">Próximamente</p>
 
-          <div className="course-card course-card--sm" onClick={() => navigate("/curso/history")}>
-            <img src="/img/History.jpg" alt="Historia Escocesa" className="course-card__img" />
+          <div className="course-card course-card--sm course-card--locked">
+            <img src="/img/History.jpg" alt="Leyendas Artúricas" className="course-card__img" />
             <div className="course-card__overlay" />
             <div className="course-card__body">
-              <span className="course-card__tag course-card__tag--hist">Historia</span>
-              <p className="course-card__name">Historia Escocesa</p>
+              <span className="course-card__tag course-card__tag--region-en">Inglaterra</span>
+              <p className="course-card__name">Leyendas Artúricas</p>
             </div>
-            <div className="course-card__arrow">›</div>
           </div>
 
-          <div className="course-card course-card--sm" onClick={() => navigate("/curso/mitologia")}>
-            <img src="/img/Mitologia.PNG" alt="Mitología" className="course-card__img" />
+          <div className="course-card course-card--sm course-card--locked">
+            <img src="/img/Mitologia.PNG" alt="El Ciclo del Mabinogi" className="course-card__img" />
             <div className="course-card__overlay" />
             <div className="course-card__body">
-              <span className="course-card__tag course-card__tag--hist">Mitología</span>
-              <p className="course-card__name">Mitología y leyendas</p>
+              <span className="course-card__tag course-card__tag--region-wa">Gales</span>
+              <p className="course-card__name">El Ciclo del Mabinogi</p>
             </div>
-            <div className="course-card__arrow">›</div>
           </div>
         </div>
 

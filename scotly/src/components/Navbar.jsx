@@ -18,9 +18,8 @@ export default function Navbar() {
           >
             ☰
           </button>
-          <span className="nav-logo text-3xl font-bold text-[var(--color-secondary)]">
-            Scotly
-          </span>
+          <span className="nav-logo">Scotly</span>
+          <span className="nav-subtitle">Legends of Britain</span>
         </div>
 
         {/* MENÚ DESKTOP */}

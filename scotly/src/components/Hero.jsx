@@ -29,15 +29,25 @@ export default function Hero() {
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
+          <p className="hero-eyebrow">Una plataforma de exploración cultural</p>
           <h1 className="hero-title">
-            Descubre la <span className="accent-title">cultura escocesa</span>
+            Leyendas de <span className="accent-title">Gran Bretaña</span>
           </h1>
+          <p className="hero-lob">Comenzá tu viaje en Escocia</p>
           <p className="hero-subtitle">
-            Sumergite en la historia, los mitos y los paisajes de Escocia.
+            Historia, mitología y tradiciones de las Islas Británicas a través de cursos, narrativa y juego.{" "}
+            <strong>Cuatro naciones. Un universo.</strong>
           </p>
-          <button className="hero-btn" onClick={() => navigate("/cursos")}>
-            Explorar Cursos
-          </button>
+          <div className="hero-btns">
+            <button className="hero-btn" onClick={() => navigate("/cursos")}>
+              Explorar Escocia
+            </button>
+            <button className="hero-btn hero-btn--ghost" onClick={() => {
+              document.getElementById("regions-section")?.scrollIntoView({ behavior: "smooth" });
+            }}>
+              Ver Regiones
+            </button>
+          </div>
         </div>
 
         <button

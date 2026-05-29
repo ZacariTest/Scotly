@@ -8,14 +8,15 @@ export default function Footer() {
         {/* MARCA */}
         <div className="footer-brand">
           <p className="footer-brand__name">Scotly</p>
+          <p className="footer-brand__sub">Legends of Britain</p>
           <p className="footer-brand__desc">
-            Explorá la cultura escocesa a través de cursos, juegos y narrativa interactiva.
+            Explorá las Islas Británicas a través de cursos, juegos y narrativa interactiva. Comenzamos en Escocia.
           </p>
         </div>
 
         {/* CURSOS */}
         <div>
-          <h4 className="footer-title">Cursos</h4>
+          <h4 className="footer-title">Escocia</h4>
           <ul className="footer-links">
             <li><Link to="/curso/arte">Arte Celta</Link></li>
             <li><Link to="/curso/cocina">Comida Escocesa</Link></li>
@@ -27,6 +28,28 @@ export default function Footer() {
               </Link>
             </li>
             <li><Link to="/curso/mitologia">Mitología</Link></li>
+          </ul>
+        </div>
+
+        {/* PRÓXIMAS REGIONES */}
+        <div>
+          <h4 className="footer-title">Próximas regiones</h4>
+          <ul className="footer-links">
+            <li className="footer-link--coming">
+              <span className="footer-region-dot footer-region-dot--en"></span>
+              Inglaterra
+              <span className="footer-badge footer-badge--soon">PRONTO</span>
+            </li>
+            <li className="footer-link--coming">
+              <span className="footer-region-dot footer-region-dot--wa"></span>
+              Gales
+              <span className="footer-badge footer-badge--soon">PRONTO</span>
+            </li>
+            <li className="footer-link--coming">
+              <span className="footer-region-dot footer-region-dot--ir"></span>
+              Irlanda
+              <span className="footer-badge footer-badge--soon">PRONTO</span>
+            </li>
           </ul>
         </div>
 
@@ -53,17 +76,8 @@ export default function Footer() {
             <li>Foro</li>
             <li>Eventos</li>
             <li>Discord</li>
-          </ul>
-        </div>
-
-        {/* AYUDA */}
-        <div>
-          <h4 className="footer-title">Ayuda</h4>
-          <ul className="footer-links">
             <li>FAQ</li>
             <li>Soporte</li>
-            <li>Privacidad</li>
-            <li>Condiciones</li>
           </ul>
         </div>
 

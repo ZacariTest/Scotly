@@ -1,16 +1,16 @@
-import mascot from "/img/Bonnie-3.png"; // 🧍‍♀️ tu imagen de la mascota
+import mascot from "/img/Bonnie-3.png";
 
 export default function Presentation() {
   return (
     <section className="presentation-section">
       <div className="presentation-content">
         <h2 className="presentation-title banner-title">
-          Descubre con <span className="banner-title-accent">Scotly</span>
+          Explorá con <span className="banner-title-accent">Scotly</span>
         </h2>
         <p className="presentation-text">
-          Scotly es una plataforma cultural dedicada a compartir la historia y cultura escocesa a través de cursos accesibles e interactivos. 
-          Explora los misterios del arte celta, las leyendas de las Highlands y el espíritu moderno de Escocia. 
-          Aprende a tu ritmo mientras desbloqueas logros y participas en una experiencia gamificada única.
+          Scotly es una plataforma de exploración cultural dedicada a las Islas Británicas. 
+          Comenzamos en Escocia — su arte celta, sus leyendas de las Highlands y su historia gamificada son el punto de partida. 
+          Aprendé a tu ritmo, desbloqueá logros y avanzá hacia Inglaterra, Gales e Irlanda a medida que el universo se expande.
         </p>
       </div>
 

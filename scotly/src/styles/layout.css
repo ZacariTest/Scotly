@@ -814,3 +814,348 @@ html, body {
 @media (max-width: 480px) {
   .shop-grid { grid-template-columns: 1fr; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================
+   HERO — Legends of Britain additions
+========================================================== */
+.hero-eyebrow {
+  font-size: 0.7rem;
+  color: #ffc61c;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+.hero-lob {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #c8b890;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-top: 1px solid rgba(255,198,28,0.25);
+  border-bottom: 1px solid rgba(255,198,28,0.25);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+.hero-subtitle strong {
+  color: #ffc61c;
+  font-style: normal;
+}
+
+/* ==========================================================
+   REGIONS SECTION
+========================================================== */
+
+/* Barra de acento — proporción igual para las 4 naciones */
+.region-accent-bar {
+  height: 3px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+  z-index: 11;
+}
+.region-accent-bar__sc { background: #4a9a60; }
+.region-accent-bar__en { background: #b85050; }
+.region-accent-bar__wa { background: #4a6ab8; }
+.region-accent-bar__ir { background: #3a8a60; }
+
+/* Sección contenedora */
+.regions-section {
+  padding: 2rem 4rem;
+  background: rgba(6, 15, 11, 0.82);
+  border-bottom: 1px solid #1a2e20;
+  backdrop-filter: blur(2px);
+}
+
+.regions-section__label {
+  font-size: 0.65rem;
+  color: #ffc61c;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  opacity: 0.75;
+}
+
+.regions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* BASE de todas las cards */
+.region-card {
+  border-radius: 8px;
+  padding: 14px 16px;
+  border: 1px solid;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+/* ---- ESCOCIA (activa) ---- */
+.region-card--sc {
+  background: rgba(74, 154, 96, 0.10);
+  border-color: rgba(74, 154, 96, 0.45);
+}
+.region-card--sc .region-card__flag {
+  color: #6acc88;
+}
+.region-card--sc .region-card__name {
+  color: #e8f4ec;
+}
+.region-card--sc .region-card__desc {
+  color: #6a9a7a;
+}
+.region-card--sc .region-card__badge {
+  background: rgba(74, 154, 96, 0.18);
+  color: #5ac878;
+  border: 1px solid rgba(74, 154, 96, 0.4);
+}
+
+/* ---- INGLATERRA (bloqueada) ---- */
+.region-card--en {
+  background: rgba(184, 80, 80, 0.07);
+  border-color: rgba(184, 80, 80, 0.30);
+}
+.region-card--en .region-card__flag {
+  color: #c07070;
+}
+.region-card--en .region-card__name {
+  color: #c8a8a8;
+}
+.region-card--en .region-card__desc {
+  color: #7a5050;
+}
+.region-card--en .region-card__badge {
+  background: rgba(184, 80, 80, 0.12);
+  color: #a05858;
+  border: 1px solid rgba(184, 80, 80, 0.25);
+}
+
+/* ---- GALES (bloqueada) ---- */
+.region-card--wa {
+  background: rgba(74, 106, 184, 0.07);
+  border-color: rgba(74, 106, 184, 0.30);
+}
+.region-card--wa .region-card__flag {
+  color: #7090c8;
+}
+.region-card--wa .region-card__name {
+  color: #a8b8d8;
+}
+.region-card--wa .region-card__desc {
+  color: #4a5a80;
+}
+.region-card--wa .region-card__badge {
+  background: rgba(74, 106, 184, 0.12);
+  color: #5068a0;
+  border: 1px solid rgba(74, 106, 184, 0.25);
+}
+
+/* ---- IRLANDA (bloqueada) ---- */
+.region-card--ir {
+  background: rgba(58, 138, 96, 0.07);
+  border-color: rgba(58, 138, 96, 0.30);
+}
+.region-card--ir .region-card__flag {
+  color: #60aa80;
+}
+.region-card--ir .region-card__name {
+  color: #a0c8b0;
+}
+.region-card--ir .region-card__desc {
+  color: #3a6a50;
+}
+.region-card--ir .region-card__badge {
+  background: rgba(58, 138, 96, 0.12);
+  color: #428860;
+  border: 1px solid rgba(58, 138, 96, 0.25);
+}
+
+/* Locked: ligera opacidad pero conserva el color */
+.region-card--locked {
+  opacity: 0.72;
+}
+
+/* Textos comunes */
+.region-card__flag {
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.region-card__name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.region-card__desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.region-card__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.55rem;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================
+   NAV SUBTITLE
+========================================================== */
+
+.nav-subtitle {
+  font-size: 0.55rem;
+  color: #9a8a6a;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ==========================================================
+   HERO — dos botones
+========================================================== */
+
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-btn--ghost {
+  background: transparent !important;
+  color: #f8f4e6;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: none !important;
+}
+
+.hero-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ==========================================================
+   REGIONS SECTION — banner de lanzamiento
+========================================================== */
+
+.regions-launch-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(74, 154, 96, 0.2);
+  background: rgba(74, 154, 96, 0.04);
+}
+
+.regions-launch-banner__text {
+  font-size: 0.78rem;
+  color: #7aaa8a;
+  font-style: italic;
+}
+
+.regions-launch-banner__text strong {
+  color: #9fddb8;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.regions-launch-banner__cta {
+  font-size: 0.65rem;
+  color: #ffc61c;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: 16px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.regions-launch-banner__cta:hover {
+  opacity: 1;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 768px) {
+  .regions-section {
+    padding: 1.5rem;
+  }
+
+  .regions-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .regions-launch-banner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .regions-launch-banner__cta {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .regions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ----------------------------------------------------------
+   COURSES SECTION — tags de región (inglés, galés, etc.)
+---------------------------------------------------------- */
+.course-card__tag--region-en {
+  background: rgba(192, 80, 80, 0.12);
+  color: #c07070;
+  border: 1px solid rgba(192, 80, 80, 0.25);
+}
+.course-card__tag--region-wa {
+  background: rgba(80, 112, 176, 0.12);
+  color: #7090c8;
+  border: 1px solid rgba(80, 112, 176, 0.25);
+}
+.course-card__tag--region-ir {
+  background: rgba(80, 144, 106, 0.12);
+  color: #70aa88;
+  border: 1px solid rgba(80, 144, 106, 0.25);
+}
+
+/* Cards bloqueadas en home */
+.course-card--locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.course-card--locked .course-card__name {
+  color: #3a5a45;
+}

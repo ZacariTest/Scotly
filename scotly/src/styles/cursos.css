@@ -15,13 +15,13 @@
   border-bottom: 1px solid #1e3d2a;
 }
 .cp-header__eyebrow {
-  font-size: 1.4rem;
+  font-size: 0.7rem;
   color: #ffc61c;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   margin-bottom: 8px;
   font-family: var(--font-title);
-  font-weight: bold;
+  opacity: 0.8;
 }
 .cp-header__title {
   font-size: 2.5rem;
@@ -32,7 +32,7 @@
 }
 .cp-header__sub {
   font-size: 0.95rem;
-  color: #c5f6d5;
+  color: #7aaa8a;
   font-style: italic;
 }
 
@@ -43,12 +43,52 @@
   backdrop-filter: blur(2px);
 }
 
+/* REGIÓN ACTIVA HEADER */
+.cp-region-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.8rem;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+.cp-region-header--sc {
+  background: rgba(74, 154, 96, 0.06);
+  border-color: rgba(74, 154, 96, 0.25);
+}
+.cp-region-header__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4a9a60;
+  flex-shrink: 0;
+}
+.cp-region-header__name {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #7acc99;
+  letter-spacing: 1px;
+  font-family: var(--font-title);
+}
+.cp-region-header__badge {
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: rgba(74, 154, 96, 0.15);
+  color: #4a9a60;
+  border: 1px solid rgba(74, 154, 96, 0.3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
 /* CATEGORÍA */
 .cp-category {
   margin-bottom: 2.5rem;
 }
 .cp-category__label {
-  font-size: 1.4rem;
+  font-size: 0.65rem;
   color: #ffc61c;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -57,7 +97,23 @@
   margin-bottom: 12px;
   display: block;
   font-family: var(--font-title);
-  font-weight: bold;
+}
+
+/* COMING SOON HEADER */
+.cp-coming-header {
+  margin: 3rem 0 1.2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #1e3d2a;
+}
+.cp-coming-header__label {
+  font-size: 0.65rem;
+  color: #3a6a4a;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-left: 2px solid #2a4a3a;
+  padding-left: 10px;
+  display: block;
+  font-family: var(--font-title);
 }
 
 /* LISTA */
@@ -81,15 +137,25 @@
   transition: border-color 0.2s, transform 0.2s;
 }
 .cp-item:hover {
-  border-color: rgba(255,198,28,0.4);
+  border-color: rgba(255, 198, 28, 0.4);
   transform: translateX(5px);
 }
 .cp-item--featured {
-  border-color: rgba(122,90,170,0.4);
+  border-color: rgba(122, 90, 170, 0.4);
 }
 .cp-item--featured:hover {
-  border-color: rgba(122,90,170,0.7);
+  border-color: rgba(122, 90, 170, 0.7);
 }
+
+/* Items bloqueados (otras regiones) */
+.cp-item--locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.cp-item--region-en { border-color: rgba(192, 80, 80, 0.2); }
+.cp-item--region-wa { border-color: rgba(80, 112, 176, 0.2); }
+.cp-item--region-ir { border-color: rgba(80, 144, 106, 0.2); }
 
 /* IMAGEN */
 .cp-item__img-wrap {
@@ -111,6 +177,17 @@
 
 /* INFO */
 .cp-item__info { flex: 1; }
+.cp-item__region {
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  font-family: var(--font-title);
+}
+.cp-item__region--en { color: #c05050; }
+.cp-item__region--wa { color: #5070b0; }
+.cp-item__region--ir { color: #50906a; }
+
 .cp-item__name {
   font-size: 1.05rem;
   font-weight: bold;
@@ -119,11 +196,14 @@
   font-family: var(--font-title);
 }
 .cp-item--featured .cp-item__name { color: #c8a8f8; }
+.cp-item--locked .cp-item__name { color: #3a5a45; }
+
 .cp-item__desc {
   font-size: 0.82rem;
   color: #7aaa8a;
   line-height: 1.5;
 }
+.cp-item--locked .cp-item__desc { color: #2a4a3a; }
 
 /* META */
 .cp-item__meta {
@@ -142,19 +222,24 @@
   white-space: nowrap;
 }
 .cp-item__tag--free {
-  background: rgba(76,175,77,0.15);
+  background: rgba(76, 175, 77, 0.15);
   color: #7aaa8a;
-  border: 1px solid rgba(76,175,77,0.2);
+  border: 1px solid rgba(76, 175, 77, 0.2);
 }
 .cp-item__tag--game {
-  background: rgba(122,90,170,0.15);
+  background: rgba(122, 90, 170, 0.15);
   color: #b08ada;
-  border: 1px solid rgba(122,90,170,0.3);
+  border: 1px solid rgba(122, 90, 170, 0.3);
 }
 .cp-item__tag--premium {
-  background: rgba(255,198,28,0.1);
+  background: rgba(255, 198, 28, 0.1);
   color: #ffc61c;
-  border: 1px solid rgba(255,198,28,0.3);
+  border: 1px solid rgba(255, 198, 28, 0.3);
+}
+.cp-item__tag--coming {
+  background: rgba(255, 255, 255, 0.04);
+  color: #2a4a3a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .cp-item__arrow {
   font-size: 1.2rem;

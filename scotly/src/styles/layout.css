@@ -14,7 +14,7 @@ html, body {
 
 #root {
   width: 100%;
-  background-color: var(--color-primary);
+  background-color: var(--region-primary, var(--color-primary));
   background-image: url("/img/bg-scotland.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -24,6 +24,7 @@ html, body {
   font-family: var(--font-body);
   line-height: 1.6;
   min-height: 100vh;
+  transition: background-color 0.6s ease, background-image 0.6s ease;
 }
 
 /* ==========================================================
@@ -102,14 +103,14 @@ html, body {
   left: -100%;
   width: 70%;
   height: 100vh;
-  background: rgba(11, 31, 23, 0.97);
+  background: color-mix(in srgb, var(--region-primary) 97%, #000);
   backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  transition: left 0.4s ease-in-out;
+  transition: left 0.4s ease-in-out, background 0.6s ease;
   z-index: 50;
 }
 .mobile-menu.active { left: 0; }
@@ -616,11 +617,12 @@ html, body {
 }
 
 .shop-banner {
-  background: #071410;
+  background: color-mix(in srgb, var(--region-primary) 90%, #000);
   padding: 36px 24px 28px;
   text-align: center;
-  border-bottom: 1px solid #1e3d2a;
+  border-bottom: 1px solid var(--region-border);
   position: relative;
+  transition: background 0.6s ease, border-color 0.6s ease;
 }
 .shop-banner::after {
   content: "";
@@ -640,11 +642,12 @@ html, body {
   margin: 0 0 6px;
 }
 .shop-banner-sub {
-  color: #7aaa8a;
+  color: var(--region-muted);
   font-size: 0.85rem;
   letter-spacing: 2px;
   font-style: italic;
   margin: 0;
+  transition: color 0.6s ease;
 }
 
 .shop-categories {
@@ -652,48 +655,58 @@ html, body {
   justify-content: center;
   gap: 8px;
   padding: 16px 24px;
-  background: #0b1f17;
+  background: color-mix(in srgb, var(--region-primary) 95%, #000);
   flex-wrap: wrap;
-  border-bottom: 1px solid #1e3d2a;
+  border-bottom: 1px solid var(--region-border);
+  transition: background 0.6s ease, border-color 0.6s ease;
 }
 .shop-categories button {
   background: transparent;
-  border: 1px solid #1e3d2a;
-  color: #7aaa8a;
+  border: 1px solid var(--region-border);
+  color: var(--region-muted);
   padding: 5px 16px;
   border-radius: 2px;
   font-size: 0.75rem;
   cursor: pointer;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 }
-.shop-categories button:hover { border-color: #4a8a5a; color: #c8e6c9; }
-.shop-categories button.active { background: #0f2e1e; border-color: #ffc61c; color: #ffc61c; }
+.shop-categories button:hover {
+  border-color: var(--region-accent);
+  color: var(--region-text);
+}
+.shop-categories button.active {
+  background: color-mix(in srgb, var(--region-primary) 60%, #000);
+  border-color: #ffc61c;
+  color: #ffc61c;
+}
 
 .shop-featured {
   display: flex;
   align-items: center;
   gap: 16px;
   margin: 20px 24px;
-  background: #071410;
+  background: color-mix(in srgb, var(--region-primary) 85%, #000);
   border: 1px solid rgba(255,198,28,0.3);
   border-radius: 8px;
   padding: 16px 20px;
+  transition: background 0.6s ease;
 }
 .shop-featured-icon {
   width: 60px; height: 60px;
   border-radius: 6px;
-  background: #0b1f17;
+  background: color-mix(in srgb, var(--region-primary) 95%, #000);
   border: 1px solid #ffc61c;
   display: flex; align-items: center; justify-content: center;
   font-size: 28px; color: #ffc61c;
   flex-shrink: 0;
+  transition: background 0.6s ease;
 }
 .shop-featured-info { flex: 1; }
-.shop-featured-tag { color: #ffc61c; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 4px; }
+.shop-featured-tag  { color: #ffc61c; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 4px; }
 .shop-featured-name { color: #f8f4e6; font-size: 1rem; font-weight: bold; margin: 0 0 4px; }
-.shop-featured-desc { color: #c5f6d5; font-size: 0.75rem; font-style: italic; margin: 0; }
+.shop-featured-desc { color: var(--region-text); font-size: 0.75rem; font-style: italic; margin: 0; transition: color 0.6s ease; }
 .shop-featured-btn {
   background: #ffc61c;
   color: #0b1f17;
@@ -716,16 +729,19 @@ html, body {
   padding: 0 24px;
 }
 
+/* ── Items — fondo responde a región, rareza mantiene identidad propia ── */
 .shop-item {
-  background: #0d2318;
+  background: color-mix(in srgb, var(--region-primary) 80%, #000);
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, background 0.6s ease;
   position: relative;
-  border: 1px solid #1e3d2a;
+  border: 1px solid var(--region-border);
 }
 .shop-item:hover { transform: translateY(-4px); }
+
+/* Rareza sobreescribe el borde — estos se mantienen fijos */
 .shop-item.rarity-rare { border-color: #ffc61c; }
 .shop-item.rarity-epic { border-color: #7a5aaa; }
 
@@ -740,14 +756,15 @@ html, body {
   z-index: 2;
 }
 .shop-rarity-badge.rarity-common { background: rgba(122,170,138,0.15); color: #7aaa8a; border: 1px solid rgba(122,170,138,0.3); }
-.shop-rarity-badge.rarity-rare { background: rgba(255,198,28,0.15); color: #ffc61c; border: 1px solid rgba(255,198,28,0.4); }
-.shop-rarity-badge.rarity-epic { background: rgba(122,90,170,0.15); color: #b08ada; border: 1px solid rgba(122,90,170,0.4); }
+.shop-rarity-badge.rarity-rare   { background: rgba(255,198,28,0.15);  color: #ffc61c; border: 1px solid rgba(255,198,28,0.4); }
+.shop-rarity-badge.rarity-epic   { background: rgba(122,90,170,0.15);  color: #b08ada; border: 1px solid rgba(122,90,170,0.4); }
 
 .shop-image-wrapper {
   position: relative;
   aspect-ratio: 1;
-  background: #071410;
+  background: color-mix(in srgb, var(--region-primary) 95%, #000);
   overflow: hidden;
+  transition: background 0.6s ease;
 }
 .shop-image-wrapper img {
   width: 100%; height: 100%;
@@ -784,7 +801,11 @@ html, body {
   letter-spacing: 1px;
 }
 
-.shop-item-body { padding: 10px 12px 12px; border-top: 1px solid #1e3d2a; }
+.shop-item-body {
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--region-border);
+  transition: border-color 0.6s ease;
+}
 .shop-item-name { color: #f8f4e6; font-size: 0.9rem; font-weight: bold; margin: 0 0 8px; }
 .shop-item.rarity-rare .shop-item-name { color: #ffc61c; }
 .shop-item.rarity-epic .shop-item-name { color: #c8a8f8; }
@@ -792,17 +813,18 @@ html, body {
 .shop-item-footer { display: flex; justify-content: space-between; align-items: center; }
 .shop-item-price { color: #ffc61c; font-size: 0.85rem; font-weight: bold; }
 .shop-item-btn {
-  background: #0f2e1e;
-  border: 1px solid #2e5c3a;
-  color: #7aaa8a;
+  background: color-mix(in srgb, var(--region-primary) 60%, #000);
+  border: 1px solid var(--region-border);
+  color: var(--region-muted);
   padding: 3px 10px;
   border-radius: 2px;
   font-size: 0.7rem;
   cursor: pointer;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: all 0.2s;
+  transition: background 0.6s ease, border-color 0.6s ease, color 0.6s ease;
 }
+/* Rareza sobreescribe el botón también */
 .shop-item-btn.rarity-rare { border-color: rgba(255,198,28,0.4); color: #ffc61c; }
 .shop-item-btn.rarity-epic { border-color: rgba(122,90,170,0.4); color: #b08ada; }
 
@@ -862,25 +884,22 @@ html, body {
    REGIONS SECTION
 ========================================================== */
 
-/* Barra de acento — proporción igual para las 4 naciones */
+/* Barra de acento */
 .region-accent-bar {
   height: 3px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   position: relative;
   z-index: 11;
 }
-.region-accent-bar__sc { background: #4a9a60; }
-.region-accent-bar__en { background: #b85050; }
-.region-accent-bar__wa { background: #4a6ab8; }
-.region-accent-bar__ir { background: #3a8a60; }
 
 /* Sección contenedora */
 .regions-section {
   padding: 2rem 4rem;
-  background: rgba(6, 15, 11, 0.82);
-  border-bottom: 1px solid #1a2e20;
+  background: color-mix(in srgb, var(--region-primary) 82%, transparent);
+  border-bottom: 1px solid var(--region-border);
   backdrop-filter: blur(2px);
+  transition: background 0.6s ease, border-color 0.6s ease;
 }
 
 .regions-section__label {
@@ -894,11 +913,11 @@ html, body {
 
 .regions-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
-/* BASE de todas las cards */
+/* BASE */
 .region-card {
   border-radius: 8px;
   padding: 14px 16px;
@@ -908,92 +927,84 @@ html, body {
   transition: border-color 0.25s, background 0.25s;
 }
 
-/* ---- ESCOCIA (activa) ---- */
+/* ---- ESCOCIA ---- */
 .region-card--sc {
   background: rgba(74, 154, 96, 0.10);
   border-color: rgba(74, 154, 96, 0.45);
 }
+
 .region-card--sc .region-card__flag {
   color: #6acc88;
 }
+
 .region-card--sc .region-card__name {
   color: #e8f4ec;
 }
+
 .region-card--sc .region-card__desc {
   color: #6a9a7a;
 }
+
 .region-card--sc .region-card__badge {
   background: rgba(74, 154, 96, 0.18);
   color: #5ac878;
   border: 1px solid rgba(74, 154, 96, 0.4);
 }
 
-/* ---- INGLATERRA (bloqueada) ---- */
+/* ---- INGLATERRA ---- */
 .region-card--en {
   background: rgba(184, 80, 80, 0.07);
   border-color: rgba(184, 80, 80, 0.30);
 }
+
 .region-card--en .region-card__flag {
   color: #c07070;
 }
+
 .region-card--en .region-card__name {
   color: #c8a8a8;
 }
+
 .region-card--en .region-card__desc {
   color: #7a5050;
 }
+
 .region-card--en .region-card__badge {
   background: rgba(184, 80, 80, 0.12);
   color: #a05858;
   border: 1px solid rgba(184, 80, 80, 0.25);
 }
 
-/* ---- GALES (bloqueada) ---- */
+/* ---- GALES ---- */
 .region-card--wa {
   background: rgba(74, 106, 184, 0.07);
   border-color: rgba(74, 106, 184, 0.30);
 }
+
 .region-card--wa .region-card__flag {
   color: #7090c8;
 }
+
 .region-card--wa .region-card__name {
   color: #a8b8d8;
 }
+
 .region-card--wa .region-card__desc {
   color: #4a5a80;
 }
+
 .region-card--wa .region-card__badge {
   background: rgba(74, 106, 184, 0.12);
   color: #5068a0;
   border: 1px solid rgba(74, 106, 184, 0.25);
 }
 
-/* ---- IRLANDA (bloqueada) ---- */
-.region-card--ir {
-  background: rgba(58, 138, 96, 0.07);
-  border-color: rgba(58, 138, 96, 0.30);
-}
-.region-card--ir .region-card__flag {
-  color: #60aa80;
-}
-.region-card--ir .region-card__name {
-  color: #a0c8b0;
-}
-.region-card--ir .region-card__desc {
-  color: #3a6a50;
-}
-.region-card--ir .region-card__badge {
-  background: rgba(58, 138, 96, 0.12);
-  color: #428860;
-  border: 1px solid rgba(58, 138, 96, 0.25);
-}
-
-/* Locked: ligera opacidad pero conserva el color */
+/* Locked */
 .region-card--locked {
   opacity: 0.72;
 }
 
-/* Textos comunes */
+/* Textos */
 .region-card__flag {
   font-size: 0.6rem;
   font-weight: bold;
@@ -1024,13 +1035,30 @@ html, body {
   text-transform: uppercase;
 }
 
+.region-card--selected {
+  box-shadow: 0 0 0 2px var(--region-accent);
+  transform: translateY(-2px);
+}
+
+/* Barra de acento */
+.region-accent-bar__sc,
+.region-accent-bar__en,
+.region-accent-bar__wa {
+  transition: opacity 0.4s ease;
+  opacity: 0.3;
+}
+
+.region-accent-bar--active {
+  opacity: 1 !important;
+}
+
 /* ==========================================================
    NAV SUBTITLE
 ========================================================== */
 
 .nav-subtitle {
   font-size: 0.55rem;
-  color: #9a8a6a;
+  color: #ffc61c;
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-top: 2px;

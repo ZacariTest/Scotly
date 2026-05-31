@@ -10,7 +10,7 @@
 /* HEADER */
 .cp-header {
   padding: 7rem 5rem 2.5rem;
-  background: rgba(7, 20, 16, 0.85);
+  background: color-mix(in srgb, var(--region-primary) 85%, transparent);
   backdrop-filter: blur(2px);
   border-bottom: 1px solid #1e3d2a;
 }
@@ -39,11 +39,11 @@
 /* BODY */
 .cp-body {
   padding: 2.5rem 5rem 5rem;
-  background: rgba(7, 20, 16, 0.75);
+  background: color-mix(in srgb, var(--region-primary) 75%, transparent);
   backdrop-filter: blur(2px);
 }
 
-/* REGIÓN ACTIVA HEADER */
+/* REGIÓN ACTIVA HEADER — siempre Escocia, colores fijos */
 .cp-region-header {
   display: flex;
   align-items: center;
@@ -51,11 +51,8 @@
   margin-bottom: 1.8rem;
   padding: 10px 14px;
   border-radius: 6px;
-  border: 1px solid;
-}
-.cp-region-header--sc {
+  border: 1px solid rgba(74, 154, 96, 0.25);
   background: rgba(74, 154, 96, 0.06);
-  border-color: rgba(74, 154, 96, 0.25);
 }
 .cp-region-header__dot {
   width: 8px;
@@ -123,7 +120,7 @@
   gap: 10px;
 }
 
-/* ITEM */
+/* ITEM BASE */
 .cp-item {
   display: grid;
   grid-template-columns: 110px 1fr auto;
@@ -147,15 +144,77 @@
   border-color: rgba(122, 90, 170, 0.7);
 }
 
-/* Items bloqueados (otras regiones) */
+/* Items bloqueados */
 .cp-item--locked {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
 }
-.cp-item--region-en { border-color: rgba(192, 80, 80, 0.2); }
-.cp-item--region-wa { border-color: rgba(80, 112, 176, 0.2); }
-.cp-item--region-ir { border-color: rgba(80, 144, 106, 0.2); }
+
+/* ── Colores fijos por región ───────────────────────────── */
+
+/* Escocia — verde */
+.cp-item--sc {
+  background: rgba(13, 35, 24, 0.85);
+  border-color: rgba(74, 154, 96, 0.25);
+}
+.cp-item--sc:hover                { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--sc .cp-item__desc       { color: #6a9a7a; }
+.cp-item--sc .cp-item__arrow      { color: #4a9a60; }
+.cp-item--sc .cp-item__tag--free  {
+  background: rgba(74, 154, 96, 0.15);
+  color: #7aaa8a;
+  border: 1px solid rgba(74, 154, 96, 0.25);
+}
+.cp-item--sc.cp-item--featured    { border-color: rgba(122, 90, 170, 0.4); }
+
+/* Inglaterra — rojo */
+.cp-item--en {
+  background: rgba(26, 8, 8, 0.85);
+  border-color: rgba(192, 80, 80, 0.2);
+}
+.cp-item--en:hover                { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--en .cp-item__desc       { color: #a07070; }
+.cp-item--en .cp-item__arrow      { color: #b85050; }
+.cp-item--en .cp-item__tag--free  {
+  background: rgba(184, 80, 80, 0.15);
+  color: #c07070;
+  border: 1px solid rgba(184, 80, 80, 0.25);
+}
+
+/* Gales — azul */
+.cp-item--wa {
+  background: rgba(8, 13, 26, 0.85);
+  border-color: rgba(80, 112, 176, 0.2);
+}
+.cp-item--wa:hover                { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--wa .cp-item__desc       { color: #7090c8; }
+.cp-item--wa .cp-item__arrow      { color: #4a6ab8; }
+.cp-item--wa .cp-item__tag--free  {
+  background: rgba(74, 106, 184, 0.15);
+  color: #7090c8;
+  border: 1px solid rgba(74, 106, 184, 0.25);
+}
+
+/* Irlanda — verde esmeralda */
+.cp-item--ir {
+  background: rgba(8, 26, 15, 0.85);
+  border-color: rgba(58, 138, 96, 0.2);
+}
+.cp-item--ir:hover                { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--ir .cp-item__desc       { color: #60aa80; }
+.cp-item--ir .cp-item__arrow      { color: #3a8a60; }
+.cp-item--ir .cp-item__tag--free  {
+  background: rgba(58, 138, 96, 0.15);
+  color: #60aa80;
+  border: 1px solid rgba(58, 138, 96, 0.25);
+}
+
+/* ── Nombres bloqueados ─────────────────────────────────── */
+.cp-item--locked.cp-item--sc .cp-item__name { color: #2a4a35; }
+.cp-item--locked.cp-item--en .cp-item__name { color: #4a2020; }
+.cp-item--locked.cp-item--wa .cp-item__name { color: #202840; }
+.cp-item--locked.cp-item--ir .cp-item__name { color: #1a3a28; }
 
 /* IMAGEN */
 .cp-item__img-wrap {
@@ -196,14 +255,12 @@
   font-family: var(--font-title);
 }
 .cp-item--featured .cp-item__name { color: #c8a8f8; }
-.cp-item--locked .cp-item__name { color: #3a5a45; }
 
 .cp-item__desc {
   font-size: 0.82rem;
   color: #7aaa8a;
   line-height: 1.5;
 }
-.cp-item--locked .cp-item__desc { color: #2a4a3a; }
 
 /* META */
 .cp-item__meta {

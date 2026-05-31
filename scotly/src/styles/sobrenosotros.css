@@ -11,12 +11,13 @@
 .sn-hero {
   position: relative;
   min-height: 360px;
-  background: linear-gradient(135deg, #1a0a0a 0%, #0d1a0d 50%, #1a0808 100%);
+  background: color-mix(in srgb, var(--region-primary) 90%, #000);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding-top: 80px;
+  transition: background 0.6s ease;
 }
 .sn-hero__line-top {
   position: absolute;
@@ -63,20 +64,21 @@
 /* SEPARADOR */
 .sn-sep {
   height: 1px;
-  background: linear-gradient(to right, transparent, #1e3d2a, transparent);
+  background: linear-gradient(to right, transparent, var(--region-border), transparent);
   margin: 0 4rem;
 }
-
 /* BLOQUES */
 .sn-block {
   padding: 4rem 6rem;
-  background: rgba(7, 20, 16, 0.82);
+  background: color-mix(in srgb, var(--region-primary) 82%, transparent);
   backdrop-filter: blur(2px);
+  transition: background 0.6s ease;
 }
 
 .sn-block--dark {
-  background: rgba(5, 12, 8, 0.88);
+  background: color-mix(in srgb, var(--region-primary) 88%, #000);
   backdrop-filter: blur(2px);
+  transition: background 0.6s ease;
 }
 
 .sn-block__label {
@@ -98,7 +100,7 @@
 }
 .sn-block__body {
   font-size: 1rem;
-  color: #c5f6d5;
+  color: var(--region-text);
   line-height: 1.95;
   max-width: 720px;
 }
@@ -113,9 +115,10 @@
 .sn-cta {
   text-align: center;
   padding: 3.5rem 2rem;
-  background: rgba(5, 12, 8, 0.88);
-  border-top: 1px solid #1e3d2a;
+  background: color-mix(in srgb, var(--region-primary) 88%, #000);
+  border-top: 1px solid var(--region-border);
   backdrop-filter: blur(2px);
+  transition: background 0.6s ease, border-color 0.6s ease;
 }
 .sn-cta__sub {
   font-size: 0.9rem;

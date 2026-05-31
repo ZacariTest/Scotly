@@ -111,7 +111,7 @@ export default function Cursos() {
 
         <div className="cp-body">
 
-          <div className="cp-region-header cp-region-header--sc">
+          <div className="cp-region-header">
             <span className="cp-region-header__dot"></span>
             <span className="cp-region-header__name">Escocia — The Highlands</span>
             <span className="cp-region-header__badge">Región activa</span>
@@ -124,7 +124,7 @@ export default function Cursos() {
                 {cat.items.map((course) => (
                   <div
                     key={course.name}
-                    className={`cp-item ${course.featured ? "cp-item--featured" : ""}`}
+                    className={`cp-item cp-item--${cat.region}${course.featured ? " cp-item--featured" : ""}`}
                     onClick={() => navigate(course.route)}
                   >
                     <div className="cp-item__img-wrap">
@@ -153,7 +153,10 @@ export default function Cursos() {
 
           <div className="cp-list">
             {COMING_SOON.map((course) => (
-              <div key={course.name} className={`cp-item cp-item--locked cp-item--region-${course.region}`}>
+              <div
+                key={course.name}
+                className={`cp-item cp-item--locked cp-item--${course.region}`}
+              >
                 <div className="cp-item__img-wrap">
                   <img src={course.img} alt={course.name} className="cp-item__img" />
                 </div>

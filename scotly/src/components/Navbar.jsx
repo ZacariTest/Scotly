@@ -18,7 +18,12 @@ export default function Navbar() {
           >
             ☰
           </button>
-          <span className="nav-logo">Scotly</span>
+          <span
+            className="nav-logo cursor-pointer"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            Scotly
+          </span>
           <span className="nav-subtitle">Legends of Britain</span>
         </div>
 
@@ -27,6 +32,14 @@ export default function Navbar() {
           <button className="btn btn-secondary" onClick={() => setAuthOpen(true)}>Ingresar</button>
           <button className="btn btn-primary" onClick={() => setAuthOpen(true)}>Registrarse</button>
         </div>
+
+        {/* OVERLAY */}
+        {menuOpen && (
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
 
         {/* MENÚ MÓVIL */}
         <div className={`mobile-menu ${menuOpen ? "active" : ""}`}>

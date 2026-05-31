@@ -3,9 +3,10 @@
 ========================================================== */
 .footer {
   width: 100%;
-  background: rgba(11, 31, 23, 0.95);
-  border-top: 1px solid #1e3d2a;
+  background: color-mix(in srgb, var(--region-primary) 95%, transparent);
+  border-top: 1px solid var(--region-border);
   padding: 2.5rem 0 0;
+  transition: background 0.6s ease, border-color 0.6s ease;
 }
 
 .footer-content {
@@ -15,7 +16,7 @@
   max-width: 1500px;
   margin: 0 auto;
   padding: 0 3rem 2rem;
-  border-bottom: 1px solid #1e3d2a;
+  border-bottom: 1px solid var(--region-border);
 }
 
 /* MARCA */
@@ -27,20 +28,10 @@
   margin-bottom: 2px;
   font-family: var(--font-title);
 }
-.footer-brand__sub {
-  font-size: 0.55rem;
-  color: #5a8a6a;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.footer-brand__desc {
-  font-size: 0.78rem;
-  color: #7aaa8a;
-  line-height: 1.6;
-  max-width: 200px;
-  font-style: italic;
-}
+.footer-brand__sub  { color: var(--region-muted); }
+.footer-brand__desc { color: var(--region-muted); }
+.footer-links li    { color: var(--region-text); }
+.footer-links a     { color: var(--region-text); }
 
 /* TÍTULOS */
 .footer-title {
@@ -130,21 +121,15 @@
   margin: 0 auto;
   padding: 1rem 3rem;
 }
-.footer-bottom__copy {
-  font-size: 0.7rem;
-  color: #3a6a4a;
-}
+.footer-bottom__copy        { color: var(--region-muted); }
+
 .footer-bottom__links {
   display: flex;
   gap: 16px;
 }
-.footer-bottom__links span {
-  font-size: 0.7rem;
-  color: #3a6a4a;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-.footer-bottom__links span:hover { color: #7aaa8a; }
+.footer-bottom__links span  { color: var(--region-muted); }
+
+.footer-bottom__links span:hover { color: var(--region-text); }
 
 @media (max-width: 1024px) {
   .footer-content { grid-template-columns: 1fr 1fr 1fr; }

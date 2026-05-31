@@ -1,47 +1,68 @@
-export default function RegionsSection() {
+const REGIONS = [
+  {
+    id: "scotland",
+    code: "sc",
+    flag: "Escocia",
+    name: "The Highlands",
+    desc: "Clanes, castillos y leyendas de las tierras altas",
+    status: "active",
+  },
+  {
+    id: "england",
+    code: "en",
+    flag: "Inglaterra",
+    name: "The Crown",
+    desc: "Caballeros, reyes y relatos de la vieja Inglaterra",
+    status: "locked",
+  },
+  {
+    id: "wales",
+    code: "wa",
+    flag: "Gales",
+    name: "The Dragon",
+    desc: "Dragones, bardos y mitos ancestrales",
+    status: "locked",
+  },
+];
+
+export default function RegionsSection({ activeRegion, onSelect }) {
   return (
     <section className="regions-section" id="regions-section">
-      <p className="regions-section__label">Las cuatro naciones</p>
+      <p className="regions-section__label">
+        Las naciones de Gran Bretaña
+      </p>
 
       <div className="regions-grid">
+        {REGIONS.map((r) => (
+          <div
+            key={r.id}
+            className={`region-card region-card--${r.code} ${
+              activeRegion === r.id ? "region-card--selected" : ""
+            }`}
+            onClick={() => onSelect(r.id)}
+            style={{ cursor: "pointer" }}
+          >
+            <p className="region-card__flag">{r.flag}</p>
+            <p className="region-card__name">{r.name}</p>
+            <p className="region-card__desc">{r.desc}</p>
 
-        <div className="region-card region-card--active region-card--sc">
-          <p className="region-card__flag">Escocia</p>
-          <p className="region-card__name">The Highlands</p>
-          <p className="region-card__desc">Clanes, selkies y tierras épicas</p>
-          <span className="region-card__badge">Activo</span>
-        </div>
-
-        <div className="region-card region-card--locked region-card--en">
-          <p className="region-card__flag">Inglaterra</p>
-          <p className="region-card__name">The Crown</p>
-          <p className="region-card__desc">Arturo, Robin Hood y la realeza</p>
-          <span className="region-card__badge">Pronto</span>
-        </div>
-
-        <div className="region-card region-card--locked region-card--wa">
-          <p className="region-card__flag">Gales</p>
-          <p className="region-card__name">The Dragon</p>
-          <p className="region-card__desc">Dragones, bardos y el Mabinogi</p>
-          <span className="region-card__badge">Pronto</span>
-        </div>
-
-        <div className="region-card region-card--locked region-card--ir">
-          <p className="region-card__flag">Irlanda</p>
-          <p className="region-card__name">The Emerald Isle</p>
-          <p className="region-card__desc">Hadas, santos y folclore celta</p>
-          <span className="region-card__badge">Pronto</span>
-        </div>
-
+            <span className="region-card__badge">
+              {r.status === "active" ? "Activo" : "Pronto"}
+            </span>
+          </div>
+        ))}
       </div>
 
       <div className="regions-launch-banner">
         <p className="regions-launch-banner__text">
-          <strong>Región de lanzamiento: Escocia</strong> — Las demás regiones se desbloquean progresivamente.
+          <strong>Escocia es la región inicial de Scotly</strong> — Inglaterra y
+          Gales llegarán en futuras actualizaciones.
         </p>
-        <span className="regions-launch-banner__cta">Ver hoja de ruta →</span>
-      </div>
 
+        <span className="regions-launch-banner__cta">
+          Ver hoja de ruta →
+        </span>
+      </div>
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const REGION_CONTENT = {
   scotland: {
     label: "Región activa: Escocia",
-    sub: "Historia, tradiciones y mitología de las Islas Británicas — comenzá por las Highlands",
+    sub: "Historia, tradiciones y mitología de Escocia",
     left: {
       label: "Cursos destacados",
       courses: [
@@ -25,7 +25,7 @@ const REGION_CONTENT = {
   },
   england: {
     label: "Próximamente: Inglaterra",
-    sub: "Arturo, Robin Hood y la monarquía que moldeó el mundo — región en desarrollo",
+    sub: "Arturo, Robin Hood y la monarquía que moldeó el mundo (región en desarrollo)",
     left: {
       label: "Próximamente",
       courses: [
@@ -47,7 +47,7 @@ const REGION_CONTENT = {
   },
   wales: {
     label: "Próximamente: Gales",
-    sub: "Dragones, bardos y el ciclo del Mabinogi — región en desarrollo",
+    sub: "Dragones, bardos y el ciclo del Mabinogi (región en desarrollo)",
     left: {
       label: "Próximamente",
       courses: [
@@ -67,29 +67,24 @@ const REGION_CONTENT = {
       ],
     },
   },
-  ireland: {
-    label: "Próximamente: Irlanda",
-    sub: "Hadas, santos y la isla más verde de las Islas Británicas — región en desarrollo",
-    left: {
-      label: "Próximamente",
-      courses: [
-        { img: "/img/Arte.jpg",      alt: "Arte Irlandés", tag: "Irlanda", tagClass: "region-ir", name: "Arte Celta Irlandés",    locked: true },
-        { img: "/img/Comida.jpg",    alt: "Cocina",        tag: "Irlanda", tagClass: "region-ir", name: "Gastronomía Irlandesa",  locked: true },
-      ],
-    },
-    center: {
-      label: "Historia gamificada",
-      course: { img: "/img/Banner-2.jpg", alt: "Tuatha", tag: "Próximamente", tagClass: "game", name: "Los Tuatha Dé Danann", desc: "Conocé a los dioses y héroes del folclore irlandés", locked: true },
-    },
-    right: {
-      label: "Próximamente",
-      courses: [
-        { img: "/img/History.jpg",   alt: "Folclore", tag: "Irlanda", tagClass: "region-ir", name: "Folclore Irlandés",      locked: true },
-        { img: "/img/Mitologia.PNG", alt: "Santos",   tag: "Irlanda", tagClass: "region-ir", name: "Leyendas de los Santos", locked: true },
-      ],
-    },
-  },
 };
+
+const COMING_SOON = [
+  {
+    region: "en",
+    regionLabel: "Inglaterra",
+    name: "Leyendas Artúricas",
+    desc: "El rey Arturo, Merlín y los Caballeros de la Mesa Redonda — mito e historia entrelazados.",
+    img: "/img/History.jpg",
+  },
+  {
+    region: "wa",
+    regionLabel: "Gales",
+    name: "El Ciclo del Mabinogi",
+    desc: "Los grandes relatos de la mitología galesa, sus dioses y sus héroes.",
+    img: "/img/Mitologia.PNG",
+  },
+];
 
 export default function CoursesSection({ activeRegion = "scotland" }) {
   const navigate = useNavigate();

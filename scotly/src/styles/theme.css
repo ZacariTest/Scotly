@@ -1,12 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  --color-primary: #0b1f17;  
-  --color-secondary: #f8f4e6; 
-  --color-accent: #d99a28;   
-  --color-card: #f3eede;      
-  --font-title: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --color-primary:   #0b1f17;
+  --color-secondary: #f8f4e6;
+  --color-accent:    #d99a28;
+  --color-card:      #f3eede;
+
+  --font-title:     'Cinzel', serif;
+  --font-body:      'Inter', sans-serif;
+  --font-narrative: 'EB Garamond', serif;
+  --font-fantasy:   'Marcellus', serif;
 }
 
+/* BASE */
 body {
   background-color: var(--color-primary);
   color: var(--color-secondary);
@@ -14,12 +20,81 @@ body {
   line-height: 1.6;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-title);
-  font-weight: 600;
-  color: var(--color-secondary);
-}
-
 button {
   font-family: var(--font-body);
+}
+
+/* ── TÍTULOS — Cinzel ───────────────────────────────────── */
+h1, h2, h3, h4,
+.nav-logo,
+.hero-title,
+.presentation-title,
+.courses-header__title,
+.courses-col__label,
+.course-card__name,
+.course-title,
+.course-subtitle,
+.sidebar-title,
+.shop-banner-title,
+.region-card__name,
+.footer-brand__name,
+.cp-header__title,
+.cp-item__name,
+.cp-region-header__name,
+.dn-hero__title,
+.dn-hero__eyebrow,
+.dn-hero__right-title,
+.dn-block__label,
+.dn-block__title,
+.sn-hero__title,
+.sn-block__label,
+.sn-block__title,
+.auth-modal__logo,
+.auth-modal__title,
+.inv-result__title,
+.inv-reward__title,
+.inv-season-name {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+/* ── NARRATIVA — EB Garamond ────────────────────────────── */
+/* ── NARRATIVA — EB Garamond ────────────────────────────── */
+.hero-subtitle,
+.presentation-text,
+.course-description,
+.courses-header__sub,
+.course-card__desc,
+.sn-block__body,
+.sn-hero__sub,
+.dn-block__body,
+.dn-news-text,
+.cp-item__desc,
+.cp-header__sub,
+.shop-featured-desc,
+.inv-season-desc,
+.inv-card__title,
+.inv-card__skill-desc,
+.auth-modal__sub {
+  font-family: var(--font-narrative);
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.15em;
+  line-height: 1.75;
+}
+
+/* ── FANTASY — Marcellus ────────────────────────────────── */
+.inv-card__name,
+.inv-card__skill-name,
+.inv-arena__team-label,
+.inv-enemy-chip__name,
+.shop-rarity-badge,
+.shop-item-name,
+.course-card__tag,
+.nav-event-badge,
+.cp-category__label,
+.cp-coming-header__label,
+.region-card__flag,
+.footer-title {
+  font-family: var(--font-fantasy);
 }

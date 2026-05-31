@@ -8,9 +8,9 @@ export default function Presentation() {
           Explorá con <span className="banner-title-accent">Scotly</span>
         </h2>
         <p className="presentation-text">
-          Scotly es una plataforma de exploración cultural dedicada a las Islas Británicas. 
-          Comenzamos en Escocia — su arte celta, sus leyendas de las Highlands y su historia gamificada son el punto de partida. 
-          Aprendé a tu ritmo, desbloqueá logros y avanzá hacia Inglaterra, Gales e Irlanda a medida que el universo se expande.
+          Scotly es una plataforma de exploración cultural dedicada a Gran bretaña. 
+          Comenzamos en Escocia, su arte, sus leyendas y su historia gamificada son el punto de partida. 
+          Aprendé a tu ritmo, desbloqueá logros y avanzá hacia Inglaterra y Gales a medida que el universo se expande.
         </p>
       </div>
 

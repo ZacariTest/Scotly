@@ -18,13 +18,20 @@ export default function Navbar() {
           >
             ☰
           </button>
-          <span
-            className="nav-logo cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            Scotly
-          </span>
-          <span className="nav-subtitle">Legends of Britain</span>
+          <div className="flex flex-col">
+            <span
+              className="nav-logo cursor-pointer"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              Scotly
+            </span>
+            <span
+  className="nav-subtitle cursor-pointer"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  Legends of Britain
+</span>
+          </div>
         </div>
 
         {/* MENÚ DESKTOP */}
@@ -55,7 +62,7 @@ export default function Navbar() {
             className="btn btn-primary text-lg"
             onClick={() => { setMenuOpen(false); setAuthOpen(true); }}
           >
-            Comenzar
+            Iniciar sesión
           </button>
         </div>
 

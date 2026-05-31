@@ -86,13 +86,6 @@ const COMING_SOON = [
     desc: "Los grandes relatos de la mitología galesa, sus dioses y sus héroes.",
     img: "/img/Mitologia.PNG",
   },
-  {
-    region: "ir",
-    regionLabel: "Irlanda",
-    name: "Folclore Irlandés",
-    desc: "Hadas, santos y la rica tradición oral de la isla esmeralda.",
-    img: "/img/Arte.jpg",
-  },
 ];
 
 export default function Cursos() {
@@ -106,7 +99,6 @@ export default function Cursos() {
         <div className="cp-header">
           <p className="cp-header__eyebrow">Legends of Britain</p>
           <h1 className="cp-header__title">Cursos disponibles</h1>
-          <p className="cp-header__sub">Comenzá en Escocia — Inglaterra, Gales e Irlanda se desbloquean próximamente</p>
         </div>
 
         <div className="cp-body">

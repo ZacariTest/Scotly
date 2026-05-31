@@ -3,7 +3,7 @@ export default function FinalMessage({ onAuth }) {
     <section className="final-message">
       <div className="overlay"></div>
       <div className="content">
-        <h2 className="title">"Las Islas Británicas te esperan. Comenzá por Escocia."</h2>
+        <h2 className="title">La historia de Gran Bretaña te espera. Comienza hoy tu aventura.</h2>
         <p className="subtitle">
           Únite a una comunidad que explora historia, mitología y cultura a través de una experiencia gamificada y en constante expansión.
         </p>

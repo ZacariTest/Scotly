@@ -59,9 +59,15 @@ html, body {
 }
 
 .btn-secondary {
-  @apply bg-[var(--color-primary)] border border-[var(--color-secondary)]
-  text-[var(--color-secondary)] hover:bg-[var(--color-secondary)]
-  hover:text-[var(--color-primary)];
+  @apply px-5 py-2 rounded-lg font-medium transition border;
+  background: color-mix(in srgb, var(--region-primary) 95%, #000);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  transition: background 0.2s, color 0.2s;
+}
+.btn-secondary:hover {
+  background: var(--color-secondary);
+  color: var(--region-primary);
 }
 
 .nav-event-badge {
@@ -77,11 +83,29 @@ html, body {
   vertical-align: middle;
 }
 
+/* ==========================================================
+   NAV SUBTITLE
+========================================================== */
+.nav-subtitle {
+  font-size: 0.55rem;
+  color: #9a8a6a;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
-  .navbar { @apply px-4 py-4; }
-  .nav-buttons { display: none; }
-  .nav-logo { font-size: 1.9rem; }
-  .hamburger { display: inline-block; }
+  .navbar {
+    @apply px-4 py-3;
+    position: fixed;
+    background: color-mix(in srgb, var(--region-primary) 95%, #000);
+    transition: background 0.6s ease;
+  }
+  .nav-buttons  { display: none; }
+  .nav-logo     { font-size: 1.6rem; }
+  .nav-subtitle { font-size: 0.42rem; letter-spacing: 2px; }
+  .hamburger    { display: inline-block; }
 }
 
 /* ==========================================================
@@ -122,7 +146,6 @@ html, body {
   transition: 0.2s;
 }
 .mobile-menu a:hover { color: #ffdb6e; }
-
 /* ==========================================================
    HERO
 ========================================================== */
@@ -164,15 +187,16 @@ html, body {
   position: relative;
   z-index: 2;
   text-align: center;
-  top: 45%;
-  transform: translateY(-50%);
+  top: 50%;               /* ← de 45% a 50% */
+  transform: translateY(-45%);   /* ← menos agresivo */
   padding: 2rem;
+  padding-top: 80px;      /* ← espacio para el navbar */
   color: #fff;
   animation: fadeUp 1.5s ease forwards;
 }
 
 .hero-title {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-title);
   font-size: 4rem;
   font-weight: 900;
   text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
@@ -204,13 +228,22 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  .hero-section { height: auto; padding: 4rem 0; }
-  .hero-content { top: 0; transform: none; }
-  .hero-title { font-size: 2rem; line-height: 2.3rem; }
+  .hero-section {
+    height: auto;
+    min-height: 0;
+    padding: 0;
+  }
+  .hero-content {
+    top: 0;
+    transform: none;
+    padding: 2rem;
+    padding-top: 130px;
+    padding-bottom: 3rem;
+  }
+  .hero-title    { font-size: 2rem; line-height: 2.4rem; }
   .hero-subtitle { font-size: 1rem; }
-  .hero-arrow { display: none; }
+  .hero-arrow    { display: none; }
 }
-
 /* ==========================================================
    PRESENTATION
 ========================================================== */
@@ -227,13 +260,12 @@ html, body {
   paint-order: stroke fill;
 }
 .presentation-text {
-  background: rgba(255,255,255,0.9);
+  background: rgb(231 231 231 / 90%);
   color: #1a1a1a;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  max-width: 90%;
   margin: 0 auto;
 }
 .presentation-img {
@@ -258,7 +290,7 @@ html, body {
 }
 
 .courses-header__title {
-  font-size: 0.8rem;
+  font-size: 1.30rem;
   color: #ffc61c;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -268,10 +300,9 @@ html, body {
 }
 
 .courses-header__sub {
-  font-size: 0.85rem;
+  font-size: 1.3rem;
   color: #f8f4e6;
   letter-spacing: 1px;
-  font-style: italic;
   text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
 
@@ -562,9 +593,9 @@ html, body {
   margin: auto;
 }
 .final-message .title { font-size: 2.3rem; font-weight: bold; }
-.final-message .subtitle { font-size: 1.2rem; margin-top: 1rem; }
+.final-message .subtitle { font-size: 1rem; margin-top: 1rem; }
 .final-message .cta {
-  margin-top: 2rem;
+  margin-top: 1rem;
   background-color: var(--color-accent);
   color: var(--color-primary);
   padding: 0.8rem 2rem;
@@ -643,7 +674,7 @@ html, body {
 }
 .shop-banner-sub {
   color: var(--region-muted);
-  font-size: 0.85rem;
+  font-size: 1.50rem;
   letter-spacing: 2px;
   font-style: italic;
   margin: 0;
@@ -704,9 +735,9 @@ html, body {
   transition: background 0.6s ease;
 }
 .shop-featured-info { flex: 1; }
-.shop-featured-tag  { color: #ffc61c; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 4px; }
-.shop-featured-name { color: #f8f4e6; font-size: 1rem; font-weight: bold; margin: 0 0 4px; }
-.shop-featured-desc { color: var(--region-text); font-size: 0.75rem; font-style: italic; margin: 0; transition: color 0.6s ease; }
+.shop-featured-tag  { color: #ffc61c; font-size: 1.25rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 4px; }
+.shop-featured-name { color: #f8f4e6; font-size: 1.46rem; font-weight: bold; margin: 0 0 4px; }
+.shop-featured-desc { color: var(--region-text); font-size: 1.00rem; font-style: italic; margin: 0; transition: color 0.6s ease; }
 .shop-featured-btn {
   background: #ffc61c;
   color: #0b1f17;
@@ -903,7 +934,7 @@ html, body {
 }
 
 .regions-section__label {
-  font-size: 0.65rem;
+  font-size: 1.25rem;
   color: #ffc61c;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -942,7 +973,7 @@ html, body {
 }
 
 .region-card--sc .region-card__desc {
-  color: #6a9a7a;
+  color: #92fbba;
 }
 
 .region-card--sc .region-card__badge {
@@ -958,15 +989,15 @@ html, body {
 }
 
 .region-card--en .region-card__flag {
-  color: #c07070;
+  color: #ffa4a4;
 }
 
 .region-card--en .region-card__name {
-  color: #c8a8a8;
+  color: #e9dede;
 }
 
 .region-card--en .region-card__desc {
-  color: #7a5050;
+  color: #ffa4a4;
 }
 
 .region-card--en .region-card__badge {
@@ -982,15 +1013,15 @@ html, body {
 }
 
 .region-card--wa .region-card__flag {
-  color: #7090c8;
+  color: #95bbff;
 }
 
 .region-card--wa .region-card__name {
-  color: #a8b8d8;
+  color: #c9d8f5;
 }
 
 .region-card--wa .region-card__desc {
-  color: #4a5a80;
+  color: #95bbff;
 }
 
 .region-card--wa .region-card__badge {
@@ -1006,7 +1037,7 @@ html, body {
 
 /* Textos */
 .region-card__flag {
-  font-size: 0.6rem;
+  font-size: 1.4rem;
   font-weight: bold;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -1014,13 +1045,13 @@ html, body {
 }
 
 .region-card__name {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 4px;
 }
 
 .region-card__desc {
-  font-size: 0.75rem;
+  font-size: 1rem;
   line-height: 1.4;
 }
 
@@ -1057,11 +1088,12 @@ html, body {
 ========================================================== */
 
 .nav-subtitle {
-  font-size: 0.55rem;
+  font-size: 1.15rem;
   color: #ffc61c;
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-top: 2px;
+  white-space: nowrap; 
 }
 
 /* ==========================================================

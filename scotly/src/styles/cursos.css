@@ -15,7 +15,7 @@
   border-bottom: 1px solid #1e3d2a;
 }
 .cp-header__eyebrow {
-  font-size: 0.7rem;
+  font-size: 2.7rem;
   color: #ffc61c;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -24,7 +24,7 @@
   opacity: 0.8;
 }
 .cp-header__title {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: #f8f4e6;
   font-family: var(--font-title);
@@ -51,7 +51,7 @@
   margin-bottom: 1.8rem;
   padding: 10px 14px;
   border-radius: 6px;
-  border: 1px solid rgba(74, 154, 96, 0.25);
+  border: 3px solid #48775a;
   background: rgba(74, 154, 96, 0.06);
 }
 .cp-region-header__dot {
@@ -62,9 +62,9 @@
   flex-shrink: 0;
 }
 .cp-region-header__name {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  color: #7acc99;
+  color: #92fbba;
   letter-spacing: 1px;
   font-family: var(--font-title);
 }
@@ -85,7 +85,7 @@
   margin-bottom: 2.5rem;
 }
 .cp-category__label {
-  font-size: 0.65rem;
+  font-size: 1.5rem;
   color: #ffc61c;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -103,11 +103,11 @@
   border-top: 1px solid #1e3d2a;
 }
 .cp-coming-header__label {
-  font-size: 0.65rem;
-  color: #3a6a4a;
+  font-size: 1.5rem;
+  color: #ffcf40;
   letter-spacing: 3px;
   text-transform: uppercase;
-  border-left: 2px solid #2a4a3a;
+  border-left: 2px solid #ffcf40;
   padding-left: 10px;
   display: block;
   font-family: var(--font-title);
@@ -146,9 +146,18 @@
 
 /* Items bloqueados */
 .cp-item--locked {
-  opacity: 0.45;
+  opacity: 1;
   cursor: not-allowed;
   pointer-events: none;
+}
+.cp-item--locked .cp-item__img {
+  filter: brightness(0.4);
+}
+.cp-item--locked .cp-item__desc {
+  color: #c8c8c8;
+}
+.cp-item--locked .cp-item__region {
+  opacity: 0.9;
 }
 
 /* ── Colores fijos por región ───────────────────────────── */
@@ -196,25 +205,10 @@
   border: 1px solid rgba(74, 106, 184, 0.25);
 }
 
-/* Irlanda — verde esmeralda */
-.cp-item--ir {
-  background: rgba(8, 26, 15, 0.85);
-  border-color: rgba(58, 138, 96, 0.2);
-}
-.cp-item--ir:hover                { border-color: rgba(255, 198, 28, 0.4); }
-.cp-item--ir .cp-item__desc       { color: #60aa80; }
-.cp-item--ir .cp-item__arrow      { color: #3a8a60; }
-.cp-item--ir .cp-item__tag--free  {
-  background: rgba(58, 138, 96, 0.15);
-  color: #60aa80;
-  border: 1px solid rgba(58, 138, 96, 0.25);
-}
-
 /* ── Nombres bloqueados ─────────────────────────────────── */
-.cp-item--locked.cp-item--sc .cp-item__name { color: #2a4a35; }
-.cp-item--locked.cp-item--en .cp-item__name { color: #4a2020; }
-.cp-item--locked.cp-item--wa .cp-item__name { color: #202840; }
-.cp-item--locked.cp-item--ir .cp-item__name { color: #1a3a28; }
+.cp-item--locked.cp-item--sc .cp-item__name { color: #5a8a6a;  opacity: 1; }
+.cp-item--locked.cp-item--en .cp-item__name { color: #ffffff;  opacity: 1; }
+.cp-item--locked.cp-item--wa .cp-item__name { color: #ffffff;  opacity: 1; }
 
 /* IMAGEN */
 .cp-item__img-wrap {
@@ -243,9 +237,8 @@
   margin-bottom: 3px;
   font-family: var(--font-title);
 }
-.cp-item__region--en { color: #c05050; }
-.cp-item__region--wa { color: #5070b0; }
-.cp-item__region--ir { color: #50906a; }
+.cp-item__region--en { color: #ffa4a4; font-size: 1.1rem;}
+.cp-item__region--wa { color: #bed6ff; font-size: 1.1rem;}
 
 .cp-item__name {
   font-size: 1.05rem;
@@ -295,8 +288,8 @@
 }
 .cp-item__tag--coming {
   background: rgba(255, 255, 255, 0.04);
-  color: #2a4a3a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c8c8c8;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .cp-item__arrow {
   font-size: 1.2rem;

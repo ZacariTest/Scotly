@@ -36,7 +36,8 @@ h1, h2, h3, h4,
 .course-subtitle,
 .sidebar-title,
 .shop-banner-title,
-.region-card__name,
+.region-card__flag,
+.regions-section__label,
 .footer-brand__name,
 .cp-header__title,
 .cp-item__name,
@@ -59,7 +60,6 @@ h1, h2, h3, h4,
 }
 
 /* ── NARRATIVA — EB Garamond ────────────────────────────── */
-/* ── NARRATIVA — EB Garamond ────────────────────────────── */
 .hero-subtitle,
 .presentation-text,
 .course-description,
@@ -75,7 +75,8 @@ h1, h2, h3, h4,
 .inv-season-desc,
 .inv-card__title,
 .inv-card__skill-desc,
-.auth-modal__sub {
+.auth-modal__sub,
+.region-card__desc {
   font-family: var(--font-narrative);
   font-weight: 600;
   font-style: normal;
@@ -94,7 +95,7 @@ h1, h2, h3, h4,
 .nav-event-badge,
 .cp-category__label,
 .cp-coming-header__label,
-.region-card__flag,
+.region-card__name,
 .footer-title {
   font-family: var(--font-fantasy);
 }

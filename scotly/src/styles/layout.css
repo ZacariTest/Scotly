@@ -927,132 +927,108 @@ html, body {
 /* Sección contenedora */
 .regions-section {
   padding: 2rem 4rem;
-  background: color-mix(in srgb, var(--region-primary) 82%, transparent);
+  background: color-mix(in srgb, var(--region-primary) 92%, transparent);
   border-bottom: 1px solid var(--region-border);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
   transition: background 0.6s ease, border-color 0.6s ease;
 }
 
 .regions-section__label {
-  font-size: 1.25rem;
+  font-size: 1.4rem;       
   color: #ffc61c;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 14px;
-  opacity: 0.75;
+  margin-bottom: 16px;
+  font-family: var(--font-title);
+  font-weight: 700;
 }
 
 .regions-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 14px;
 }
 
 /* BASE */
 .region-card {
-  border-radius: 8px;
-  padding: 14px 16px;
-  border: 1px solid;
+  border-radius: 10px;
+  padding: 22px 20px;
+  border-left: 2px solid;
+  border-right: 2px solid;   /* ← agregá derecha */
+  border-top: none;
+  border-bottom: none;
   position: relative;
-  overflow: hidden;
-  transition: border-color 0.25s, background 0.25s;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
+.region-card:hover { transform: translateX(4px); }
 
-/* ---- ESCOCIA ---- */
+/* ---- ESCOCIA — azul escocés ---- */
 .region-card--sc {
-  background: rgba(74, 154, 96, 0.10);
-  border-color: rgba(74, 154, 96, 0.45);
+  background: #0d1f36;
+  border-color: #5b9bd5;
+}
+.region-card--sc .region-card__flag   { color: #ffffff; }
+.region-card--sc .region-card__name   { color: #99d4ff; }
+.region-card--sc .region-card__desc   { color: #c3e6ff; }
+.region-card--sc .region-card__badge  {
+  background: rgba(91, 155, 213, 0.15);
+  color: #99d4ff;
+  border: 1px solid rgba(91, 155, 213, 0.3);
 }
 
-.region-card--sc .region-card__flag {
-  color: #6acc88;
-}
-
-.region-card--sc .region-card__name {
-  color: #e8f4ec;
-}
-
-.region-card--sc .region-card__desc {
-  color: #92fbba;
-}
-
-.region-card--sc .region-card__badge {
-  background: rgba(74, 154, 96, 0.18);
-  color: #5ac878;
-  border: 1px solid rgba(74, 154, 96, 0.4);
-}
-
-/* ---- INGLATERRA ---- */
+/* ---- INGLATERRA — rojo ---- */
 .region-card--en {
-  background: rgba(184, 80, 80, 0.07);
-  border-color: rgba(184, 80, 80, 0.30);
+  background: #2a0f0f;
+  border-color: #b85050;
 }
-
-.region-card--en .region-card__flag {
-  color: #ffa4a4;
-}
-
-.region-card--en .region-card__name {
-  color: #e9dede;
-}
-
-.region-card--en .region-card__desc {
-  color: #ffa4a4;
-}
-
-.region-card--en .region-card__badge {
+.region-card--en .region-card__flag   { color: #ffffff; }
+.region-card--en .region-card__name   { color: #ffa4a4; }
+.region-card--en .region-card__desc   { color: #e8c8c8; }
+.region-card--en .region-card__badge  {
   background: rgba(184, 80, 80, 0.12);
-  color: #a05858;
-  border: 1px solid rgba(184, 80, 80, 0.25);
+  color: #ffb8b8;
+  border: 1px solid rgba(184, 80, 80, 0.3);
 }
 
-/* ---- GALES ---- */
+/* ---- GALES — verde galés ---- */
 .region-card--wa {
-  background: rgba(74, 106, 184, 0.07);
-  border-color: rgba(74, 106, 184, 0.30);
+  background: #0d2e1c;
+  border-color: #4a9a60;
 }
-
-.region-card--wa .region-card__flag {
-  color: #95bbff;
-}
-
-.region-card--wa .region-card__name {
-  color: #c9d8f5;
-}
-
-.region-card--wa .region-card__desc {
-  color: #95bbff;
-}
-
-.region-card--wa .region-card__badge {
-  background: rgba(74, 106, 184, 0.12);
-  color: #5068a0;
-  border: 1px solid rgba(74, 106, 184, 0.25);
+.region-card--wa .region-card__flag   { color: #ffffff; }
+.region-card--wa .region-card__name   { color: #bdffca; }
+.region-card--wa .region-card__desc   { color: #c5f0ce; }
+.region-card--wa .region-card__badge  {
+  background: rgba(74, 154, 96, 0.15);
+  color: #bdffca;
+  border: 1px solid rgba(74, 154, 96, 0.3);
 }
 
 /* Locked */
-.region-card--locked {
-  opacity: 0.72;
-}
+.region-card--locked { opacity: 0.72; }
 
-/* Textos */
+/* Textos base */
 .region-card__flag {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 900;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 6px;
+  font-family: var(--font-title);
 }
 
 .region-card__name {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  font-family: var(--font-fantasy);
 }
 
 .region-card__desc {
-  font-size: 1rem;
-  line-height: 1.4;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-family: var(--font-body);
 }
 
 .region-card__badge {
@@ -1064,11 +1040,16 @@ html, body {
   border-radius: 2px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  font-family: var(--font-title);
 }
 
 .region-card--selected {
   box-shadow: 0 0 0 2px var(--region-accent);
-  transform: translateY(-2px);
+  transform: translateX(4px);
+}
+
+.region-card--selected:hover {
+  transform: translateX(6px);   
 }
 
 /* Barra de acento */
@@ -1078,11 +1059,16 @@ html, body {
   transition: opacity 0.4s ease;
   opacity: 0.3;
 }
+.region-accent-bar--active { opacity: 1 !important; }
 
-.region-accent-bar--active {
-  opacity: 1 !important;
+/* Responsive */
+@media (max-width: 768px) {
+  .regions-section { padding: 1.5rem; }
+  .regions-grid { grid-template-columns: 1fr 1fr; }
 }
-
+@media (max-width: 480px) {
+  .regions-grid { grid-template-columns: 1fr; }
+}
 /* ==========================================================
    NAV SUBTITLE
 ========================================================== */
@@ -1137,14 +1123,16 @@ html, body {
 
 .regions-launch-banner__text {
   font-size: 0.78rem;
-  color: #7aaa8a;
+  color: #ffffff;
   font-style: italic;
+  font-size: small;
 }
 
 .regions-launch-banner__text strong {
-  color: #9fddb8;
+  color: #ffc61c;
   font-style: normal;
   font-weight: 600;
+  font-size: 1.0rem;
 }
 
 .regions-launch-banner__cta {

@@ -21,7 +21,6 @@
   text-transform: uppercase;
   margin-bottom: 8px;
   font-family: var(--font-title);
-  opacity: 0.8;
 }
 .cp-header__title {
   font-size: 1.8rem;
@@ -51,20 +50,20 @@
   margin-bottom: 1.8rem;
   padding: 10px 14px;
   border-radius: 6px;
-  border: 3px solid #48775a;
-  background: rgba(74, 154, 96, 0.06);
+  border: 3px solid #99d4ff;
+  background: rgba(0, 63, 135, 0.06);
 }
 .cp-region-header__dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #4a9a60;
+  background: #5b9bd5;
   flex-shrink: 0;
 }
 .cp-region-header__name {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #92fbba;
+  color: #99d4ff;
   letter-spacing: 1px;
   font-family: var(--font-title);
 }
@@ -72,9 +71,9 @@
   font-size: 0.6rem;
   padding: 2px 8px;
   border-radius: 2px;
-  background: rgba(74, 154, 96, 0.15);
-  color: #4a9a60;
-  border: 1px solid rgba(74, 154, 96, 0.3);
+  background: rgba(0, 63, 135, 0.15);
+  color: #5b9bd5;
+  border: 1px solid rgba(0, 63, 135, 0.3);
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-left: auto;
@@ -100,7 +99,7 @@
 .cp-coming-header {
   margin: 3rem 0 1.2rem;
   padding-top: 2rem;
-  border-top: 1px solid #1e3d2a;
+  border-top: 1px solid #1e3a5e;
 }
 .cp-coming-header__label {
   font-size: 1.5rem;
@@ -126,8 +125,8 @@
   grid-template-columns: 110px 1fr auto;
   gap: 18px;
   align-items: center;
-  background: #0d2318;
-  border: 1px solid #1e3d2a;
+  background: #0a1a2e;
+  border: 1px solid #1a3a5e;
   border-radius: 8px;
   padding: 14px 16px;
   cursor: pointer;
@@ -162,53 +161,53 @@
 
 /* ── Colores fijos por región ───────────────────────────── */
 
-/* Escocia — verde */
+/* Escocia — azul escocés */
 .cp-item--sc {
-  background: rgba(13, 35, 24, 0.85);
-  border-color: rgba(74, 154, 96, 0.25);
+  background: rgba(10, 26, 46, 0.85);
+  border-color: rgba(0, 63, 135, 0.35);
 }
-.cp-item--sc:hover                { border-color: rgba(255, 198, 28, 0.4); }
-.cp-item--sc .cp-item__desc       { color: #6a9a7a; }
-.cp-item--sc .cp-item__arrow      { color: #4a9a60; }
-.cp-item--sc .cp-item__tag--free  {
-  background: rgba(74, 154, 96, 0.15);
-  color: #7aaa8a;
-  border: 1px solid rgba(74, 154, 96, 0.25);
+.cp-item--sc:hover               { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--sc .cp-item__desc      { color: #7aaad5; }
+.cp-item--sc .cp-item__arrow     { color: #5b9bd5; }
+.cp-item--sc .cp-item__tag--free {
+  background: rgba(0, 63, 135, 0.15);
+  color: #99d4ff;
+  border: 1px solid rgba(0, 63, 135, 0.3);
 }
-.cp-item--sc.cp-item--featured    { border-color: rgba(122, 90, 170, 0.4); }
+.cp-item--sc.cp-item--featured   { border-color: rgba(122, 90, 170, 0.4); }
 
 /* Inglaterra — rojo */
 .cp-item--en {
   background: rgba(26, 8, 8, 0.85);
   border-color: rgba(192, 80, 80, 0.2);
 }
-.cp-item--en:hover                { border-color: rgba(255, 198, 28, 0.4); }
-.cp-item--en .cp-item__desc       { color: #a07070; }
-.cp-item--en .cp-item__arrow      { color: #b85050; }
-.cp-item--en .cp-item__tag--free  {
+.cp-item--en:hover               { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--en .cp-item__desc      { color: #a07070; }
+.cp-item--en .cp-item__arrow     { color: #b85050; }
+.cp-item--en .cp-item__tag--free {
   background: rgba(184, 80, 80, 0.15);
   color: #c07070;
   border: 1px solid rgba(184, 80, 80, 0.25);
 }
 
-/* Gales — azul */
+/* Gales — verde galés */
 .cp-item--wa {
-  background: rgba(8, 13, 26, 0.85);
-  border-color: rgba(80, 112, 176, 0.2);
+  background: rgba(13, 46, 28, 0.85);
+  border-color: rgba(74, 154, 96, 0.25);
 }
-.cp-item--wa:hover                { border-color: rgba(255, 198, 28, 0.4); }
-.cp-item--wa .cp-item__desc       { color: #7090c8; }
-.cp-item--wa .cp-item__arrow      { color: #4a6ab8; }
-.cp-item--wa .cp-item__tag--free  {
-  background: rgba(74, 106, 184, 0.15);
-  color: #7090c8;
-  border: 1px solid rgba(74, 106, 184, 0.25);
+.cp-item--wa:hover               { border-color: rgba(255, 198, 28, 0.4); }
+.cp-item--wa .cp-item__desc      { color: #7dbf8a; }
+.cp-item--wa .cp-item__arrow     { color: #4a9a60; }
+.cp-item--wa .cp-item__tag--free {
+  background: rgba(74, 154, 96, 0.15);
+  color: #bdffca;
+  border: 1px solid rgba(74, 154, 96, 0.25);
 }
 
 /* ── Nombres bloqueados ─────────────────────────────────── */
-.cp-item--locked.cp-item--sc .cp-item__name { color: #5a8a6a;  opacity: 1; }
-.cp-item--locked.cp-item--en .cp-item__name { color: #ffffff;  opacity: 1; }
-.cp-item--locked.cp-item--wa .cp-item__name { color: #ffffff;  opacity: 1; }
+.cp-item--locked.cp-item--sc .cp-item__name { color: #99d4ff; opacity: 1; }
+.cp-item--locked.cp-item--en .cp-item__name { color: #ffa4a4; opacity: 1; }
+.cp-item--locked.cp-item--wa .cp-item__name { color: #bdffca; opacity: 1; }
 
 /* IMAGEN */
 .cp-item__img-wrap {
@@ -237,8 +236,8 @@
   margin-bottom: 3px;
   font-family: var(--font-title);
 }
-.cp-item__region--en { color: #ffa4a4; font-size: 1.1rem;}
-.cp-item__region--wa { color: #bed6ff; font-size: 1.1rem;}
+.cp-item__region--en { color: #ffa4a4; font-size: 1.1rem; }
+.cp-item__region--wa { color: #bdffca; font-size: 1.1rem; }
 
 .cp-item__name {
   font-size: 1.05rem;
@@ -251,7 +250,7 @@
 
 .cp-item__desc {
   font-size: 0.82rem;
-  color: #7aaa8a;
+  color: #7aaad5;
   line-height: 1.5;
 }
 
@@ -272,9 +271,9 @@
   white-space: nowrap;
 }
 .cp-item__tag--free {
-  background: rgba(76, 175, 77, 0.15);
-  color: #7aaa8a;
-  border: 1px solid rgba(76, 175, 77, 0.2);
+  background: rgba(0, 63, 135, 0.15);
+  color: #99d4ff;
+  border: 1px solid rgba(0, 63, 135, 0.3);
 }
 .cp-item__tag--game {
   background: rgba(122, 90, 170, 0.15);
@@ -293,7 +292,7 @@
 }
 .cp-item__arrow {
   font-size: 1.2rem;
-  color: #3a6a4a;
+  color: #5b9bd5;
   transition: color 0.2s;
 }
 .cp-item:hover .cp-item__arrow { color: #ffc61c; }

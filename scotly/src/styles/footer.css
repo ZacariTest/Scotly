@@ -54,7 +54,7 @@
 }
 .footer-links li {
   font-size: 0.82rem;
-  color: #c5f6d5;
+  color: #ffffff;
   cursor: pointer;
   transition: color 0.2s;
   display: flex;
@@ -63,7 +63,7 @@
 }
 .footer-links li:hover { color: #f8f4e6; }
 .footer-links a {
-  color: #c5f6d5;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.2s;
 }

@@ -10,15 +10,15 @@ import RegionsSection from "../components/RegionsSection";
 
 const REGION_THEMES = {
   scotland: {
-    "--region-primary": "#0b1f17",
-    "--region-accent":  "#4a9a60",
-    "--region-border":  "#1e3d2a",
-    "--region-surface": "rgba(74,154,96,0.07)",
-    "--region-text":    "#e8f4ec",
-    "--region-muted":   "#6a9a7a",
-    "--region-btn":     "#4a9a60",
-    "--color-primary":  "#0b1f17",
-    bgImage: "url('/img/bg-scotland.png')",  // ← esto sobreescribe la variable global
+    "--region-primary": "#0a1a2e",      // ← azul escocés oscuro
+    "--region-accent":  "#5b9bd5",      // ← azul claro
+    "--region-border":  "#1a3a5e",      // ← borde azul
+    "--region-surface": "rgba(0,63,135,0.07)",
+    "--region-text":    "#e8f0f8",
+    "--region-muted":   "#7aaad5",
+    "--region-btn":     "#5b9bd5",
+    "--color-primary":  "#0a1a2e",
+    bgImage: "url('/img/bg-scotland.png')",
   },
   england: {
     "--region-primary": "#1a0808",
@@ -32,14 +32,14 @@ const REGION_THEMES = {
     bgImage: "url('/img/inglaterra.jpg')",
   },
   wales: {
-    "--region-primary": "#080d1a",
-    "--region-accent":  "#4a6ab8",
-    "--region-border":  "#1e2a4a",
-    "--region-surface": "rgba(74,106,184,0.07)",
-    "--region-text":    "#e8eef8",
-    "--region-muted":   "#7090c8",
-    "--region-btn":     "#4a6ab8",
-    "--color-primary":  "#080d1a",
+    "--region-primary": "#0d2318",      // ← verde galés oscuro
+    "--region-accent":  "#4a9a60",      // ← verde
+    "--region-border":  "#1e3d2a",      // ← borde verde
+    "--region-surface": "rgba(74,154,96,0.07)",
+    "--region-text":    "#e8f4ec",
+    "--region-muted":   "#7dbf8a",
+    "--region-btn":     "#4a9a60",
+    "--color-primary":  "#0d2318",
   },
   ireland: {
     "--region-primary": "#081a0f",

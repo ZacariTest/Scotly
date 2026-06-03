@@ -5,6 +5,19 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/profile.css";
 
+const MOCK_COURSES = [
+  { name: "Arte Celta",           tag: "Gratis",      tagType: "free", progress: 82  },
+  { name: "Historia Gamificada",  tag: "Interactivo", tagType: "game", progress: 45  },
+  { name: "Mitología y Leyendas", tag: "Gratis",      tagType: "free", progress: 100 },
+  { name: "Comida Escocesa",      tag: "Gratis",      tagType: "free", progress: 20  },
+];
+
+const MOCK_DECK = [
+  { name: "Macallan",   rarity: "epic",   hp: 95, atk: 72 },
+  { name: "Lagavulin",  rarity: "rare",   hp: 80, atk: 88 },
+  { name: "Glenfarclas",rarity: "common", hp: 70, atk: 55 },
+];
+
 export default function ProfilePage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -40,14 +53,14 @@ export default function ProfilePage() {
 
         <div className="profile-body">
 
-          {/* COLUMNA IZQUIERDA */}
+          {/* COLUMNA IZQUIERDA — avatar + cartas favoritas */}
           <aside className="profile-left">
 
             <div className="profile-avatar-card">
               <div className="profile-avatar-wrap">
                 <div className="profile-avatar">{initials}</div>
                 <button className="profile-avatar-cam" title="Cambiar foto">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7aaa8a" strokeWidth="2">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7aaad5" strokeWidth="2">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                     <circle cx="12" cy="13" r="4"/>
                   </svg>
@@ -105,7 +118,7 @@ export default function ProfilePage() {
                 </div>
 
                 <button className="pmc-add">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4a7a5a" strokeWidth="2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7aaad5" strokeWidth="2">
                     <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                   </svg>
                   <span>Agregar carta</span>
@@ -116,8 +129,8 @@ export default function ProfilePage() {
 
           </aside>
 
-          {/* COLUMNA DERECHA */}
-          <div className="profile-right">
+          {/* COLUMNA CENTRO — datos, preferencias, seguridad */}
+          <div className="profile-mid">
 
             {/* DATOS */}
             <section className="profile-section">
@@ -147,22 +160,14 @@ export default function ProfilePage() {
               <h2 className="profile-section__title">Preferencias</h2>
               <div className="profile-pref">
                 <span className="profile-pref__label">Idioma</span>
-                <select
-                  className="profile-select"
-                  value={prefs.idioma}
-                  onChange={(e) => setPrefs({ ...prefs, idioma: e.target.value })}
-                >
+                <select className="profile-select" value={prefs.idioma} onChange={(e) => setPrefs({ ...prefs, idioma: e.target.value })}>
                   <option>Español</option>
                   <option>English</option>
                 </select>
               </div>
               <div className="profile-pref">
                 <span className="profile-pref__label">Modo oscuro</span>
-                <select
-                  className="profile-select"
-                  value={prefs.modoOscuro}
-                  onChange={(e) => setPrefs({ ...prefs, modoOscuro: e.target.value })}
-                >
+                <select className="profile-select" value={prefs.modoOscuro} onChange={(e) => setPrefs({ ...prefs, modoOscuro: e.target.value })}>
                   <option>Sistema</option>
                   <option>Siempre</option>
                   <option>Nunca</option>
@@ -170,11 +175,7 @@ export default function ProfilePage() {
               </div>
               <div className="profile-pref">
                 <span className="profile-pref__label">Notificaciones</span>
-                <select
-                  className="profile-select"
-                  value={prefs.notificaciones}
-                  onChange={(e) => setPrefs({ ...prefs, notificaciones: e.target.value })}
-                >
+                <select className="profile-select" value={prefs.notificaciones} onChange={(e) => setPrefs({ ...prefs, notificaciones: e.target.value })}>
                   <option>Activadas</option>
                   <option>Solo email</option>
                   <option>Desactivadas</option>
@@ -204,8 +205,57 @@ export default function ProfilePage() {
             </div>
 
           </div>
-        </div>
 
+          {/* COLUMNA DERECHA — cursos adquiridos + mazo */}
+          <aside className="profile-right">
+
+            {/* CURSOS ADQUIRIDOS */}
+            <div className="profile-courses-card">
+              <p className="profile-fav-label">Cursos adquiridos</p>
+              <div className="profile-course-list">
+                {MOCK_COURSES.map((c) => (
+                  <div className="profile-course-item" key={c.name}>
+                    <div className="profile-course-info">
+                      <p className="profile-course-name">{c.name}</p>
+                      <div className="profile-course-bar">
+                        <div className="profile-course-fill" style={{ width: `${c.progress}%` }}></div>
+                      </div>
+                      <p className="profile-course-pct">
+                        {c.progress === 100 ? "Completado ✓" : `${c.progress}% completado`}
+                      </p>
+                    </div>
+                    <span className={`profile-course-tag profile-course-tag--${c.tagType}`}>{c.tag}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* MAZO ACTIVO */}
+            <div className="profile-deck-card">
+              <p className="profile-fav-label">Mazo activo</p>
+              <div className="profile-deck-grid">
+                {MOCK_DECK.map((c) => (
+                  <div className={`profile-deck-item profile-deck-item--${c.rarity}`} key={c.name}>
+                    <p className="profile-deck-name">{c.name}</p>
+                    <div className="pmc__stats">
+                      <span className="pms pms--hp">❤ {c.hp}</span>
+                      <span className="pms pms--atk">⚔ {c.atk}</span>
+                    </div>
+                    <span className="profile-deck-rar">{c.rarity}</span>
+                  </div>
+                ))}
+                <button className="profile-deck-add">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7aaad5" strokeWidth="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  <span>Agregar</span>
+                </button>
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
       </div>
       <Footer />
     </>

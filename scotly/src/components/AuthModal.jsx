@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../styles/authmodal.css";
 
 export default function AuthModal({ onClose }) {
   const [tab, setTab] = useState("login");
   const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const mouseDownTarget = useRef(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,8 +16,26 @@ export default function AuthModal({ onClose }) {
     console.log("Submit:", tab, form);
   };
 
+  const handleOverlayMouseDown = (e) => {
+    mouseDownTarget.current = e.target;
+  };
+
+  const handleOverlayMouseUp = (e) => {
+    if (
+      mouseDownTarget.current === e.currentTarget &&
+      e.target === e.currentTarget
+    ) {
+      onClose();
+    }
+    mouseDownTarget.current = null;
+  };
+
   return (
-    <div className="auth-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div
+      className="auth-overlay" 
+      onMouseDown={handleOverlayMouseDown} // Ahora se guarda dónde empezó
+      onMouseUp={handleOverlayMouseUp} // cierra solo si ambos eventos son en el overlay
+    >
       <div className="auth-modal">
 
         {/* HEADER */}

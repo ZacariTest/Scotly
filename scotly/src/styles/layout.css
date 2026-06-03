@@ -398,10 +398,9 @@ html, body {
 .course-card--lg .course-card__name { font-size: 1.1rem; }
 
 .course-card__desc {
-  font-size: 0.75rem;
+  font-size: 1.3rem;
   color: #a0c8a8;
   margin-top: 3px;
-  font-style: italic;
   line-height: 1.4;
 }
 
@@ -885,7 +884,7 @@ html, body {
 ========================================================== */
 .hero-eyebrow {
   font-size: 0.7rem;
-  color: #ffc61c;
+  color: #f5e1ae;
   letter-spacing: 4px;
   text-transform: uppercase;
   margin-bottom: 10px;

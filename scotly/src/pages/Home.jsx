@@ -40,6 +40,7 @@ const REGION_THEMES = {
     "--region-muted":   "#7dbf8a",
     "--region-btn":     "#4a9a60",
     "--color-primary":  "#0d2318",
+    bgImage: "url('dist/img/Gales2.jpg')", 
   },
   ireland: {
     "--region-primary": "#081a0f",

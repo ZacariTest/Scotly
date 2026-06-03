@@ -10,6 +10,7 @@ import InvasionPage from "./pages/InvasionPage";
 import SobreNosotros from "./pages/SobreNosotros";
 import Donaciones from "./pages/Donaciones";
 import Cursos from "./pages/Cursos";
+import ProfilePage from "./pages/ProfilePage";
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
       <Route path="/sobre-nosotros" element={<SobreNosotros />} />
       <Route path="/donaciones" element={<Donaciones />} />
       <Route path="/cursos" element={<Cursos />} />
+      <Route path="/perfil" element={<ProfilePage />} />
     </Routes>
   );
 }

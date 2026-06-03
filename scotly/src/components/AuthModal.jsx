@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
 import "../styles/authmodal.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function AuthModal({ onClose }) {
   const [tab, setTab] = useState("login");
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const mouseDownTarget = useRef(null);
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,8 +14,8 @@ export default function AuthModal({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: conectar con backend
-    console.log("Submit:", tab, form);
+    login(form); // conecta con AuthContext — reemplazar con backend cuando esté listo
+    onClose();
   };
 
   const handleOverlayMouseDown = (e) => {
@@ -32,9 +34,9 @@ export default function AuthModal({ onClose }) {
 
   return (
     <div
-      className="auth-overlay" 
-      onMouseDown={handleOverlayMouseDown} // Ahora se guarda dónde empezó
-      onMouseUp={handleOverlayMouseUp} // cierra solo si ambos eventos son en el overlay
+      className="auth-overlay"
+      onMouseDown={handleOverlayMouseDown} // guarda dónde empezó el clic
+      onMouseUp={handleOverlayMouseUp}     // cierra solo si ambos eventos son en el overlay
     >
       <div className="auth-modal">
 

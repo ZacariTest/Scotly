@@ -30,7 +30,14 @@ export default function CoursePlayer({ course }) {
     if (currentStep > 0) setCurrentStep(currentStep - 1);
   };
 
-  const goToStep = (index) => setCurrentStep(index);
+  const goToStep = (index) => {
+    if (
+      index <= currentStep ||
+      completedSteps.includes(index - 1)
+    ) {
+      setCurrentStep(index);
+    }
+  };
 
   const isQuiz = step.type === "quiz";
 
@@ -50,6 +57,7 @@ export default function CoursePlayer({ course }) {
           onNext={goNext}
           isFirst={currentStep === 0}
           isLast={currentStep === totalSteps - 1}
+          canAdvance={completedSteps.includes(currentStep)}
         />
 
         <div className="cp-player__body">
@@ -59,19 +67,18 @@ export default function CoursePlayer({ course }) {
 
             {isQuiz ? (
               <>
-                {/* Imagen grande que cruza hacia el panel derecho */}
-                <div className="cp-quiz-img-container">
-                  <img src={course.img} alt={course.title} />
-                </div>
-
-                {/* Texto anclado abajo-izquierda, delante de la imagen */}
                 <div className="cp-quiz-text">
                   <p className="cp-player__eyebrow">
                     {course.title} — Paso {currentStep + 1}
                   </p>
+
                   <p className="cp-player__quiz-label">
                     Comprobá lo que aprendiste
                   </p>
+                </div>
+
+                <div className="cp-quiz-img-container">
+                  <img src={course.img} alt={course.title} />
                 </div>
               </>
             ) : (
@@ -83,15 +90,60 @@ export default function CoursePlayer({ course }) {
           {/* PANEL DERECHO */}
           <div className={`cp-player__side${isQuiz ? " cp-player__side--quiz" : ""}`}>
             {isQuiz ? (
-              <QuizStep step={step} onAnswer={markComplete} />
+              <QuizStep
+                step={step}
+                onAnswer={markComplete}
+                onNext={goNext}
+              />
             ) : (
               <div className="cp-player__reading-side">
-                <p className="cp-player__side-hint">
-                  Leé el contenido y cuando estés listo avanzá al siguiente paso.
-                </p>
-                <button className="cp-player__next-btn" onClick={goNext}>
+
+                <div className="cp-side-card">
+                  <span className="cp-side-card__label">
+                    Curso
+                  </span>
+
+                  <h3>{course.title}</h3>
+                </div>
+
+                <div className="cp-side-card">
+                  <span className="cp-side-card__label">
+                    Progreso
+                  </span>
+
+                  <h3>
+                    {currentStep + 1} / {totalSteps}
+                  </h3>
+                </div>
+
+                <div className="cp-side-card">
+                  <span className="cp-side-card__label">
+                    Recompensa
+                  </span>
+
+                  <div className="cp-reward-card">
+
+                    <img
+                      src="/img/cards/william-wallace.jpg"
+                      alt="---"
+                      className="cp-reward-card__img"
+                    />
+
+                    <div className="cp-reward-card__info">
+                      <h3>William Wallace</h3>
+                      <p>Personaje histórico (Carta)</p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <button
+                  className="cp-player__next-btn"
+                  onClick={goNext}
+                >
                   Continuar →
                 </button>
+
               </div>
             )}
           </div>

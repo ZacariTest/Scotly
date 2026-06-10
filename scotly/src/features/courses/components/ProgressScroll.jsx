@@ -1,11 +1,18 @@
 // Barra de progreso estilo pergamino/mapa con numeración romana
-const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","IX","X"];
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
 
 export default function ProgressScroll({
-  steps, currentStep, completedSteps,
-  courseTitle, region,
-  onStep, onPrev, onNext,
-  isFirst, isLast,
+  steps,
+  currentStep,
+  completedSteps,
+  courseTitle,
+  region,
+  onStep,
+  onPrev,
+  onNext,
+  isFirst,
+  isLast,
+  canAdvance,
 }) {
   return (
     <div className="ps-bar">
@@ -31,10 +38,11 @@ export default function ProgressScroll({
                 <button
                   className={[
                     "ps-seal",
-                    isDone   ? "ps-seal--done"   : "",
+                    isDone ? "ps-seal--done" : "",
                     isActive ? "ps-seal--active" : "",
                   ].join(" ")}
                   onClick={() => onStep(i)}
+                  disabled={!isDone && i > currentStep + 1}
                   title={step.label}
                   aria-label={`Ir al paso ${i + 1}: ${step.label}`}
                 >
@@ -43,7 +51,7 @@ export default function ProgressScroll({
                 <span className={[
                   "ps-seal__label",
                   isActive ? "ps-seal__label--active" : "",
-                  isDone   ? "ps-seal__label--done"   : "",
+                  isDone ? "ps-seal__label--done" : "",
                 ].join(" ")}>
                   {step.label}
                 </span>
@@ -72,7 +80,7 @@ export default function ProgressScroll({
         <button
           className="ps-nav-btn ps-nav-btn--gold"
           onClick={onNext}
-          disabled={isLast}
+          disabled={!canAdvance || isLast}
         >
           {isLast ? "Finalizar" : "Siguiente →"}
         </button>

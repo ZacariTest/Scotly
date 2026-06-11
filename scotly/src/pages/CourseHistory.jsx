@@ -1,8 +1,14 @@
-import CoursePlayer from "../features/courses/components/CoursePlayer";
-import { course } from "../features/courses/data/scotland/history";
-
-console.log("COURSE:", course);
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import CourseIntro from "../features/courses/components/CourseIntro";
+import { introHistory } from "../features/courses/data/scotland/intro-data";
 
 export default function CourseHistory() {
-  return <CoursePlayer course={course} />;
+  return (
+    <>
+      <Navbar />
+      <CourseIntro course={introHistory} />
+      <Footer />
+    </>
+  );
 }

@@ -12,7 +12,7 @@
   padding: 7rem 5rem 2.5rem;
   background: color-mix(in srgb, var(--region-primary) 85%, transparent);
   backdrop-filter: blur(2px);
-  border-bottom: 1px solid #1e3a5e;
+  border-bottom: 1px solid var(--region-border);
 }
 .cp-header__eyebrow {
   font-size: 2.7rem;
@@ -31,7 +31,7 @@
 }
 .cp-header__sub {
   font-size: 0.95rem;
-  color: #7aaad5;
+  color: var(--region-muted);
   font-style: italic;
 }
 
@@ -42,7 +42,7 @@
   backdrop-filter: blur(2px);
 }
 
-/* REGIÓN ACTIVA HEADER — siempre Escocia, colores fijos */
+/* REGIÓN ACTIVA HEADER */
 .cp-region-header {
   display: flex;
   align-items: center;
@@ -50,17 +50,17 @@
   margin-bottom: 1.8rem;
   padding: 10px 14px;
   border-radius: 6px;
-  border-left: 3px solid #5b9bd5;
+  border-left: 3px solid var(--region-accent);
   border-top: none;
   border-right: none;
   border-bottom: none;
-  background: rgba(0, 63, 135, 0.08);
+  background: var(--region-surface);
 }
 .cp-region-header__dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #5b9bd5;
+  background: var(--region-accent);
   flex-shrink: 0;
 }
 .cp-region-header__name {
@@ -74,9 +74,9 @@
   font-size: 0.55rem;
   padding: 2px 8px;
   border-radius: 2px;
-  background: rgba(91, 155, 213, 0.15);
-  color: #5b9bd5;
-  border: 1px solid rgba(91, 155, 213, 0.3);
+  background: var(--region-surface);
+  color: var(--region-accent);
+  border: 1px solid var(--region-border);
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-left: auto;
@@ -103,7 +103,7 @@
 .cp-coming-header {
   margin: 2.5rem 0 1rem;
   padding-top: 2rem;
-  border-top: 1px solid #1e3a5e;
+  border-top: 1px solid var(--region-border);
 }
 .cp-coming-header__label {
   font-size: 1.1rem;
@@ -126,16 +126,16 @@
 /* ITEM BASE */
 .cp-item {
   display: grid;
-  grid-template-columns: 120px 1fr auto; 
+  grid-template-columns: 120px 1fr auto;
   gap: 20px;
   align-items: center;
-  background: #0d1f36;
-  border-left: 3px solid #5b9bd5;
+  background: color-mix(in srgb, var(--region-primary) 90%, transparent);
+  border-left: 3px solid var(--region-accent);
   border-top: none;
   border-right: none;
   border-bottom: none;
   border-radius: 8px;
-  padding: 20px 20px;                     
+  padding: 20px 20px;
   cursor: pointer;
   transition: border-color 0.2s, transform 0.2s;
 }
@@ -162,65 +162,19 @@
 .cp-item--locked .cp-item__desc {
   color: #c8c8c8;
 }
-
-/* ── Colores fijos por región ───────────────────────────── */
-
-/* Escocia — azul escocés */
-.cp-item--sc {
-  background: #0d1f36;
-  border-color: #5b9bd5;
+.cp-item--locked .cp-item__name {
+  color: var(--region-accent);
+  opacity: 1;
 }
-.cp-item--sc:hover               { border-color: #ffc61c; }
-.cp-item--sc .cp-item__desc      { color: #dceeff; }
-.cp-item--sc .cp-item__arrow     { color: #5b9bd5; }
-.cp-item--sc .cp-item__tag--free {
-  background: rgba(91, 155, 213, 0.15);
-  color: #99d4ff;
-  border: 1px solid rgba(91, 155, 213, 0.3);
-}
-.cp-item--sc.cp-item--featured   { border-color: #7a5aaa; }
-
-/* Inglaterra — rojo */
-.cp-item--en {
-  background: #1e0a0a;
-  border-color: #b85050;
-}
-.cp-item--en:hover               { border-color: #ffc61c; }
-.cp-item--en .cp-item__desc      { color: #a07070; }
-.cp-item--en .cp-item__arrow     { color: #b85050; }
-.cp-item--en .cp-item__tag--free {
-  background: rgba(184, 80, 80, 0.15);
-  color: #ffa4a4;
-  border: 1px solid rgba(184, 80, 80, 0.3);
-}
-
-/* Gales — verde galés */
-.cp-item--wa {
-  background: #0a1e10;
-  border-color: #4a9a60;
-}
-.cp-item--wa:hover               { border-color: #ffc61c; }
-.cp-item--wa .cp-item__desc      { color: #7dbf8a; }
-.cp-item--wa .cp-item__arrow     { color: #4a9a60; }
-.cp-item--wa .cp-item__tag--free {
-  background: rgba(74, 154, 96, 0.15);
-  color: #bdffca;
-  border: 1px solid rgba(74, 154, 96, 0.3);
-}
-
-/* ── Nombres bloqueados ─────────────────────────────────── */
-.cp-item--locked.cp-item--sc .cp-item__name { color: #99d4ff; opacity: 1; }
-.cp-item--locked.cp-item--en .cp-item__name { color: #ffffff; opacity: 1; }
-.cp-item--locked.cp-item--wa .cp-item__name { color: #ffffff; opacity: 1; }
 
 /* IMAGEN */
 .cp-item__img-wrap {
   width: 120px;
-  height: 80px;          
+  height: 80px;
   border-radius: 5px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #071020;
+  background: color-mix(in srgb, var(--region-primary) 95%, transparent);
 }
 .cp-item__img {
   width: 100%;
@@ -239,12 +193,11 @@
   text-transform: uppercase;
   margin-bottom: 3px;
   font-family: var(--font-title);
+  color: var(--region-accent);
 }
-.cp-item__region--en { color: #ffa4a4; }
-.cp-item__region--wa { color: #bdffca; }
 
 .cp-item__name {
-  font-size: 1.2rem;             
+  font-size: 1.2rem;
   font-weight: bold;
   color: #f8f4e6;
   margin-bottom: 6px;
@@ -253,8 +206,8 @@
 .cp-item--featured .cp-item__name { color: #c8a8f8; }
 
 .cp-item__desc {
-  font-size: 0.9rem;                  
-  color: #7aaad5;
+  font-size: 0.9rem;
+  color: var(--region-muted);
   line-height: 1.5;
 }
 
@@ -275,9 +228,9 @@
   white-space: nowrap;
 }
 .cp-item__tag--free {
-  background: rgba(91, 155, 213, 0.15);
-  color: #99d4ff;
-  border: 1px solid rgba(91, 155, 213, 0.3);
+  background: var(--region-surface);
+  color: var(--region-text);
+  border: 1px solid var(--region-border);
 }
 .cp-item__tag--game {
   background: rgba(122, 90, 170, 0.15);
@@ -296,7 +249,7 @@
 }
 .cp-item__arrow {
   font-size: 1.2rem;
-  color: #5b9bd5;
+  color: var(--region-accent);
   transition: color 0.2s;
 }
 .cp-item:hover .cp-item__arrow { color: #ffc61c; }
@@ -310,4 +263,72 @@
   .cp-item__img-wrap { width: 90px; height: 65px; }
   .cp-item__name { font-size: 0.9rem; }
   .cp-item__desc { display: none; }
+}
+
+/* TABS */
+.cp-region-tabs {
+  display: flex;
+  gap: .5rem;
+  padding: 1.25rem 2rem;
+  flex-wrap: wrap;
+  background: color-mix(in srgb, var(--region-primary) 85%, transparent);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid var(--region-border);
+  border-bottom: 1px solid var(--region-border);
+}
+
+.cp-region-tab {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: color-mix(in srgb, var(--region-primary) 60%, transparent);
+  border: 1px solid var(--region-border);
+  border-radius: 6px;
+  padding: .55rem 1.25rem;
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--region-muted);
+  cursor: pointer;
+  transition: .2s;
+}
+
+.cp-region-tab:hover:not(:disabled) {
+  border-color: var(--region-accent);
+  color: #f8f4e6;
+  background: var(--region-surface);
+}
+
+.cp-region-tab--active {
+  border-color: #d99a28;
+  color: #d99a28;
+  background: rgba(217, 154, 40, .12);
+  box-shadow: 0 0 0 1px rgba(217,154,40,.2);
+}
+
+.cp-region-tab--locked {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.cp-region-tab__badge {
+  font-size: .85rem;
+  letter-spacing: 1px;
+  padding: .15rem .5rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.cp-region-tab__badge--active {
+  background: rgba(74, 154, 96, .2);
+  color: #6ddb8a;
+  border: 1px solid rgba(74,154,96,.4);
+}
+
+.cp-region-tab__badge--soon {
+  background: var(--region-surface);
+  color: var(--region-accent);
+  border: 1px solid var(--region-border);
 }

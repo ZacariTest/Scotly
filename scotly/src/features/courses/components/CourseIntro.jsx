@@ -1,8 +1,14 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { applyRegionTheme } from "../../../constants/regionThemes";
 import "../styles/course-intro.css";
 
 export default function CourseIntro({ course }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    applyRegionTheme(course.region);
+  }, [course.region]);
 
   return (
     <div className="ci-page">

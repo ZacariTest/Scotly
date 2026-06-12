@@ -7,8 +7,8 @@ const REGION_CONTENT = {
     left: {
       label: "Cursos destacados",
       courses: [
-        { img: "/img/Arte.jpg",    alt: "Arte Celta",      tag: "Escocia", tagClass: "dest", name: "Arte Celta",      route: "/curso/arte" },
-        { img: "/img/Comida.jpg",  alt: "Comida escocesa", tag: "Escocia", tagClass: "dest", name: "Comida escocesa", route: "/curso/cocina" },
+        { img: "/img/Arte.jpg", alt: "Arte Celta", tag: "Escocia", tagClass: "dest", name: "Arte Celta", route: "/curso/arte" },
+        { img: "/img/Comida.jpg", alt: "Comida escocesa", tag: "Escocia", tagClass: "dest", name: "Comida escocesa", route: "/curso/cocina" },
       ],
     },
     center: {
@@ -18,30 +18,30 @@ const REGION_CONTENT = {
     right: {
       label: "Cursos principales",
       courses: [
-        { img: "/img/History.jpg",    alt: "Historia Escocesa", tag: "Historia",  tagClass: "hist", name: "Historia Escocesa",  route: "/curso/history",   locked: false },
-        { img: "/img/Mitologia.PNG",  alt: "Mitología",         tag: "Mitología", tagClass: "hist", name: "Mitología y leyendas", route: "/curso/mitologia", locked: false },
+        { img: "/img/History.jpg", alt: "Historia Escocesa", tag: "Historia", tagClass: "hist", name: "Historia Escocesa", route: "/curso/history", locked: false },
+        { img: "/img/Mitologia.PNG", alt: "Mitología", tag: "Mitología", tagClass: "hist", name: "Mitología y leyendas", route: "/curso/mitologia", locked: false },
       ],
     },
   },
   england: {
-    label: "Próximamente: Inglaterra",
-    sub: "Arturo, Robin Hood y la monarquía que moldeó el mundo (región en desarrollo)",
+    label: "Región activa: Inglaterra",
+    sub: "Caballeros, reyes y relatos de la vieja Inglaterra",
     left: {
-      label: "Próximamente",
+      label: "Cursos destacados",
       courses: [
-        { img: "/img/History.jpg",   alt: "Leyendas Artúricas",  tag: "Inglaterra", tagClass: "region-en", name: "Leyendas Artúricas",  locked: true },
-        { img: "/img/Arte.jpg",      alt: "Arte Medieval",        tag: "Inglaterra", tagClass: "region-en", name: "Arte Medieval Inglés", locked: true },
+        { img: "/img/Arte.jpg", alt: "Arte Medieval", tag: "Inglaterra", tagClass: "region-en", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
+        { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Inglaterra", tagClass: "region-en", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
       ],
     },
     center: {
-      label: "Historia gamificada",
-      course: { img: "/img/Banner-2.jpg", alt: "Camelot", tag: "Próximamente", tagClass: "game", name: "La Leyenda de Camelot", desc: "Acompañá a Arturo en la búsqueda del Santo Grial", locked: true },
+      label: "Historia",
+      course: { img: "/img/History.jpg", alt: "Historia de Inglaterra", tag: "Inglaterra", tagClass: "region-en", name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo moderno", route: "/curso/england/history", locked: false },
     },
     right: {
-      label: "Próximamente",
+      label: "Cursos principales",
       courses: [
-        { img: "/img/Mitologia.PNG", alt: "Robin Hood", tag: "Inglaterra", tagClass: "region-en", name: "Robin Hood y Sherwood", locked: true },
-        { img: "/img/History.jpg",   alt: "Torre de Londres", tag: "Inglaterra", tagClass: "region-en", name: "La Torre de Londres", locked: true },
+        { img: "/img/Mitologia.PNG", alt: "Leyendas Artúricas", tag: "Mitología", tagClass: "region-en", name: "Leyendas Artúricas", route: "/curso/england/mitologia", locked: false },
+        { img: "/img/Banner-2.jpg", alt: "Próximamente", tag: "Pronto", tagClass: "game", name: "Historia Gamificada", locked: true },
       ],
     },
   },
@@ -51,8 +51,8 @@ const REGION_CONTENT = {
     left: {
       label: "Próximamente",
       courses: [
-        { img: "/img/Arte.jpg",      alt: "Arte Galés",    tag: "Gales", tagClass: "region-wa", name: "Arte y Simbolismo Galés", locked: true },
-        { img: "/img/Comida.jpg",    alt: "Gastronomía",   tag: "Gales", tagClass: "region-wa", name: "Gastronomía de Gales",    locked: true },
+        { img: "/img/Arte.jpg", alt: "Arte Galés", tag: "Gales", tagClass: "region-wa", name: "Arte y Simbolismo Galés", locked: true },
+        { img: "/img/Comida.jpg", alt: "Gastronomía", tag: "Gales", tagClass: "region-wa", name: "Gastronomía de Gales", locked: true },
       ],
     },
     center: {
@@ -62,8 +62,8 @@ const REGION_CONTENT = {
     right: {
       label: "Próximamente",
       courses: [
-        { img: "/img/History.jpg",   alt: "Dragones", tag: "Gales", tagClass: "region-wa", name: "Dragones y Bardos", locked: true },
-        { img: "/img/Mitologia.PNG", alt: "Merlin",   tag: "Gales", tagClass: "region-wa", name: "Merlin y la Magia Celta", locked: true },
+        { img: "/img/History.jpg", alt: "Dragones", tag: "Gales", tagClass: "region-wa", name: "Dragones y Bardos", locked: true },
+        { img: "/img/Mitologia.PNG", alt: "Merlin", tag: "Gales", tagClass: "region-wa", name: "Merlin y la Magia Celta", locked: true },
       ],
     },
   },

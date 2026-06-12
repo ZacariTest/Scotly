@@ -1,6 +1,5 @@
 /* ==========================================================
    COURSE INTRO PAGE
-   Usa las variables y tipografías de Scotly
 ========================================================== */
 
 .ci-page {
@@ -18,10 +17,10 @@
 /* ── SIDEBAR COMPARTIDA ── */
 .ci-sidebar,
 .ci-rewards {
-  background: rgba(7, 16, 32, 0.7);
+  background: color-mix(in srgb, var(--region-primary) 70%, transparent);
   padding: 1.75rem;
   border-radius: 10px;
-  border: 1px solid #1e3a5e;
+  border: 1px solid var(--region-border);
   backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
@@ -35,7 +34,7 @@
   color: #d99a28;
   letter-spacing: 2px;
   text-transform: uppercase;
-  border-bottom: 1px solid #1e3a5e;
+  border-bottom: 1px solid var(--region-border);
   padding-bottom: .6rem;
   margin-bottom: .25rem;
 }
@@ -55,7 +54,7 @@
   gap: .65rem;
   font-family: var(--font-body);
   font-size: 1rem;
-  color: #c8dff5;
+  color: var(--region-text);
   padding: .55rem .5rem;
   border-radius: 6px;
   transition: .2s;
@@ -64,7 +63,7 @@
 }
 
 .ci-module-list__item:hover {
-  background: rgba(91, 155, 213, .1);
+  background: var(--region-surface);
   color: #f8f4e6;
   transform: translateX(4px);
 }
@@ -80,31 +79,31 @@
 .ci-back-btn {
   margin-top: auto;
   background: transparent;
-  border: 1px solid #1e3a5e;
+  border: 1px solid var(--region-border);
   border-radius: 6px;
   padding: .65rem 1rem;
   font-family: var(--font-title);
   font-size: 1.2rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #99d4ff;
+  color: var(--region-accent);
   cursor: pointer;
   transition: .2s;
   width: 100%;
   text-align: center;
 }
 .ci-back-btn:hover {
-  border-color: #5b9bd5;
+  border-color: var(--region-accent);
   color: #f8f4e6;
-  background: rgba(91, 155, 213, .08);
+  background: var(--region-surface);
 }
 
 /* ── CONTENIDO PRINCIPAL ── */
 .ci-content {
-  background: rgba(7, 16, 32, 0.6);
+  background: color-mix(in srgb, var(--region-primary) 60%, transparent);
   padding: 2.5rem;
   border-radius: 10px;
-  border: 1px solid #1e3a5e;
+  border: 1px solid var(--region-border);
   backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
@@ -115,7 +114,7 @@
   font-family: var(--font-title);
   font-size: 1.3rem;
   font-weight: 700;
-  color: #99d4ff;
+  color: var(--region-accent);
   letter-spacing: 3px;
   text-transform: uppercase;
 }
@@ -134,16 +133,16 @@
   font-family: var(--font-narrative);
   font-size: 1.3rem;
   font-style: italic;
-  color: #c8dff5;
+  color: var(--region-text);
   line-height: 1.5;
-  border-left: 3px solid #1e3a5e;
+  border-left: 3px solid var(--region-border);
   padding-left: .75rem;
 }
 
 .ci-hero {
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #1e3a5e;
+  border: 1px solid var(--region-border);
 }
 .ci-hero img {
   width: 100%;
@@ -156,7 +155,7 @@
 .ci-description {
   font-family: var(--font-narrative);
   font-size: 1.15rem;
-  color: #dceeff;
+  color: var(--region-text);
   line-height: 1.8;
 }
 
@@ -190,7 +189,7 @@
 .ci-progress__label {
   font-family: var(--font-title);
   font-size: 1.2rem;
-  color: #7aaad5;
+  color: var(--region-muted);
   letter-spacing: 1px;
   margin-bottom: .5rem;
 }
@@ -202,7 +201,7 @@
   background: rgba(255,255,255,.1);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #1e3a5e;
+  border: 1px solid var(--region-border);
 }
 .ci-progress__fill {
   height: 100%;
@@ -239,9 +238,9 @@
   height: 44px;
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid #1e3a5e;
+  border: 1px solid var(--region-border);
   flex-shrink: 0;
-  background: #071020;
+  background: color-mix(in srgb, var(--region-primary) 95%, transparent);
 }
 .ci-reward-card__img-wrap img {
   width: 100%;
@@ -264,7 +263,7 @@
 .ci-reward-card__type {
   font-family: var(--font-body);
   font-size: .85rem;
-  color: #7aaad5;
+  color: var(--region-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
 }

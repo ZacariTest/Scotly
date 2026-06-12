@@ -1212,3 +1212,98 @@ html, body {
 .course-card--locked .course-card__name {
   color: #3a5a45;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================
+   RESPONSIVE FIXES — MOBILE
+========================================================== */
+@media (max-width: 768px) {
+
+  /* Navbar — subtítulo */
+.nav-subtitle {
+    font-size: 0.48rem;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+
+  /* CoursesSection home */
+  .courses-container {
+    padding: 2.5rem 1.25rem;
+  }
+  .course-card__desc {
+    font-size: 0.85rem;
+  }
+  .course-card--sm .course-card__img { height: 180px; }
+
+  /* Cursos page header */
+  .cp-header {
+    padding: 5rem 1.5rem 2rem;
+  }
+  .cp-header__eyebrow {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+
+  /* Cursos page body */
+  .cp-body {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  /* Tabs de región */
+  .cp-region-tabs {
+    padding: 1rem;
+    gap: 0.4rem;
+  }
+  .cp-region-tab {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.85rem;
+    letter-spacing: 1px;
+  }
+  .cp-region-tab__badge {
+    font-size: 0.65rem;
+  }
+
+  /* Items de curso */
+  .cp-item {
+    grid-template-columns: 75px 1fr auto;
+    gap: 10px;
+    padding: 12px;
+  }
+  .cp-item__img-wrap {
+    width: 75px;
+    height: 55px;
+  }
+  .cp-item__name {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+  .cp-region-tab {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.65rem;
+  }
+}

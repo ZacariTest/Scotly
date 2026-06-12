@@ -332,3 +332,26 @@
   color: var(--region-accent);
   border: 1px solid var(--region-border);
 }
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .cp-region-tabs {
+    padding: 1rem;
+    gap: 0.4rem;
+    flex-direction: column;
+  }
+  .cp-region-tab {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.85rem;
+    letter-spacing: 1px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .cp-region-tab__badge {
+    font-size: 0.65rem;
+  }
+}

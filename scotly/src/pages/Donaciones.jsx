@@ -40,7 +40,7 @@ export default function Donaciones() {
         {/* MANIFIESTO */}
         <section className="dn-block">
           <p className="dn-block__label">¿Por qué donar?</p>
-          <h2 class="dn-block__title">Ayudas directamente al desarrollo de Scotly.</h2>
+          <h2 className="dn-block__title">Ayudas directamente al desarrollo de Scotly.</h2>
           <div className="dn-block__body">
             <p>
               Scotly es un proyecto independiente. No tiene publicidad, no vende

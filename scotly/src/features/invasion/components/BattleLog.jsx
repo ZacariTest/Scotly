@@ -9,12 +9,18 @@ export default function BattleLog({ entries }) {
 
   return (
     <div className="inv-log" ref={ref}>
-      {entries.map((e, i) => (
-        <div key={i} className={`inv-log__entry inv-log__entry--${e.side ?? "system"}`}>
-          {e.turn > 0 && <span className="inv-log__turn">T{e.turn}</span>}
-          <span className="inv-log__text">{e.text}</span>
-        </div>
-      ))}
+      {entries.map((e, i) => {
+        // Si tiene eventType, usarlo; si no, usar side
+        const cls = e.eventType
+          ? `inv-log__entry inv-log__entry--${e.eventType}`
+          : `inv-log__entry inv-log__entry--${e.side ?? "system"}`;
+        return (
+          <div key={i} className={cls}>
+            {e.turn > 0 && <span className="inv-log__turn">T{e.turn}</span>}
+            <span className="inv-log__text">{e.text}</span>
+          </div>
+        );
+      })}
     </div>
   );
 }

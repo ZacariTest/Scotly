@@ -8,8 +8,6 @@ import { simulateBattle } from "../features/invasion/engine/battleEngine";
 import { CURRENT_SEASON } from "../features/invasion/data/seasons";
 import "../features/invasion/styles/invasion.css";
 
-
-// Fases de minijuego
 const PHASE = { SELECT: "select", BATTLE: "battle", REWARD: "reward" };
 
 export default function InvasionPage() {
@@ -31,14 +29,19 @@ export default function InvasionPage() {
     const result = simulateBattle(selected, CURRENT_SEASON.enemy.members);
     setBattleResult(result);
     setPhase(PHASE.BATTLE);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
-  const handleFinish = () => setPhase(PHASE.REWARD);
+  const handleFinish = () => {
+    setPhase(PHASE.REWARD);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
 
   const handleReset = () => {
     setSelected([]);
     setBattleResult(null);
     setPhase(PHASE.SELECT);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   return (
@@ -46,7 +49,6 @@ export default function InvasionPage() {
       <Navbar />
       <main className="inv-page">
 
-        {/* Indicador de fase */}
         <div className="inv-steps">
           <span className={`inv-step ${phase === PHASE.SELECT ? "inv-step--active" : ""}`}>1. Elegir equipo</span>
           <span className="inv-step-sep">›</span>

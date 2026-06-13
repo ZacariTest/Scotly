@@ -791,19 +791,73 @@
 /* ══════════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════════ */
+
 @media (max-width: 768px) {
-  .inv-page { padding: 1.5rem; }
-  .inv-selector__grid { grid-template-columns: 1fr 1fr; }
-  .inv-arena { padding: 1.25rem; }
-  .inv-arena__field { grid-template-columns: 1fr; }
-  .inv-arena__vs { text-align: center; }
-  .inv-season-banner { padding: 1.75rem 1.25rem; }
-  .inv-season-name { font-size: 1.6rem; }
+  .inv-page { padding: 1rem; }
+  .inv-arena { padding: 1rem; }
+
+  .inv-steps {
+    font-size: .7rem;
+    letter-spacing: .5px;
+    padding: .45rem .75rem;
+    gap: 4px;
+  }
+
+  .inv-arena__field {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .inv-arena__divider {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: .3rem 0;
+    gap: 0;
+  }
+  .inv-arena__divider-line {
+    display: none;
+  }
+  .inv-arena__vs {
+    font-size: 1.1rem;
+    padding: 0;
+    animation: none;
+  }
+
+  .inv-season-banner { padding: 1.25rem 1rem; }
+  .inv-season-name { font-size: 1.4rem; }
   .inv-reward__loot { gap: 1rem; }
+  .inv-selector__grid { grid-template-columns: 1fr 1fr; }
+
+  /* ── Chips de enemigos ── */
+  .inv-enemy-preview__members {
+    flex-direction: column;
+  }
+  .inv-enemy-chip {
+    width: 100%;
+  }
+
+  /* ── Header selector ── */
+  .inv-selector__header {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: .5rem;
+  }
+  .inv-selector__title {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+  .inv-selector__count {
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
 }
+
 @media (max-width: 480px) {
+  .inv-steps { font-size: .65rem; letter-spacing: 0; gap: 3px; }
   .inv-selector__grid { grid-template-columns: 1fr; }
-  .inv-reward { padding: 1.5rem; }
+  .inv-reward { padding: 1.25rem; }
 }
 
 

@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useScrollToTop } from "./hooks/useScrollToTop";
 import Home from "./pages/Home";
 import Cursos from "./pages/Cursos";
 import ProfilePage from "./pages/ProfilePage";
@@ -29,6 +30,8 @@ import CourseEnglandMitologia       from "./pages/CourseEnglandMitologia";
 import CourseEnglandMitologiaPlayer from "./pages/CourseEnglandMitologiaPlayer";
 
 export default function App() {
+  useScrollToTop();
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

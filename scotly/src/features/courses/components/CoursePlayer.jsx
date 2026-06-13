@@ -28,16 +28,23 @@ export default function CoursePlayer({ course }) {
 
   const goNext = () => {
     markComplete();
-    if (currentStep < totalSteps - 1) setCurrentStep(currentStep + 1);
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(currentStep + 1);
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
   };
 
   const goPrev = () => {
-    if (currentStep > 0) setCurrentStep(currentStep - 1);
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
   };
 
   const goToStep = (index) => {
     if (index <= currentStep || completedSteps.includes(index - 1)) {
       setCurrentStep(index);
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
   };
 

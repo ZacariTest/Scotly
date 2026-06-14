@@ -24,18 +24,15 @@ const LONG_TO_SHORT = {
 export default function Home() {
   const [authOpen, setAuthOpen] = useState(false);
 
-  // Arranca con la región guardada, mapeando id corto → largo
   const [activeRegion, setActiveRegion] = useState(() => {
     const saved = localStorage.getItem("activeRegion");
     return SHORT_TO_LONG[saved] ?? "scotland";
   });
 
-  // Al montar: aplica el tema guardado
   useEffect(() => {
     applyRegionTheme(activeRegion);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Al cambiar región
   useEffect(() => {
     applyRegionTheme(activeRegion);
   }, [activeRegion]);
@@ -52,7 +49,13 @@ export default function Home() {
       <main className="w-full">
         <Hero activeRegion={activeRegion} />
         <RegionsSection activeRegion={activeRegion} onSelect={handleRegionSelect} />
-        <Presentation />
+
+        {/* ← única línea que cambia */}
+        <Presentation
+          onOpenAuth={() => setAuthOpen(true)}
+          userLoggedIn={false}
+        />
+
         <CoursesSection activeRegion={activeRegion} />
         <FinalMessage onAuth={() => setAuthOpen(true)} />
         <Footer />

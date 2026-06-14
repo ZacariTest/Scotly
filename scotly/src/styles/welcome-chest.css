@@ -1,0 +1,496 @@
+/* ==========================================================
+   WELCOME CHEST — Cofre de bienvenida · Scotly
+========================================================== */
+
+/* ── SECCIÓN ── */
+.wc-section {
+  position: relative;
+  padding: 4rem 5rem;
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 80%, transparent);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+
+/* Líneas decorativas superior/inferior */
+.wc-top-line,
+.wc-bottom-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+}
+.wc-top-line {
+  top: 0;
+  background: linear-gradient(to right, transparent, #d99a28 30%, #d99a28 70%, transparent);
+  opacity: .5;
+}
+.wc-bottom-line {
+  bottom: 0;
+  background: linear-gradient(to right, transparent, #1e3a5e 40%, #1e3a5e 60%, transparent);
+}
+
+/* Resplandor de fondo */
+.wc-section::before {
+  content: "";
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(217,154,40,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── LAYOUT INTERIOR ── */
+.wc-inner {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── CONTENIDO IZQUIERDO ── */
+.wc-eyebrow {
+  font-family: var(--font-title);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #d99a28;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: .85;
+}
+
+.wc-title {
+  font-family: var(--font-title);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #f8f4e6;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  letter-spacing: 1px;
+}
+.wc-title-accent {
+  color: #d99a28;
+  text-shadow: 0 0 24px rgba(217,154,40,.35);
+}
+
+.wc-desc {
+  font-family: var(--font-narrative);
+  font-size: 1.15rem;
+  color: #c8dff5;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+.wc-desc strong { color: #ffe186; font-style: normal; }
+
+/* Preview de recompensa */
+.wc-reward-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  background: rgba(217,154,40,.08);
+  border: 1px solid rgba(217,154,40,.25);
+  border-radius: 8px;
+  padding: .65rem 1.1rem;
+  margin-bottom: 1.75rem;
+}
+.wc-reward-preview__badge {
+  font-family: var(--font-title);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c8a8f8;
+  background: rgba(180,130,255,.12);
+  border: 1px solid rgba(180,130,255,.3);
+  border-radius: 4px;
+  padding: .15rem .55rem;
+}
+.wc-reward-preview__name {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffe186;
+}
+.wc-reward-preview__sub {
+  font-family: var(--font-narrative);
+  font-size: .9rem;
+  font-style: italic;
+  color: #7aaad5;
+}
+
+/* Botón principal */
+.wc-claim-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  background: #d99a28;
+  color: #0b1f17;
+  border: none;
+  border-radius: 6px;
+  padding: .85rem 2rem;
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .2s;
+  box-shadow: 0 4px 24px rgba(217,154,40,.3);
+  margin-bottom: .75rem;
+}
+.wc-claim-btn:hover {
+  background: #ffe186;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 32px rgba(217,154,40,.5);
+}
+.wc-claim-btn__icon { font-size: 1.2rem; }
+
+.wc-fine-print {
+  font-family: var(--font-body);
+  font-size: .8rem;
+  color: #ffffff;
+  letter-spacing: .5px;
+}
+
+/* ── COFRE ── */
+.wc-chest-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wc-chest {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: default;
+}
+
+/* Resplandor del cofre */
+.wc-chest__glow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(ellipse, rgba(217,154,40,.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: wc-glow-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wc-glow-pulse {
+  0%, 100% { opacity: .6; transform: scale(1); }
+  50%       { opacity: 1;  transform: scale(1.08); }
+}
+
+/* Partículas */
+.wc-chest__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.wc-particle {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #d99a28;
+  opacity: 0;
+  animation: wc-particle-float 3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * .38s);
+}
+
+@keyframes wc-particle-float {
+  0%   { opacity: 0; transform: translate(-50%, -50%) rotate(calc(var(--i) * 45deg)) translateY(0); }
+  30%  { opacity: .8; }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(calc(var(--i) * 45deg)) translateY(-60px); }
+}
+
+/* Icono del cofre */
+.wc-chest__icon {
+  font-size: 5rem;
+  filter: drop-shadow(0 0 20px rgba(217,154,40,.5));
+  animation: wc-chest-float 4s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes wc-chest-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Estado abriendo */
+.wc-chest--opening .wc-chest__icon {
+  animation: wc-chest-open .8s ease-out forwards;
+}
+.wc-chest--opening .wc-chest__glow {
+  animation: wc-glow-burst .8s ease-out forwards;
+}
+.wc-chest--opening .wc-particle {
+  animation: wc-particle-burst .8s ease-out forwards;
+}
+
+@keyframes wc-chest-open {
+  0%   { transform: scale(1) rotate(0deg); }
+  30%  { transform: scale(1.3) rotate(-5deg); }
+  60%  { transform: scale(.9) rotate(5deg); }
+  100% { transform: scale(1.1) rotate(0deg); opacity: 0; }
+}
+@keyframes wc-glow-burst {
+  0%   { opacity: .5; transform: scale(1); }
+  100% { opacity: 0;  transform: scale(3); }
+}
+@keyframes wc-particle-burst {
+  0%   { opacity: 1; transform: translate(-50%,-50%) rotate(calc(var(--i)*45deg)) translateY(0); }
+  100% { opacity: 0; transform: translate(-50%,-50%) rotate(calc(var(--i)*45deg)) translateY(-100px); }
+}
+
+.wc-chest__label {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #d99a28;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: .7;
+  position: relative;
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════════
+   MODAL DE CARTA
+══════════════════════════════════════════════ */
+.wc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: wc-backdrop-in .3s ease-out;
+}
+
+@keyframes wc-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.wc-modal {
+  background: linear-gradient(160deg, #0d1f36 0%, #071020 100%);
+  border: 1px solid rgba(217,154,40,.35);
+  border-radius: 14px;
+  padding: 2.5rem;
+  max-width: 380px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  animation: wc-modal-in .45s cubic-bezier(.16,1,.3,1);
+}
+
+.wc-modal__top-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #d99a28 30%, #ffe186 50%, #d99a28 70%, transparent);
+}
+
+@keyframes wc-modal-in {
+  from { opacity: 0; transform: scale(.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.wc-modal__eyebrow {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #d99a28;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── CARTA EN EL MODAL ── */
+.wc-card {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #1e3a5e;
+  position: relative;
+  animation: wc-card-reveal .6s .2s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes wc-card-reveal {
+  from { opacity: 0; transform: rotateY(90deg) scale(.8); }
+  to   { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+
+/* Brillo de rareza épica */
+.wc-card--epic {
+  border-color: rgba(180,130,255,.4);
+  box-shadow: 0 0 0 1px rgba(180,130,255,.15), 0 8px 40px rgba(180,130,255,.15);
+}
+
+/* Efecto shine animado */
+.wc-card__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,.06) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: wc-shine 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes wc-shine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.wc-card__rarity-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  z-index: 6;
+  font-family: var(--font-title);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: rgba(180,130,255,.15);
+  color: #c8a8f8;
+  border: 1px solid rgba(180,130,255,.35);
+  border-radius: 4px;
+  padding: .15rem .6rem;
+}
+
+.wc-card__img-wrap {
+  height: 160px;
+  background: #071020;
+  position: relative;
+  overflow: hidden;
+}
+.wc-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: brightness(.85);
+}
+.wc-card__img-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, #0d1f36);
+}
+
+.wc-card__body {
+  padding: 1rem 1.1rem 1.25rem;
+  background: linear-gradient(160deg, #0d1f36 0%, #071020 100%);
+}
+
+.wc-card__name {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #c8a8f8;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+.wc-card__title {
+  font-family: var(--font-narrative);
+  font-size: .9rem;
+  font-style: italic;
+  color: #7aaad5;
+  margin-bottom: .75rem;
+}
+
+.wc-card__stats {
+  display: flex;
+  gap: .4rem;
+  margin-bottom: .75rem;
+}
+.wc-card__stat {
+  font-family: var(--font-title);
+  font-size: .8rem;
+  padding: .15rem .5rem;
+  border-radius: 3px;
+  letter-spacing: .5px;
+}
+.wc-card__stat--hp  { background: rgba(74,154,96,.12);  color: #7aaa8a; border: 1px solid rgba(74,154,96,.2); }
+.wc-card__stat--atk { background: rgba(184,80,80,.12);  color: #e07878; border: 1px solid rgba(184,80,80,.2); }
+.wc-card__stat--spd { background: rgba(217,154,40,.1);  color: #d99a28; border: 1px solid rgba(217,154,40,.2); }
+
+.wc-card__skill {
+  border-top: 1px solid rgba(30,58,94,.8);
+  padding-top: .6rem;
+}
+.wc-card__skill-name {
+  display: block;
+  font-family: var(--font-title);
+  font-size: .85rem;
+  font-weight: 700;
+  color: #99d4ff;
+  margin-bottom: 2px;
+}
+.wc-card__skill-desc {
+  display: block;
+  font-size: .78rem;
+  color: #7aaad5;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.wc-modal__desc {
+  font-family: var(--font-narrative);
+  font-size: .95rem;
+  font-style: italic;
+  color: #7aaad5;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.wc-modal__close {
+  background: #d99a28;
+  color: #0b1f17;
+  border: none;
+  border-radius: 6px;
+  padding: .7rem 1.75rem;
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .2s;
+  box-shadow: 0 4px 20px rgba(217,154,40,.25);
+  width: 100%;
+}
+.wc-modal__close:hover {
+  background: #ffe186;
+  transform: translateY(-2px);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .wc-section { padding: 3rem 2rem; }
+  .wc-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .wc-chest-wrap { display: none; }
+  .wc-title { font-size: 2.2rem; }
+}
+@media (max-width: 600px) {
+  .wc-section { padding: 2.5rem 1.5rem; }
+  .wc-reward-preview { flex-direction: column; align-items: flex-start; gap: .4rem; }
+}

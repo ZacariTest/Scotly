@@ -342,7 +342,7 @@
 }
 
 .inv-card__img-wrap {
-  height: 120px;
+  height: 170px;
   background: #071020;
   overflow: hidden;
   position: relative;
@@ -350,7 +350,9 @@
 .inv-card__img-wrap::after {
   content: "";
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 40px;
   background: linear-gradient(to bottom, transparent, rgba(7,16,32,.9));
 }
@@ -358,7 +360,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(.85);
+  object-position: center top;
+  filter: brightness(.9);
   transition: filter .2s, transform .2s;
 }
 .inv-card:hover:not(.inv-card--disabled) .inv-card__img {
@@ -366,11 +369,13 @@
   transform: scale(1.04);
 }
 
-.inv-card__body { padding: .75rem 1rem 1rem; }
+.inv-card__body {
+  padding: .65rem .85rem .85rem;
+}
 
 .inv-card__name {
   font-family: var(--font-title);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #f8f4e6;
   margin-bottom: 1px;
@@ -381,22 +386,22 @@
 
 .inv-card__title {
   font-family: var(--font-narrative);
-  font-size: .8rem;
+  font-size: .75rem;
   color: #7aaad5;
   font-style: italic;
-  margin-bottom: .6rem;
+  margin-bottom: .45rem;
 }
 
 .inv-card__stats {
   display: flex;
   gap: 5px;
-  margin-bottom: .6rem;
+  margin-bottom: .45rem;
   flex-wrap: wrap;
 }
 .inv-stat {
   font-family: var(--font-title);
-  font-size: .75rem;
-  padding: .15rem .5rem;
+  font-size: .72rem;
+  padding: .15rem .45rem;
   border-radius: 3px;
   letter-spacing: .5px;
 }
@@ -406,23 +411,23 @@
 
 .inv-card__skill {
   border-top: 1px solid rgba(30,58,94,.8);
-  padding-top: .5rem;
+  padding-top: .35rem;
 }
 .inv-card__skill-name {
   display: block;
   font-family: var(--font-title);
-  font-size: .8rem;
+  font-size: .72rem;
   font-weight: 700;
   color: #99d4ff;
-  margin-bottom: 2px;
-  letter-spacing: .5px;
+  margin-bottom: 1px;
+  letter-spacing: .3px;
 }
+
 .inv-card__skill-desc {
   display: block;
-  font-size: .75rem;
+  font-size: .68rem;
   color: #7aaad5;
-  font-style: italic;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 /* ══════════════════════════════════════════════
@@ -517,9 +522,25 @@
 }
 
 .inv-arena__portrait {
-  font-size: 1.6rem;
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(3, 14, 30, 0.9);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.5));
+}
+
+.inv-arena__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .inv-arena__start-btn {

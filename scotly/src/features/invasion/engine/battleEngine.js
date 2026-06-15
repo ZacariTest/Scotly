@@ -33,12 +33,14 @@ function snapshotTeams(player, enemy) {
     player: player.map((c) => ({
       id: c.id,
       name: c.name,
+      img: c.img,
       currentHp: Math.max(0, c.currentHp),
       hp: c.hp,
     })),
     enemy: enemy.map((c) => ({
       id: c.id,
       name: c.name,
+      img: c.img,
       currentHp: Math.max(0, c.currentHp),
       hp: c.hp,
     })),

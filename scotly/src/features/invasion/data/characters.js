@@ -92,7 +92,7 @@ export const CHARACTERS = [
     id: "catriona",
     name: "Catriona",
     title: "La Arquera",
-    img: "/img/chars/catriona.png",
+    img: "/img/catriona.png",
     hp: 85,
     attack: 22,
     speed: 22,

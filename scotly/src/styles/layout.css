@@ -4,6 +4,9 @@
    GLOBAL FIX
 ========================================================== */
 html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--region-primary, #0a1a2e); /* mismo color que el root */
   overflow-x: hidden !important;
 }
 

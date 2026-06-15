@@ -3,6 +3,7 @@ import { useScrollToTop } from "./hooks/useScrollToTop";
 import Home from "./pages/Home";
 import Cursos from "./pages/Cursos";
 import ProfilePage from "./pages/ProfilePage";
+import InventoryPage from "./pages/InventoryPage";
 import Shop from "./pages/Shop";
 import InvasionPage from "./pages/InvasionPage";
 import SobreNosotros from "./pages/SobreNosotros";
@@ -37,6 +38,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/cursos" element={<Cursos />} />
       <Route path="/perfil" element={<ProfilePage />} />
+      <Route path="/inventario" element={<InventoryPage />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/invasion" element={<InvasionPage />} />
       <Route path="/sobre-nosotros" element={<SobreNosotros />} />

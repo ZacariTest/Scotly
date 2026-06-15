@@ -83,6 +83,7 @@ export default function Navbar() {
           {user ? (
             <>
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
+              <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
               <button className="btn btn-secondary text-lg" onClick={handleLogout}>
                 Cerrar sesión
               </button>

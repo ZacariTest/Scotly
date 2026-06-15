@@ -1,0 +1,162 @@
+import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { CHARACTERS } from "../features/invasion/data/characters";
+import "../features/invasion/styles/invasion.css";
+import "../styles/inventory.css";
+
+const RARITY_ORDER = { legendary: 0, epic: 1, rare: 2, common: 3 };
+
+const TABS = [
+  { key: "all",    label: "Todas" },
+  { key: "epic",   label: "Épicas" },
+  { key: "rare",   label: "Raras" },
+  { key: "common", label: "Comunes" },
+];
+
+export default function InventoryPage() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [search, setSearch]       = useState("");
+  const [sort, setSort]           = useState("rarity");
+  const [activeTab, setActiveTab] = useState("all");
+
+  if (!user) { navigate("/"); return null; }
+
+  // Mock: el usuario tiene todas las cartas.
+
+  const inventory = CHARACTERS;
+
+  const filtered = useMemo(() => {
+    return inventory
+      .filter((c) => {
+        if (activeTab !== "all" && c.rarity !== activeTab) return false;
+        return (
+          c.name.toLowerCase().includes(search.toLowerCase()) ||
+          c.title.toLowerCase().includes(search.toLowerCase())
+        );
+      })
+      .sort((a, b) => {
+        if (sort === "name")   return a.name.localeCompare(b.name);
+        if (sort === "hp")     return b.hp - a.hp;
+        if (sort === "atk")    return b.attack - a.attack;
+        if (sort === "rarity") return RARITY_ORDER[a.rarity] - RARITY_ORDER[b.rarity];
+        return 0;
+      });
+  }, [inventory, search, sort, activeTab]);
+
+  const stats = {
+    total:  inventory.length,
+    epic:   inventory.filter((c) => c.rarity === "epic").length,
+    rare:   inventory.filter((c) => c.rarity === "rare").length,
+    common: inventory.filter((c) => c.rarity === "common").length,
+  };
+
+  return (
+    <>
+      <Navbar />
+      <main className="inv-page invent-page">
+
+        {/* BANNER */}
+        <div className="invent-banner">
+          <div className="invent-banner__glow" />
+          <h1 className="invent-banner__title">Inventario</h1>
+          <p className="invent-banner__sub">TUS GUERREROS</p>
+
+          <div className="invent-banner__badges">
+            <div className="invent-banner__badge invent-banner__badge--total">
+              <span>{stats.total}</span> cartas
+            </div>
+            <div className="invent-banner__badge invent-banner__badge--epic">
+              <span>{stats.epic}</span> épicas
+            </div>
+            <div className="invent-banner__badge invent-banner__badge--rare">
+              <span>{stats.rare}</span> raras
+            </div>
+            <div className="invent-banner__badge">
+              <span>{stats.common}</span> comunes
+            </div>
+          </div>
+        </div>
+
+        {/* TABS + TOOLBAR */}
+        <div className="invent-controls">
+          <div className="invent-tabs">
+            {TABS.map((t) => (
+              <button
+                key={t.key}
+                className={`invent-tab ${activeTab === t.key ? "invent-tab--active" : ""}`}
+                onClick={() => setActiveTab(t.key)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          <div className="invent-toolbar">
+            <input
+              className="invent-search"
+              type="text"
+              placeholder="Buscar…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <select
+              className="invent-sort"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="rarity">Rareza</option>
+              <option value="name">Nombre A-Z</option>
+              <option value="hp">Mayor HP</option>
+              <option value="atk">Mayor ATK</option>
+            </select>
+          </div>
+        </div>
+
+        {/* GRID */}
+        {filtered.length === 0 ? (
+          <p className="invent-empty">No se encontraron cartas.</p>
+        ) : (
+          <div className="invent-grid">
+            {filtered.map((card) => (
+              <div key={card.id} className={`inv-card inv-card--${card.rarity}`}>
+
+                <span className="inv-card__rarity-label">{card.rarity}</span>
+
+                <div className="inv-card__img-wrap">
+                  <img
+                    className="inv-card__img"
+                    src={card.img}
+                    alt={card.name}
+                    onError={(e) => { e.target.style.display = "none"; }}
+                  />
+                </div>
+
+                <div className="inv-card__body">
+                  <p className="inv-card__name">{card.name}</p>
+                  <p className="inv-card__title">{card.title}</p>
+
+                  <div className="inv-card__stats">
+                    <span className="inv-stat inv-stat--hp">❤ {card.hp}</span>
+                    <span className="inv-stat inv-stat--atk">⚔ {card.attack}</span>
+                    <span className="inv-stat inv-stat--spd">⚡ {card.speed}</span>
+                  </div>
+
+                  <div className="inv-card__skill">
+                    <span className="inv-card__skill-name">{card.skill.name}</span>
+                    <span className="inv-card__skill-desc">{card.skill.description}</span>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        )}
+
+      </main>
+      <Footer />
+    </>
+  );
+}

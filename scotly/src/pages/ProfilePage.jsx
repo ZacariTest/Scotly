@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/profile.css";
+import { loadActiveRegion } from "../constants/regionThemes";
 
 const MOCK_COURSES = [
   { name: "Arte Celta",           tag: "Gratis",      tagType: "free", progress: 82  },
@@ -13,9 +14,9 @@ const MOCK_COURSES = [
 ];
 
 const MOCK_DECK = [
-  { name: "Macallan",   rarity: "epic",   hp: 95, atk: 72 },
-  { name: "Lagavulin",  rarity: "rare",   hp: 80, atk: 88 },
-  { name: "Glenfarclas",rarity: "common", hp: 70, atk: 55 },
+  { name: "Macallan",    rarity: "epic",   hp: 95, atk: 72 },
+  { name: "Lagavulin",   rarity: "rare",   hp: 80, atk: 88 },
+  { name: "Glenfarclas", rarity: "common", hp: 70, atk: 55 },
 ];
 
 export default function ProfilePage() {
@@ -24,7 +25,6 @@ export default function ProfilePage() {
 
   const [prefs, setPrefs] = useState({
     idioma: "Español",
-    modoOscuro: "Sistema",
     notificaciones: "Activadas",
   });
 
@@ -34,6 +34,12 @@ export default function ProfilePage() {
   }
 
   const initials = user.username.slice(0, 2).toUpperCase();
+
+  const REGION_LABELS = { sc: "Escocia", en: "Inglaterra", wa: "Gales" };
+  const REGION_ICONS  = { sc: "⚔", en: "👑", wa: "🐉" };
+  const activeCode    = loadActiveRegion();
+  const regionLabel   = REGION_LABELS[activeCode] ?? "Escocia";
+  const regionIcon    = REGION_ICONS[activeCode]  ?? "⚔";
 
   const handleLogout = () => {
     logout();
@@ -60,7 +66,7 @@ export default function ProfilePage() {
               <div className="profile-avatar-wrap">
                 <div className="profile-avatar">{initials}</div>
                 <button className="profile-avatar-cam" title="Cambiar foto">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7aaad5" strokeWidth="2">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                     <circle cx="12" cy="13" r="4"/>
                   </svg>
@@ -68,7 +74,7 @@ export default function ProfilePage() {
               </div>
               <p className="profile-username">{user.username}</p>
               <p className="profile-email">{user.email}</p>
-              <span className="profile-region-badge">⚔ Escocia — Activa</span>
+              <span className="profile-region-badge">{regionIcon} Región activa: {regionLabel}</span>
             </div>
 
             <div className="profile-fav-card">
@@ -118,7 +124,7 @@ export default function ProfilePage() {
                 </div>
 
                 <button className="pmc-add">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7aaad5" strokeWidth="2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                   </svg>
                   <span>Agregar carta</span>
@@ -160,22 +166,22 @@ export default function ProfilePage() {
               <h2 className="profile-section__title">Preferencias</h2>
               <div className="profile-pref">
                 <span className="profile-pref__label">Idioma</span>
-                <select className="profile-select" value={prefs.idioma} onChange={(e) => setPrefs({ ...prefs, idioma: e.target.value })}>
+                <select
+                  className="profile-select"
+                  value={prefs.idioma}
+                  onChange={(e) => setPrefs({ ...prefs, idioma: e.target.value })}
+                >
                   <option>Español</option>
                   <option>English</option>
                 </select>
               </div>
               <div className="profile-pref">
-                <span className="profile-pref__label">Modo oscuro</span>
-                <select className="profile-select" value={prefs.modoOscuro} onChange={(e) => setPrefs({ ...prefs, modoOscuro: e.target.value })}>
-                  <option>Sistema</option>
-                  <option>Siempre</option>
-                  <option>Nunca</option>
-                </select>
-              </div>
-              <div className="profile-pref">
                 <span className="profile-pref__label">Notificaciones</span>
-                <select className="profile-select" value={prefs.notificaciones} onChange={(e) => setPrefs({ ...prefs, notificaciones: e.target.value })}>
+                <select
+                  className="profile-select"
+                  value={prefs.notificaciones}
+                  onChange={(e) => setPrefs({ ...prefs, notificaciones: e.target.value })}
+                >
                   <option>Activadas</option>
                   <option>Solo email</option>
                   <option>Desactivadas</option>
@@ -245,7 +251,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 <button className="profile-deck-add">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7aaad5" strokeWidth="2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                   </svg>
                   <span>Agregar</span>

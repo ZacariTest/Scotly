@@ -17,7 +17,7 @@
 /* ── SIDEBAR COMPARTIDA ── */
 .ci-sidebar,
 .ci-rewards {
-  background: color-mix(in srgb, var(--region-primary) 70%, transparent);
+  background: color-mix(in srgb, var(--region-primary) 92%, transparent);
   padding: 1.75rem;
   border-radius: 10px;
   border: 1px solid var(--region-border);
@@ -100,7 +100,7 @@
 
 /* ── CONTENIDO PRINCIPAL ── */
 .ci-content {
-  background: color-mix(in srgb, var(--region-primary) 60%, transparent);
+  background: color-mix(in srgb, var(--region-primary) 89%, transparent);
   padding: 2.5rem;
   border-radius: 10px;
   border: 1px solid var(--region-border);

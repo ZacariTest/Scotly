@@ -28,127 +28,300 @@ html, body {
   line-height: 1.6;
   min-height: 100vh;
   transition: background-color 0.6s ease, background-image 0.6s ease;
+    --navbar-height: 75px;
+  --navbar-height-mobile: 58px;
 }
 
 /* ==========================================================
    NAVBAR
 ========================================================== */
 .navbar {
-  @apply flex justify-between items-center px-8 py-5;
-  background: transparent;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
-  border-bottom: none;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 75px;
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 92%, #000);
+  border-bottom: 1px solid color-mix(in srgb, var(--region-accent, #5b9bd5) 20%, transparent);
+  backdrop-filter: blur(12px);
   box-shadow: none;
+  transition: background 0.6s ease, border-color 0.6s ease;
+}
+
+/* Línea dorada inferior decorativa */
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 55%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(217,154,40,0.35), transparent);
+  pointer-events: none;
+}
+
+/* ── IZQUIERDA — hamburger + logo ── */
+.navbar__left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.navbar__brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: 1.1;
+  cursor: pointer;
 }
 
 .nav-logo {
-  @apply text-3xl font-bold text-[var(--color-secondary)];
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-secondary, #f8f4e6);
+  letter-spacing: 1px;
 }
 
-.nav-buttons {
-  @apply flex gap-3;
+.nav-subtitle {
+  font-size: 0.52rem;
+  color: #d99a28;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-top: 1px;
 }
+
+/* ── CENTRO — links desktop ── */
+.navbar__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  flex: 1;
+  padding: 0 1.5rem;
+}
+
+.navbar__link {
+  position: relative;
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #f8f4e6));
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.navbar__link:hover {
+  color: #f8f4e6;
+  background: color-mix(in srgb, var(--region-accent, #5b9bd5) 10%, transparent);
+}
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  bottom: 2px; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 55%;
+  height: 1px;
+  background: #d99a28;
+  transition: transform 0.2s ease;
+}
+.navbar__link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ── DERECHA — perfil o auth ── */
+.navbar__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+/* Botones auth (sin sesión) */
+
+.navbar__inv-link {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #f8f4e6));
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+
+.navbar__inv-link:hover {
+  color: #f8f4e6;
+  background: color-mix(in srgb, var(--region-accent, #5b9bd5) 10%, transparent);
+}
+
 
 .btn {
-  @apply px-5 py-2 rounded-lg font-medium transition border border-transparent;
+  padding: 0.45rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
 }
-
 .btn-primary {
-  @apply bg-[var(--color-accent)] text-[var(--color-primary)] hover:opacity-90;
+  background: var(--color-accent, #ffc61c);
+  color: var(--color-primary, #0a1a2e);
 }
+.btn-primary:hover { opacity: 0.9; }
 
 .btn-secondary {
-  @apply px-5 py-2 rounded-lg font-medium transition border;
-  background: color-mix(in srgb, var(--region-primary) 95%, #000);
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
-  transition: background 0.2s, color 0.2s;
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 95%, #000);
+  border-color: var(--color-secondary, #f8f4e6);
+  color: var(--color-secondary, #f8f4e6);
 }
 .btn-secondary:hover {
-  background: var(--color-secondary);
-  color: var(--region-primary);
+  background: var(--color-secondary, #f8f4e6);
+  color: var(--region-primary, #0a1a2e);
 }
 
+/* Badge evento */
 .nav-event-badge {
   background: rgba(255,198,28,0.15);
   color: #ffc61c;
   border: 1px solid rgba(255,198,28,0.3);
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 1px 6px;
+  padding: 1px 5px;
   border-radius: 2px;
-  margin-left: 6px;
+  margin-left: 5px;
   vertical-align: middle;
 }
 
-/* ==========================================================
-   NAV SUBTITLE
-========================================================== */
-.nav-subtitle {
-  font-size: 0.55rem;
-  color: #9a8a6a;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-top: 2px;
-  white-space: nowrap;
+/* ── HAMBURGER — solo mobile ── */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--region-accent, #5b9bd5) 30%, transparent);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
 }
-
-@media (max-width: 768px) {
-  .navbar {
-    @apply px-4 py-3;
-    position: fixed;
-    background: color-mix(in srgb, var(--region-primary) 95%, #000);
-    transition: background 0.6s ease;
-  }
-  .nav-buttons  { display: none; }
-  .nav-logo     { font-size: 1.6rem; }
-  .nav-subtitle { font-size: 0.42rem; letter-spacing: 2px; }
-  .hamburger    { display: inline-block; }
+.hamburger:hover {
+  border-color: #d99a28;
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 60%, #000);
 }
+.hamburger__line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-secondary, #f8f4e6);
+  transition: background 0.2s;
+}
+.hamburger:hover .hamburger__line { background: #d99a28; }
 
 /* ==========================================================
    MOBILE MENU
 ========================================================== */
-.hamburger {
-  font-size: 1.5rem;
-  line-height: 1;
-  transition: transform 0.3s ease;
-}
-.hamburger:hover {
-  transform: scale(1.1);
-  color: #ffdb6e;
-}
-
 .mobile-menu {
   position: fixed;
   top: 0;
   left: -100%;
-  width: 70%;
+  width: min(75%, 300px);
   height: 100vh;
-  background: color-mix(in srgb, var(--region-primary) 97%, #000);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 97%, #000);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid color-mix(in srgb, var(--region-accent, #5b9bd5) 20%, transparent);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  transition: left 0.4s ease-in-out, background 0.6s ease;
+  align-items: flex-start;
+  padding: 2rem 2rem;
+  gap: 0;
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.6s ease;
   z-index: 50;
 }
-.mobile-menu.active { left: 0; }
-.mobile-menu a {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-secondary);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-  transition: 0.2s;
+.mobile-menu::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, #d99a28, transparent);
 }
-.mobile-menu a:hover { color: #ffdb6e; }
+.mobile-menu.active { left: 0; }
+
+.mobile-menu a {
+  width: 100%;
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-secondary, #f8f4e6) 80%, transparent);
+  text-decoration: none;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--region-accent, #5b9bd5) 12%, transparent);
+  letter-spacing: 0.5px;
+  transition: color 0.2s, padding-left 0.2s;
+  text-shadow: none;
+}
+.mobile-menu a:hover {
+  color: #d99a28;
+  padding-left: 6px;
+}
+.mobile-menu .btn {
+  margin-top: 1.25rem;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+@media (max-width: 1024px) {
+  .navbar__center { display: none; }
+  .hamburger      { display: flex; }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+    height: 58px;
+  }
+  .nav-logo     { font-size: 1.25rem; }
+  .nav-subtitle { font-size: 0.42rem; letter-spacing: 2px; }
+  /* El chip de perfil se oculta en mobile — accesible desde menú */
+  .navbar__right { display: none; }
+}
+
+@media (max-width: 480px) {
+  .nav-subtitle {
+    font-size: 0.38rem;
+    letter-spacing: 1.5px;
+  }
+}
+
+
 /* ==========================================================
    HERO
 ========================================================== */
@@ -651,7 +824,7 @@ html, body {
 }
 
 .courses-col__label {
-  font-size: 0.65rem;
+  font-size: 1.2rem;
   color: #ffc61c;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -981,7 +1154,7 @@ html, body {
 
 .shop-banner {
   background: color-mix(in srgb, var(--region-primary) 90%, #000);
-  padding: 36px 24px 28px;
+  padding: calc(75px + 36px) 24px 28px;
   text-align: center;
   border-bottom: 1px solid var(--region-border);
   position: relative;
@@ -1195,6 +1368,9 @@ html, body {
   .shop-featured { flex-direction: column; text-align: center; }
   .shop-featured-btn { width: 100%; }
   .shop-grid { grid-template-columns: 1fr 1fr; padding: 0 12px; }
+    .shop-banner {
+    padding: calc(58px + 24px) 24px 20px;
+  }
 }
 @media (max-width: 480px) {
   .shop-grid { grid-template-columns: 1fr; }
@@ -1632,5 +1808,29 @@ html, body {
   .cp-region-tab {
     font-size: 0.8rem;
     padding: 0.4rem 0.65rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================
+   MAIN CONTENT — offset navbar fija
+========================================================== */
+main {
+  padding-top: 75px;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding-top: 58px;
   }
 }

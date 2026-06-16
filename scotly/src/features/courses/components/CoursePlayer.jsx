@@ -123,8 +123,8 @@ export default function CoursePlayer({ course }) {
                       className="cp-reward-card__img"
                     />
                     <div className="cp-reward-card__info">
-                      <h3>William Wallace</h3>
-                      <p>Personaje histórico (Carta)</p>
+                      <h3>Carta común</h3>
+                      <p>Personaje</p>
                     </div>
                   </div>
                 </div>

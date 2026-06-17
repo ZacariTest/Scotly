@@ -19,7 +19,7 @@ export default function Shop() {
 
   const data = {
     personajes: [
-      { name: "Cocaine Bear", img: "/img/CB5.jpg", price: 100, rarity: "epic" },
+      { name: "Alasdair", img: "/img/Alasdair.png", price: 100, rarity: "epic" },
     ],
     cosmeticos: [
       { name: "Ropajes", img: "/img/KI.JPG", price: 50, rarity: "epic" },

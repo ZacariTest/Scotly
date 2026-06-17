@@ -38,7 +38,7 @@ export const course = {
       title: "El Tapiz de Bayeux",
       img: "/img/Ing-Art2.jpg",
       body: [
-        "El **Tapiz de Bayeux** es una de las obras más extraordinarias del arte medieval. Con casi 70 metros de largo, narra en hilo bordado la conquista normanda de Inglaterra — desde la muerte del rey Eduardo el Confesor hasta la Batalla de Hastings en 1066. Es a la vez una obra de arte, un documento histórico y una pieza de propaganda política.",
+        "El **Tapiz de Bayeux** es una de las obras más extraordinarias del arte medieval. Con casi 70 metros de largo, narra en hilo bordado la conquista normanda de Inglaterra, desde la muerte del rey Eduardo el Confesor hasta la Batalla de Hastings en 1066. Es a la vez una obra de arte, un documento histórico y una pieza de propaganda política.",
         "Aunque su nombre lo asocia a la ciudad francesa de Bayeux, fue casi con certeza **bordado en Inglaterra**, probablemente en Canterbury. Más de 50 escenas representan batallas, banquetes, preparativos militares y señales astronómicas como el **cometa Halley**, visible ese año y leído como un presagio de la invasión.",
       ],
     },
@@ -65,7 +65,7 @@ export const course = {
       img: "/img/Ing-Art3.jpg",
       body: [
         "El estilo **gótico inglés** se desarrolló a partir del siglo XII con características propias que lo diferencian del gótico continental. Mientras las catedrales francesas apuntan al cielo con torres gemelas, las inglesas se extienden horizontalmente, con largas naves y torres centrales. La **Catedral de Salisbury**, con su aguja de 123 metros, es el ejemplo más puro.",
-        "El interior de estas catedrales era un espectáculo de luz filtrada por **vidrieras emplomadas** que representaban escenas bíblicas en colores imposibles — azules cobalto, rojos carmesí y amarillos dorados. La vidriera más antigua de Inglaterra, en la Catedral de Canterbury, data del siglo XII y sigue intacta.",
+        "El interior de estas catedrales era un espectáculo de luz filtrada por **vidrieras emplomadas** que representaban escenas bíblicas en colores imposibles, azules cobalto, rojos carmesí y amarillos dorados. La vidriera más antigua de Inglaterra, en la Catedral de Canterbury, data del siglo XII y sigue intacta.",
       ],
     },
     {
@@ -91,7 +91,7 @@ export const course = {
       img: "/img/Ing-Art5.jpg",
       body: [
         "El arte medieval inglés vive en sus catedrales, muchas de las cuales siguen siendo centros activos de culto y turismo. La **Abadía de Westminster** es simultáneamente iglesia real, museo, panteón nacional y sede de coronaciones, una acumulación de arte y historia sin paralelo en el mundo.",
-        "En el siglo XIX, el movimiento **Arts and Crafts** liderado por William Morris revivió las técnicas medievales inglesas, el bordado, la ilustración de manuscritos y la vidriera — como reacción contra la industrialización. Este renacimiento influyó en el diseño moderno y puede rastrearse hasta la estética del **Art Nouveau** y más tarde en Tolkien, que se inspiró profundamente en el arte anglosajón para crear la Tierra Media.",
+        "En el siglo XIX, el movimiento **Arts and Crafts** liderado por William Morris revivió las técnicas medievales inglesas, el bordado, la ilustración de manuscritos y la vidriera, como reacción contra la industrialización. Este renacimiento influyó en el diseño moderno y puede rastrearse hasta la estética del **Art Nouveau** y más tarde en Tolkien, que se inspiró profundamente en el arte anglosajón para crear la Tierra Media.",
       ],
     },
     {

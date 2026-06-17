@@ -11,7 +11,7 @@ export const introArte = {
   playerRoute: "/curso/arte/player",
   stepCount: 8,
   description:
-    "Explorá los nudos, espirales y cruces que los celtas esculpieron en piedra, tejieron en tela y pintaron en pergamino. Este curso recorre el arte celta desde sus orígenes en la Edad del Hierro hasta su influencia en el diseño moderno — con desafíos en cada etapa para poner a prueba lo que aprendiste.",
+    "Explorá los nudos, espirales y cruces que los celtas esculpieron en piedra, tejieron en tela y pintaron en pergamino. Este curso recorre el arte celta desde sus orígenes en la Edad del Hierro hasta su influencia en el diseño moderno.",
   topics: [
     "Orígenes del arte celta en las islas británicas",
     "Los nudos celtas y su simbolismo eterno",
@@ -57,7 +57,7 @@ export const introHistory = {
   playerRoute: "/curso/history/player",
   stepCount: 8,
   description:
-    "Desde los misteriosos pictos hasta la Ilustración Escocesa, este curso recorre los momentos que definieron a Escocia como nación. Conocé a William Wallace, Robert the Bruce y Adam Smith — y superá cuatro desafíos históricos para demostrar que conocés las Highlands tan bien como sus propios habitantes.",
+    "Desde los misteriosos pictos hasta la Ilustración Escocesa, este curso recorre los momentos que definieron a Escocia como nación. Conocé a William Wallace, Robert the Bruce y Adam Smith y superá cuatro desafíos históricos para demostrar que conocés la cultura tan bien como sus propios habitantes.",
   topics: [
     "Los pueblos fundadores: pictos y gaélicos",
     "Las Guerras de Independencia",
@@ -80,7 +80,7 @@ export const introMitologia = {
   playerRoute: "/curso/mitologia/player",
   stepCount: 8,
   description:
-    "Adentrarte en el folclore escocés es cruzar el límite entre lo real y lo sobrenatural. Este curso explora las criaturas más fascinantes y perturbadoras de la mitología gaélica — del kelpie que acecha en los lagos a las selkies que lloran en la costa — con cuatro desafíos para ver si sobrevivís al mundo de los espíritus.",
+    "Adentrarte en el folclore escocés es cruzar el límite entre lo real y lo sobrenatural. Este curso explora las criaturas más fascinantes y perturbadoras de la mitología gaélica del kelpie que acecha en los lagos a las selkies que lloran en la costa con cuatro desafíos para aprender y ganar recompensas.",
   topics: [
     "El mundo sobrenatural escocés",
     "El kelpie: el caballo del agua",

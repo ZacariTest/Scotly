@@ -7,11 +7,11 @@ export const introArteEngland = {
   category: "Arte",
   title: "Arte Medieval Inglés",
   subtitle: "Iluminaciones, catedrales y tapices que definieron la Edad Media.",
-  img: "/img/Arte.jpg",
+  img: "/img/Ing-Art4.jpg",
   playerRoute: "/curso/england/arte/player",
   stepCount: 8,
   description:
-    "Desde el Tapiz de Bayeux hasta las vidrieras góticas de Canterbury — este curso explora el arte que la Iglesia y la nobleza inglesa dejaron como herencia al mundo. Cuatro lecturas y cuatro desafíos para descubrir cómo la piedra, el hilo y el vidrio contaron la historia de una nación.",
+    "Desde el Tapiz de Bayeux hasta las vidrieras góticas de Canterbury. Este curso corto explora el arte que la Iglesia y la nobleza inglesa dejaron como herencia al mundo. Cuatro lecturas y cuatro desafíos para descubrir cómo la piedra, el hilo y el vidrio contaron la historia de una nación.",
   topics: [
     "El arte en la Inglaterra medieval",
     "El Tapiz de Bayeux",

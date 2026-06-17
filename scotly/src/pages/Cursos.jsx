@@ -43,7 +43,7 @@ const COURSES = {
     {
       category: "Arte",
       items: [
-        { name: "Arte Medieval Inglés", desc: "Iluminaciones, catedrales y tapices — el arte que la Iglesia y la nobleza dejaron como herencia al mundo.", img: "/img/Arte.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/arte" },
+        { name: "Arte Medieval Inglés", desc: "Iluminaciones, catedrales y tapices — el arte que la Iglesia y la nobleza dejaron como herencia al mundo.", img: "/img/Ing-Art4.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/arte" },
       ],
     },
     {

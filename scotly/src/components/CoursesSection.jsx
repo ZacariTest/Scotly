@@ -29,7 +29,7 @@ const REGION_CONTENT = {
     left: {
       label: "Cursos destacados",
       courses: [
-        { img: "/img/Arte.jpg", alt: "Arte Medieval", tag: "Inglaterra", tagClass: "region-en", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
+        { img: "/img/Ing-Art4.jpg", alt: "Arte Medieval", tag: "Inglaterra", tagClass: "region-en", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
         { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Inglaterra", tagClass: "region-en", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
       ],
     },

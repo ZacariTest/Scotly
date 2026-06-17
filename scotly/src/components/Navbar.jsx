@@ -65,7 +65,6 @@ export default function Navbar() {
         </nav>
 
         {/* DERECHA — chip de perfil o botones auth */}
-        {/* DERECHA — chip de perfil o botones auth */}
         <div className="navbar__right">
           {user ? (
             <>

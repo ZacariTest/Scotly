@@ -8,7 +8,7 @@ export const REGION_THEMES = {
     "--region-muted":   "#a3ccf0",
     "--region-btn":     "#5b9bd5",
     "--color-primary":  "#0a1a2e",
-    bgImage: "url('/img/bg-scotland.png')",
+    bgImage: "url('/img/Sco.jpeg')",
   },
   england: {
     "--region-primary": "#1a0808",
@@ -19,7 +19,7 @@ export const REGION_THEMES = {
     "--region-muted":   "#f5c0c0",
     "--region-btn":     "#b85050",
     "--color-primary":  "#1a0808",
-    bgImage: "url('/img/inglaterra.jpg')",
+    bgImage: "url('/img/Ing.jpg')",
   },
   wales: {
     "--region-primary": "#0d2318",

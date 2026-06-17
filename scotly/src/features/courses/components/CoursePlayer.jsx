@@ -48,7 +48,15 @@ export default function CoursePlayer({ course }) {
     }
   };
 
-  const isQuiz = step.type === "quiz";
+const isQuiz = step.type === "quiz";
+
+// Imagen del reading step que precede al quiz actual
+const precedingImg = (() => {
+  for (let i = currentStep - 1; i >= 0; i--) {
+    if (course.steps[i].img) return course.steps[i].img;
+  }
+  return course.img;
+})();
 
   return (
     <>
@@ -83,10 +91,9 @@ export default function CoursePlayer({ course }) {
                     Comprobá lo que aprendiste
                   </p>
                 </div>
-
-                <div className="cp-quiz-img-container">
-                  <img src={course.img} alt={course.title} />
-                </div>
+<div className="cp-quiz-img-container">
+  <img src={precedingImg} alt={course.title} />
+</div>
               </>
             ) : (
               <ReadingStep step={step} stepNumber={currentStep + 1} />

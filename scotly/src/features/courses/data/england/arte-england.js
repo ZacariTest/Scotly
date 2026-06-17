@@ -3,7 +3,7 @@ export const course = {
   region: "england",
   title: "Arte Medieval Inglés",
   subtitle: "Iluminaciones, catedrales y tapices que definieron la Edad Media",
-  img: "/img/Arte.jpg",
+  img: "/img/Ing-Art5.jpg",
 
   steps: [
     {

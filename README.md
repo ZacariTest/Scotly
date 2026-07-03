@@ -1,6 +1,6 @@
 Scotly
 
-Scotly es una plataforma de fantasía cultural inspirada en la mitología y la estética escocesas.
+Scotly es una plataforma de fantasía cultural inspirada en la mitología y la estética de Gran bretaña.
 
 El proyecto combina:
 - Elementos visuales

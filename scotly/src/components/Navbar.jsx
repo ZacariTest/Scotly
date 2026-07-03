@@ -68,6 +68,10 @@ export default function Navbar() {
         <div className="navbar__right">
           {user ? (
             <>
+              <div className="navbar__coins" title="Tus monedas">
+                <span className="navbar__coins-icon">Monedas 🪙</span>
+                <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
+              </div>
               <Link to="/inventario" className="navbar__inv-link" title="Mi inventario">
                 Inventario
               </Link>
@@ -101,6 +105,10 @@ export default function Navbar() {
 
           {user ? (
             <>
+              <div className="navbar__coins navbar__coins--mobile" title="Tus monedas">
+                <span className="navbar__coins-icon">🪙</span>
+                <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
+              </div>
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
               <button className="btn btn-secondary" style={{ marginTop: "1.25rem" }} onClick={handleLogout}>

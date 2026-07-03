@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import AuthModal from "../components/AuthModal";
 import RegionsSection from "../components/RegionsSection";
 import { applyRegionTheme, saveActiveRegion } from "../constants/regionThemes";
+import { useAuth } from "../context/AuthContext";
 
 const SHORT_TO_LONG = {
   sc: "scotland",
@@ -23,6 +24,7 @@ const LONG_TO_SHORT = {
 
 export default function Home() {
   const [authOpen, setAuthOpen] = useState(false);
+  const { user } = useAuth();
 
   const [activeRegion, setActiveRegion] = useState(() => {
     const saved = localStorage.getItem("activeRegion");
@@ -50,10 +52,9 @@ export default function Home() {
         <Hero activeRegion={activeRegion} />
         <RegionsSection activeRegion={activeRegion} onSelect={handleRegionSelect} />
 
-        {/* ← única línea que cambia */}
         <Presentation
           onOpenAuth={() => setAuthOpen(true)}
-          userLoggedIn={false}
+          userLoggedIn={!!user}
         />
 
         <CoursesSection activeRegion={activeRegion} />

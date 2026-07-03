@@ -1,27 +1,41 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import "../styles/welcome-chest.css";
 
-// Carta de regalo de bienvenida
-const WELCOME_CARD = {
-  name: "Bonnie",
-  title: "Espíritu de las Highlands",
-  rarity: "epic",
-  img: "/img/Bonnie-3.png",
-  description: "Solo los viajeros que llegaron en los primeros días la conocieron.",
-  stats: { hp: 120, atk: 18, spd: 22 },
-  skill: { name: "Llamado del Bosque", desc: "Otorga +30% de ataque a todos los aliados por 2 turnos." },
-};
-
 export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
-  const [phase, setPhase] = useState("idle"); // idle | opening | revealed | claimed
+  const { authFetch } = useAuth();
+  const [phase, setPhase] = useState("idle"); // idle | opening | revealed | claimed | error
+  const [carta, setCarta] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleClaim = () => {
+  const handleClaim = async () => {
     if (!userLoggedIn) {
       onOpenAuth?.();
       return;
     }
+
     setPhase("opening");
-    setTimeout(() => setPhase("revealed"), 1400);
+
+    try {
+      const res = await authFetch("/api/regalos/reclamar-bienvenida", {
+        method: "POST",
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErrorMsg(data.error === "Ya reclamaste este regalo"
+          ? "Ya reclamaste tu carta de bienvenida."
+          : "No se pudo abrir el cofre. Intentá de nuevo.");
+        setPhase("error");
+        return;
+      }
+
+      setCarta(data.carta);
+      setTimeout(() => setPhase("revealed"), 1400);
+    } catch (err) {
+      setErrorMsg("No se pudo conectar con el servidor.");
+      setPhase("error");
+    }
   };
 
   const handleClose = () => setPhase("claimed");
@@ -33,14 +47,11 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
       {/* SECCIÓN PRINCIPAL */}
       <section className="wc-section">
 
-        {/* Línea decorativa superior */}
         <div className="wc-top-line" />
 
         <div className="wc-inner">
 
-          {/* Lado izquierdo — texto y CTA */}
           <div className="wc-content">
-
 
             <h2 className="wc-title">
               Un regalo<br />
@@ -57,17 +68,22 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
               <span className="wc-reward-preview__sub">Guía de las Highlands</span>
             </div>
 
-            <button className="wc-claim-btn" onClick={handleClaim}>
+            <button className="wc-claim-btn" onClick={handleClaim} disabled={phase === "opening"}>
               <span className="wc-claim-btn__icon">🎁</span>
-              {userLoggedIn ? "Abrir cofre" : "Reclamar — Iniciar sesión"}
+              {userLoggedIn ? (phase === "opening" ? "Abriendo..." : "Abrir cofre") : "Reclamar — Iniciar sesión"}
             </button>
+
+            {phase === "error" && (
+              <p style={{ color: "#ff6b6b", fontSize: "0.85rem", marginTop: "0.5rem" }}>
+                {errorMsg}
+              </p>
+            )}
 
             <p className="wc-fine-print">
               Disponible solo durante el período de lanzamiento · Una carta por cuenta
             </p>
           </div>
 
-          {/* Lado derecho — cofre animado */}
           <div className="wc-chest-wrap">
             <div className={`wc-chest ${phase === "opening" ? "wc-chest--opening" : ""}`}>
               <div className="wc-chest__glow" />
@@ -91,7 +107,7 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
       </section>
 
       {/* MODAL DE CARTA REVELADA */}
-      {phase === "revealed" && (
+      {phase === "revealed" && carta && (
         <div className="wc-modal-backdrop" onClick={handleClose}>
           <div className="wc-modal" onClick={e => e.stopPropagation()}>
 
@@ -99,33 +115,33 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
 
             <p className="wc-modal__eyebrow">✨ Carta desbloqueada</p>
 
-            <div className={`wc-card wc-card--${WELCOME_CARD.rarity}`}>
+            <div className={`wc-card wc-card--${carta.rareza}`}>
               <div className="wc-card__shine" />
-              <div className="wc-card__rarity-badge">{WELCOME_CARD.rarity}</div>
+              <div className="wc-card__rarity-badge">{carta.rareza}</div>
 
               <div className="wc-card__img-wrap">
-                <img src={WELCOME_CARD.img} alt={WELCOME_CARD.name} className="wc-card__img" />
+                <img src={carta.imagen} alt={carta.nombre} className="wc-card__img" />
                 <div className="wc-card__img-overlay" />
               </div>
 
               <div className="wc-card__body">
-                <p className="wc-card__name">{WELCOME_CARD.name}</p>
-                <p className="wc-card__title">{WELCOME_CARD.title}</p>
+                <p className="wc-card__name">{carta.nombre}</p>
+                <p className="wc-card__title">Guía de las Highlands</p>
 
                 <div className="wc-card__stats">
-                  <span className="wc-card__stat wc-card__stat--hp">❤ {WELCOME_CARD.stats.hp}</span>
-                  <span className="wc-card__stat wc-card__stat--atk">⚔ {WELCOME_CARD.stats.atk}</span>
-                  <span className="wc-card__stat wc-card__stat--spd">⚡ {WELCOME_CARD.stats.spd}</span>
+                  <span className="wc-card__stat wc-card__stat--hp">❤ {carta.hp}</span>
+                  <span className="wc-card__stat wc-card__stat--atk">⚔ {carta.ataque}</span>
+                  <span className="wc-card__stat wc-card__stat--spd">⚡ {carta.velocidad}</span>
                 </div>
 
                 <div className="wc-card__skill">
-                  <span className="wc-card__skill-name">{WELCOME_CARD.skill.name}</span>
-                  <span className="wc-card__skill-desc">{WELCOME_CARD.skill.desc}</span>
+                  <span className="wc-card__skill-name">{carta.habilidad_nombre}</span>
+                  <span className="wc-card__skill-desc">{carta.habilidad_descripcion}</span>
                 </div>
               </div>
             </div>
 
-            <p className="wc-modal__desc">{WELCOME_CARD.description}</p>
+            <p className="wc-modal__desc">Solo los viajeros que llegaron en los primeros días la conocieron.</p>
 
             <button className="wc-modal__close" onClick={handleClose}>
               Guardar en mi colección →

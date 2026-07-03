@@ -5,17 +5,36 @@ import { useAuth } from "../context/AuthContext";
 export default function AuthModal({ onClose }) {
   const [tab, setTab] = useState("login");
   const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const mouseDownTarget = useRef(null);
-  const { login } = useAuth();
+  const { login, register } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(form); // conecta con AuthContext — reemplazar con backend cuando esté listo
-    onClose();
+    setError("");
+    setLoading(true);
+
+    try {
+      if (tab === "login") {
+        await login(form);
+      } else {
+        await register(form);
+      }
+      onClose();
+    } catch (err) {
+      setError(
+        tab === "login"
+          ? "Email o contraseña incorrectos."
+          : "No se pudo crear la cuenta. Probá con otro usuario o email."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleOverlayMouseDown = (e) => {
@@ -35,8 +54,8 @@ export default function AuthModal({ onClose }) {
   return (
     <div
       className="auth-overlay"
-      onMouseDown={handleOverlayMouseDown} // guarda dónde empezó el clic
-      onMouseUp={handleOverlayMouseUp}     // cierra solo si ambos eventos son en el overlay
+      onMouseDown={handleOverlayMouseDown}
+      onMouseUp={handleOverlayMouseUp}
     >
       <div className="auth-modal">
 
@@ -50,13 +69,13 @@ export default function AuthModal({ onClose }) {
         <div className="auth-modal__tabs">
           <button
             className={`auth-tab ${tab === "login" ? "auth-tab--active" : ""}`}
-            onClick={() => setTab("login")}
+            onClick={() => { setTab("login"); setError(""); }}
           >
             Entrar
           </button>
           <button
             className={`auth-tab ${tab === "register" ? "auth-tab--active" : ""}`}
-            onClick={() => setTab("register")}
+            onClick={() => { setTab("register"); setError(""); }}
           >
             Registrarse
           </button>
@@ -114,8 +133,14 @@ export default function AuthModal({ onClose }) {
               />
             </div>
 
-            <button type="submit" className="auth-btn">
-              {tab === "login" ? "Entrar" : "Crear cuenta"}
+            {error && (
+              <p className="auth-error" style={{ color: "#ff6b6b", fontSize: "0.85rem", marginTop: "-0.5rem", marginBottom: "0.75rem" }}>
+                {error}
+              </p>
+            )}
+
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? "Cargando..." : tab === "login" ? "Entrar" : "Crear cuenta"}
             </button>
           </form>
 
@@ -144,9 +169,9 @@ export default function AuthModal({ onClose }) {
 
           <p className="auth-footer">
             {tab === "login" ? (
-              <>¿No tenés cuenta? <span onClick={() => setTab("register")}>Registrate gratis</span></>
+              <>¿No tenés cuenta? <span onClick={() => { setTab("register"); setError(""); }}>Registrate gratis</span></>
             ) : (
-              <>¿Ya tenés cuenta? <span onClick={() => setTab("login")}>Entrá acá</span></>
+              <>¿Ya tenés cuenta? <span onClick={() => { setTab("login"); setError(""); }}>Entrá acá</span></>
             )}
           </p>
         </div>

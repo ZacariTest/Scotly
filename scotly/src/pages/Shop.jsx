@@ -1,38 +1,140 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AuthModal from "../components/AuthModal";
+import { useAuth } from "../context/AuthContext";
 
 const RARITY_LABEL = {
-  rare: "Raro",
+  legendary: "Legendaria",
   epic: "Épico",
+  rare: "Raro",
   common: "Común",
 };
 
-const featured = {
-  name: "Alasdair el Cronista",
-  desc: "Guardián de los secretos de las Highlands. Disponible por tiempo limitado.",
-  price: 299,
-};
-
 export default function Shop() {
+  const { user, authFetch, updateUser } = useAuth();
   const [category, setCategory] = useState("all");
+  const [items, setItems] = useState([]);
+  const [destacados, setDestacados] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [comprando, setComprando] = useState(null);
+  const [mensaje, setMensaje] = useState(null);
+  const [authOpen, setAuthOpen] = useState(false);
 
-  const data = {
-    personajes: [
-      { name: "Alasdair", img: "/img/Alasdair.png", price: 100, rarity: "epic" },
-    ],
-    cosmeticos: [
-      { name: "Ropajes", img: "/img/KI.JPG", price: 50, rarity: "epic" },
-    ],
-    objetos: [
-      { name: "Scones", img: "/img/SC1.jpg", price: 20, rarity: "common" },
-    ],
+  useEffect(() => {
+    async function cargarTienda() {
+      try {
+        const [resItems, resDestacado] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_URL}/api/tienda/items`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/tienda/destacado`),
+        ]);
+        const dataItems = await resItems.json();
+        const dataDestacado = await resDestacado.json();
+
+        setItems(dataItems.items || []);
+        setDestacados(dataDestacado.cartas || []);
+      } catch (err) {
+        console.error("Error al cargar la tienda:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    cargarTienda();
+  }, []);
+
+  const mostrarMensaje = (texto, tipo = "ok") => {
+    setMensaje({ texto, tipo });
+    setTimeout(() => setMensaje(null), 3000);
   };
 
-  const items =
+  const comprarItem = async (item) => {
+    if (!user) { setAuthOpen(true); return; }
+    setComprando(item.id);
+    try {
+      const res = await authFetch("/api/tienda/comprar-item", {
+        method: "POST",
+        body: JSON.stringify({ item_id: item.id }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        mostrarMensaje(data.error === "Monedas insuficientes" ? "No tenés monedas suficientes." : "No se pudo completar la compra.", "error");
+        return;
+      }
+
+      updateUser({ monedas: user.monedas - item.precio_monedas });
+      mostrarMensaje(`¡${item.nombre} obtenido!`, "ok");
+    } catch (err) {
+      mostrarMensaje("Error de conexión.", "error");
+    } finally {
+      setComprando(null);
+    }
+  };
+
+  const comprarCarta = async (carta) => {
+    if (!user) { setAuthOpen(true); return; }
+    setComprando(carta.id);
+    try {
+      const res = await authFetch("/api/tienda/comprar-carta", {
+        method: "POST",
+        body: JSON.stringify({ carta_id: carta.id }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        mostrarMensaje(data.error === "Monedas insuficientes" ? "No tenés monedas suficientes." : "No se pudo completar la compra.", "error");
+        return;
+      }
+
+      updateUser({ monedas: user.monedas - carta.precio_monedas });
+      mostrarMensaje(`¡${carta.nombre} obtenida!`, "ok");
+    } catch (err) {
+      mostrarMensaje("Error de conexión.", "error");
+    } finally {
+      setComprando(null);
+    }
+  };
+
+  // Normaliza items + cartas destacadas a un mismo shape para el grid
+  const normalizados = [
+    ...destacados.map((c) => ({
+      id: `carta-${c.id}`,
+      rawId: c.id,
+      tipo: "carta",
+      name: c.nombre,
+      img: c.imagen,
+      price: c.precio_monedas,
+      rarity: c.rareza,
+      categoria: "personajes",
+    })),
+    ...items.map((i) => ({
+      id: `item-${i.id}`,
+      rawId: i.id,
+      tipo: "item",
+      name: i.nombre,
+      img: null,
+      price: i.precio_monedas,
+      rarity: "common",
+      categoria: i.tipo === "cosmetico" ? "cosmeticos" : "objetos",
+    })),
+  ];
+
+  const filtrados =
     category === "all"
-      ? Object.values(data).flat()
-      : data[category] ?? [];
+      ? normalizados
+      : normalizados.filter((i) => i.categoria === category);
+
+  const featured = destacados[0];
+
+  const handleComprar = (entry) => {
+    if (entry.tipo === "carta") {
+      const carta = destacados.find((c) => c.id === entry.rawId);
+      comprarCarta(carta);
+    } else {
+      const item = items.find((i) => i.id === entry.rawId);
+      comprarItem(item);
+    }
+  };
 
   return (
     <>
@@ -44,8 +146,29 @@ export default function Shop() {
           <div className="shop-banner-content">
             <h1 className="shop-banner-title">Tienda Scotly</h1>
             <p className="shop-banner-sub">Desbloquea personajes, cosméticos y reliquias</p>
+            {user && (
+              <p style={{ marginTop: "0.5rem", opacity: 0.85 }}>
+                Tenés <strong>{user.monedas}</strong> monedas
+              </p>
+            )}
           </div>
         </section>
+
+        {mensaje && (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "0.6rem",
+              margin: "0.5rem auto",
+              maxWidth: "400px",
+              borderRadius: "8px",
+              background: mensaje.tipo === "ok" ? "rgba(80,200,120,0.15)" : "rgba(255,107,107,0.15)",
+              color: mensaje.tipo === "ok" ? "#4caf50" : "#ff6b6b",
+            }}
+          >
+            {mensaje.texto}
+          </div>
+        )}
 
         {/* Categorías */}
         <section className="shop-categories">
@@ -61,45 +184,68 @@ export default function Shop() {
         </section>
 
         {/* Destacado */}
-        <div className="shop-featured">
-          <div className="shop-featured-icon">★</div>
-          <div className="shop-featured-info">
-            <p className="shop-featured-tag">Destacado de temporada</p>
-            <p className="shop-featured-name">{featured.name}</p>
-            <p className="shop-featured-desc">{featured.desc}</p>
+        {featured && (
+          <div className="shop-featured">
+            <div className="shop-featured-icon">★</div>
+            <div className="shop-featured-info">
+              <p className="shop-featured-tag">Destacado de temporada</p>
+              <p className="shop-featured-name">{featured.nombre}</p>
+              <p className="shop-featured-desc">{featured.habilidad_descripcion}</p>
+            </div>
+            <button
+              className="shop-featured-btn"
+              onClick={() => comprarCarta(featured)}
+              disabled={comprando === featured.id}
+            >
+              {comprando === featured.id ? "..." : `${featured.precio_monedas} monedas`}
+            </button>
           </div>
-          <button className="shop-featured-btn">{featured.price} monedas</button>
-        </div>
+        )}
 
         {/* Grid */}
-        <section className="shop-grid">
-          {items.map((item, i) => (
-            <div className={`shop-item rarity-${item.rarity}`} key={i}>
-              <span className={`shop-rarity-badge rarity-${item.rarity}`}>
-                {RARITY_LABEL[item.rarity]}
-              </span>
-              <div className="shop-image-wrapper">
-                <img src={item.img} alt={item.name} />
-                <div className="shop-item-glow" />
-                <div className="shop-item-overlay">
-                  <button className="shop-overlay-btn">Obtener</button>
+        {loading ? (
+          <p style={{ textAlign: "center", padding: "2rem" }}>Cargando tienda...</p>
+        ) : (
+          <section className="shop-grid">
+            {filtrados.map((item) => (
+              <div className={`shop-item rarity-${item.rarity}`} key={item.id}>
+                <span className={`shop-rarity-badge rarity-${item.rarity}`}>
+                  {RARITY_LABEL[item.rarity]}
+                </span>
+                <div className="shop-image-wrapper">
+                  {item.img && <img src={item.img} alt={item.name} />}
+                  <div className="shop-item-glow" />
+                  <div className="shop-item-overlay">
+                    <button
+                      className="shop-overlay-btn"
+                      onClick={() => handleComprar(item)}
+                      disabled={comprando === item.rawId}
+                    >
+                      {comprando === item.rawId ? "..." : "Obtener"}
+                    </button>
+                  </div>
+                </div>
+                <div className="shop-item-body">
+                  <h3 className="shop-item-name">{item.name}</h3>
+                  <div className="shop-item-footer">
+                    <span className="shop-item-price">{item.price} monedas</span>
+                    <button
+                      className={`shop-item-btn rarity-${item.rarity}`}
+                      onClick={() => handleComprar(item)}
+                      disabled={comprando === item.rawId}
+                    >
+                      {comprando === item.rawId ? "..." : "Obtener"}
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="shop-item-body">
-                <h3 className="shop-item-name">{item.name}</h3>
-                <div className="shop-item-footer">
-                  <span className="shop-item-price">{item.price} monedas</span>
-                  <button className={`shop-item-btn rarity-${item.rarity}`}>
-                    Obtener
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </section>
+            ))}
+          </section>
+        )}
 
       </main>
       <Footer />
+      {authOpen && <AuthModal onClose={() => setAuthOpen(false)} />}
     </>
   );
 }

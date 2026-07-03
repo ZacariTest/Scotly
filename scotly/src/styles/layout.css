@@ -241,6 +241,34 @@ html, body {
 }
 .hamburger:hover .hamburger__line { background: #d99a28; }
 
+
+
+/* ── CHIP DE MONEDAS ── */
+.navbar__coins {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  background: color-mix(in srgb, #d99a28 12%, transparent);
+  border: 1px solid color-mix(in srgb, #d99a28 35%, transparent);
+  border-radius: 999px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  color: #ffc61c;
+  white-space: nowrap;
+}
+
+.navbar__coins-icon {
+  font-size: 0.95rem;
+}
+
+.navbar__coins--mobile {
+  margin-bottom: 0.75rem;
+  width: fit-content;
+}
+
 /* ==========================================================
    MOBILE MENU
 ========================================================== */

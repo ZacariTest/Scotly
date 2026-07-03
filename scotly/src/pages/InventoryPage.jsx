@@ -1,9 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { CHARACTERS } from "../features/invasion/data/characters";
 import "../features/invasion/styles/invasion.css";
 import "../styles/inventory.css";
 
@@ -17,17 +16,50 @@ const TABS = [
 ];
 
 export default function InventoryPage() {
-  const { user } = useAuth();
+  const { user, authFetch } = useAuth();
   const navigate = useNavigate();
   const [search, setSearch]       = useState("");
   const [sort, setSort]           = useState("rarity");
   const [activeTab, setActiveTab] = useState("all");
+  const [inventory, setInventory] = useState([]);
+  const [loading, setLoading]     = useState(true);
+
+  useEffect(() => {
+    if (!user) return;
+
+    async function cargarInventario() {
+      try {
+        const res = await authFetch("/api/inventario/cartas");
+        const data = await res.json();
+
+        if (res.ok) {
+          const cartasMapeadas = data.cartas.map((c) => ({
+            id: c.id,
+            name: c.nombre,
+            title: "",
+            img: c.imagen,
+            hp: c.hp,
+            attack: c.ataque,
+            speed: c.velocidad,
+            rarity: c.rareza,
+            skill: {
+              name: c.habilidad_nombre,
+              description: c.habilidad_descripcion,
+            },
+          }));
+          setInventory(cartasMapeadas);
+        }
+      } catch (err) {
+        console.error("Error al cargar inventario:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    cargarInventario();
+  }, [user, authFetch]);
 
   if (!user) { navigate("/"); return null; }
-
-  // Mock: el usuario tiene todas las cartas.
-
-  const inventory = CHARACTERS;
 
   const filtered = useMemo(() => {
     return inventory
@@ -59,7 +91,6 @@ export default function InventoryPage() {
       <Navbar />
       <main className="inv-page invent-page">
 
-        {/* BANNER */}
         <div className="invent-banner">
           <div className="invent-banner__glow" />
           <h1 className="invent-banner__title">Inventario</h1>
@@ -81,7 +112,6 @@ export default function InventoryPage() {
           </div>
         </div>
 
-        {/* TABS + TOOLBAR */}
         <div className="invent-controls">
           <div className="invent-tabs">
             {TABS.map((t) => (
@@ -115,9 +145,14 @@ export default function InventoryPage() {
           </div>
         </div>
 
-        {/* GRID */}
-        {filtered.length === 0 ? (
-          <p className="invent-empty">No se encontraron cartas.</p>
+        {loading ? (
+          <p className="invent-empty">Cargando inventario...</p>
+        ) : filtered.length === 0 ? (
+          <p className="invent-empty">
+            {inventory.length === 0
+              ? "Todavía no tenés cartas. ¡Reclamá tu regalo de bienvenida!"
+              : "No se encontraron cartas."}
+          </p>
         ) : (
           <div className="invent-grid">
             {filtered.map((card) => (

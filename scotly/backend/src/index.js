@@ -5,6 +5,7 @@ import authRoutes from './routes/auth.js';
 import regalosRoutes from './routes/regalos.js';
 import usuariosRoutes from './routes/usuarios.js';
 import tiendaRoutes from './routes/tienda.js';
+import invasionRoutes from './routes/invasion.js';
 import inventarioRoutes from './routes/inventario.js';
 
 
@@ -25,6 +26,7 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/regalos', regalosRoutes);
 app.use('/api/inventario', inventarioRoutes);
 app.use('/api/tienda', tiendaRoutes);
+app.use('/api/invasion', invasionRoutes);
 
 const PORT = process.env.PORT || 3000;
 

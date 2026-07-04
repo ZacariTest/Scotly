@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import AuthModal from "../components/AuthModal";
 import { useAuth } from "../context/AuthContext";
+import Toast from "../components/Toast";
 
 const RARITY_LABEL = {
   legendary: "Legendaria",
@@ -154,21 +155,7 @@ export default function Shop() {
           </div>
         </section>
 
-        {mensaje && (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "0.6rem",
-              margin: "0.5rem auto",
-              maxWidth: "400px",
-              borderRadius: "8px",
-              background: mensaje.tipo === "ok" ? "rgba(80,200,120,0.15)" : "rgba(255,107,107,0.15)",
-              color: mensaje.tipo === "ok" ? "#4caf50" : "#ff6b6b",
-            }}
-          >
-            {mensaje.texto}
-          </div>
-        )}
+<Toast message={mensaje} />
 
         {/* Categorías */}
         <section className="shop-categories">

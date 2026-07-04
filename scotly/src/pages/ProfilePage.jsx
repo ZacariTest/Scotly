@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/profile.css";
+import Toast from "../components/Toast";
 import { loadActiveRegion } from "../constants/regionThemes";
 
 const RARITY_LABEL = { legendary: "legendary", epic: "epic", rare: "rare", common: "common" };
@@ -134,21 +135,7 @@ export default function ProfilePage() {
           <h1 className="profile-banner__title">Perfil</h1>
         </div>
 
-        {mensaje && (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "0.6rem",
-              margin: "1rem auto 0",
-              maxWidth: "420px",
-              borderRadius: "8px",
-              background: mensaje.tipo === "ok" ? "rgba(80,200,120,0.15)" : "rgba(255,107,107,0.15)",
-              color: mensaje.tipo === "ok" ? "#4caf50" : "#ff6b6b",
-            }}
-          >
-            {mensaje.texto}
-          </div>
-        )}
+<Toast message={mensaje} />
 
         <div className="profile-body">
 

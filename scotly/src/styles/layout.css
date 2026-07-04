@@ -264,9 +264,30 @@ html, body {
   font-size: 0.95rem;
 }
 
-.navbar__coins--mobile {
-  margin-bottom: 0.75rem;
-  width: fit-content;
+.navbar__mobile-coins {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  background: color-mix(in srgb, #d99a28 12%, transparent);
+  border: 1px solid color-mix(in srgb, #d99a28 35%, transparent);
+  border-radius: 999px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #ffc61c;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .navbar__mobile-coins {
+    display: flex;
+  }
+}
+
+.navbar__profile-avatar--img {
+  object-fit: cover;
+  display: block;
 }
 
 /* ==========================================================
@@ -1860,5 +1881,65 @@ main {
 @media (max-width: 768px) {
   main {
     padding-top: 58px;
+  }
+}
+
+
+
+
+
+
+/* ==========================================================
+   TOAST — notificaciones flotantes
+========================================================== */
+.toast {
+  position: fixed;
+  top: calc(75px + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: 8px;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  animation: toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+
+.toast--ok {
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 85%, #000);
+  border: 1px solid rgba(255, 198, 28, 0.4);
+  color: #ffc61c;
+}
+
+.toast--error {
+  background: color-mix(in srgb, var(--region-primary, #0a1a2e) 85%, #000);
+  border: 1px solid rgba(224, 85, 85, 0.4);
+  color: #ff8a8a;
+}
+
+.toast__icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .toast {
+    top: calc(58px + 12px);
+    font-size: 0.82rem;
+    padding: 0.6rem 1rem;
   }
 }

@@ -76,7 +76,11 @@ export default function Navbar() {
                 Inventario
               </Link>
               <Link to="/perfil" className="navbar__profile" title={`Perfil de ${user.username}`}>
-                <div className="navbar__profile-avatar">{initials}</div>
+                {user.foto_perfil ? (
+                  <img src={user.foto_perfil} alt={user.username} className="navbar__profile-avatar navbar__profile-avatar--img" />
+                ) : (
+                  <div className="navbar__profile-avatar">{initials}</div>
+                )}
                 <div className="navbar__profile-info">
                   <span className="navbar__profile-name">{user.username}</span>
                   <span className="navbar__profile-badge">{regionIcon} {regionLabel}</span>
@@ -90,6 +94,13 @@ export default function Navbar() {
             </>
           )}
         </div>
+
+        {user && (
+          <div className="navbar__mobile-coins" title="Tus monedas">
+            <span className="navbar__coins-icon">🪙</span>
+            <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
+          </div>
+        )}
 
 
 
@@ -105,10 +116,7 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <div className="navbar__coins navbar__coins--mobile" title="Tus monedas">
-                <span className="navbar__coins-icon">🪙</span>
-                <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
-              </div>
+
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
               <button className="btn btn-secondary" style={{ marginTop: "1.25rem" }} onClick={handleLogout}>

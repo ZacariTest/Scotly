@@ -88,7 +88,7 @@ export default function AuthModal({ onClose }) {
           </p>
           <p className="auth-modal__sub">
             {tab === "login"
-              ? "Ingresá para continuar tu aventura escocesa"
+              ? "Ingresá para continuar tu aventura"
               : "Unite a la comunidad de Scotly gratis"}
           </p>
 

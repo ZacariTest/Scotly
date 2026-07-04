@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
 
     res.status(201).json({
       token,
-      usuario: { id: usuarioId, username, email, rol: 'usuario' }
+      usuario: { id: usuarioId, username, email, rol: 'usuario', monedas: 0, puntos: 0, energia: 100, experiencia: 0, foto_perfil: null }
     });
   } catch (err) {
     console.error(err);
@@ -79,17 +79,20 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    res.json({
-      token,
-      usuario: {
-        id: usuario.id,
-        username: usuario.username,
-        email: usuario.email,
-        rol: usuario.rol,
-        monedas: usuario.monedas,
-        puntos: usuario.puntos
-      }
-    });
+res.json({
+  token,
+  usuario: {
+    id: usuario.id,
+    username: usuario.username,
+    email: usuario.email,
+    rol: usuario.rol,
+    monedas: usuario.monedas,
+    puntos: usuario.puntos,
+    energia: usuario.energia,
+    experiencia: usuario.experiencia,
+    foto_perfil: usuario.foto_perfil
+  }
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error al iniciar sesión' });

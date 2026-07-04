@@ -55,7 +55,7 @@ export default function RegionsSection({ activeRegion, onSelect }) {
 
       <div className="regions-launch-banner">
         <p className="regions-launch-banner__text">
-          <strong>Escocia es la región inicial de Scotly</strong> — Inglaterra y
+          <strong>Escocia y Inglaterra son las regiónes iniciales de Scotly</strong> 
           Gales llegarán en futuras actualizaciones.
         </p>
 

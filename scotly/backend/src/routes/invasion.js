@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import pool from '../db.js';
 import { verificarToken } from '../middleware/auth.js';
-import { CURRENT_SEASON } from '../../../src/features/invasion/data/seasons.js';
+import { CURRENT_SEASON } from '../features/invasion/data/seasons.js';
 
 const router = Router();
 

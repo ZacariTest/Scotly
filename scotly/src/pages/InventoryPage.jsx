@@ -59,8 +59,13 @@ export default function InventoryPage() {
     cargarInventario();
   }, [user, authFetch]);
 
-  if (!user) { navigate("/"); return null; }
+  // Fix: la redirección va en un useEffect, nunca directamente en el render.
+  useEffect(() => {
+    if (!user) navigate("/");
+  }, [user, navigate]);
 
+  // Fix: este useMemo ahora se llama SIEMPRE, sin importar si hay user o no,
+  // para que el orden de hooks nunca cambie entre renders (evita el error #310).
   const filtered = useMemo(() => {
     return inventory
       .filter((c) => {
@@ -85,6 +90,10 @@ export default function InventoryPage() {
     rare:   inventory.filter((c) => c.rarity === "rare").length,
     common: inventory.filter((c) => c.rarity === "common").length,
   };
+
+  // Fix: el return anticipado ahora va DESPUÉS de todos los hooks.
+  // Mientras el useEffect de arriba redirige, no renderizamos nada.
+  if (!user) return null;
 
   return (
     <>

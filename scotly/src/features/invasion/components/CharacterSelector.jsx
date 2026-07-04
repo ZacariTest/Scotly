@@ -7,11 +7,21 @@ import { useAuth } from "../../../context/AuthContext";
 const MAX_SELECTION = 3;
 
 export default function CharacterSelector({ selected, onToggle, onConfirm }) {
-  const { authFetch } = useAuth();
+  const { authFetch, user, loading: authLoading } = useAuth();
   const [ownedCharacters, setOwnedCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Fix: esperar a que AuthContext termine de leer localStorage
+    // antes de disparar el fetch (evita que salga sin el token -> 401).
+    if (authLoading) return;
+
+    // Si ya terminó de cargar y no hay usuario logueado, no hay nada que pedir.
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     async function cargarInventario() {
       try {
         const res = await authFetch("/api/inventario/cartas");
@@ -30,7 +40,7 @@ export default function CharacterSelector({ selected, onToggle, onConfirm }) {
       }
     }
     cargarInventario();
-  }, [authFetch]);
+  }, [authFetch, user, authLoading]);
 
   const ready = selected.length === MAX_SELECTION;
 

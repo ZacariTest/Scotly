@@ -192,3 +192,24 @@
   .historia-dialogue { bottom: 80px; width: 95%; }
   .dialogue-box__text { font-size: 0.9rem; }
 }
+
+
+
+
+
+
+
+.dialogue-box__content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dialogue-box__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #ffc61c;
+  flex-shrink: 0;
+}

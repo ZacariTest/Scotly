@@ -5,7 +5,8 @@ export default [
     image: "/img/prueba1.jpg",
   },
   {
-    character: "Ailith (Protagonista)",
+    isProtagonista: true,
+    character: "Protagonista",
     text: "Este lugar....",
     image: "/img/prueba2.jpg",
   },

@@ -1,4 +1,4 @@
-export default function DialogueBox({ character, text, onNext, isLast, progress, total }) {
+export default function DialogueBox({ character, text, avatar, onNext, isLast, progress, total }) {
   return (
     <div className="dialogue-box">
 
@@ -10,8 +10,13 @@ export default function DialogueBox({ character, text, onNext, isLast, progress,
       {/* Caja principal */}
       <div className="dialogue-box__body">
 
-        {/* Texto */}
-        <p className="dialogue-box__text">{text}</p>
+        {/* Contenido: avatar (si hay) + texto */}
+        <div className="dialogue-box__content">
+          {avatar && (
+            <img src={avatar} alt={character} className="dialogue-box__avatar" />
+          )}
+          <p className="dialogue-box__text">{text}</p>
+        </div>
 
         {/* Footer: progreso + botón */}
         <div className="dialogue-box__footer">

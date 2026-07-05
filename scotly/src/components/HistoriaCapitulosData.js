@@ -1,0 +1,36 @@
+export default [
+  {
+    id: "capitulo-1",
+    numero: 1,
+    region: "Escocia",
+    titulo: "El despertar en las Highlands",
+    descripcion: "Tu personaje llega al castillo y se topa con un guardián que oculta un secreto.",
+    estado: "disponible",
+    rutaJuego: "/curso/historia/capitulo-1",
+    rutaSeleccion: "/curso/historia/capitulo-1/personaje",
+  },
+  {
+    id: "capitulo-2",
+    numero: 2,
+    region: "Gales",
+    titulo: "El bardo de los valles",
+    descripcion: "Próximamente.",
+    estado: "bloqueado",
+  },
+  {
+    id: "capitulo-3",
+    numero: 3,
+    region: "Escocia",
+    titulo: "El código de los guardianes",
+    descripcion: "Próximamente.",
+    estado: "bloqueado",
+  },
+  {
+    id: "capitulo-4",
+    numero: 4,
+    region: "Inglaterra",
+    titulo: "La corte de los Tudor",
+    descripcion: "Próximamente.",
+    estado: "bloqueado",
+  },
+];

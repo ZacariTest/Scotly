@@ -18,7 +18,9 @@ import CourseHistory         from "./pages/CourseHistory";
 import CourseHistoryPlayer   from "./pages/CourseHistoryPlayer";
 import CourseMitologia       from "./pages/CourseMitologia";
 import CourseMitologiaPlayer from "./pages/CourseMitologiaPlayer";
-import CourseHistoria        from "./pages/HistoriaCapitulo";
+import HistoriaCapitulos          from "./pages/HistoriaCapitulos";
+import HistoriaSeleccionPersonaje from "./pages/HistoriaSeleccionPersonaje";
+import HistoriaCapitulo           from "./pages/HistoriaCapitulo";
 
 // ── Inglaterra ──
 import CourseEnglandArte            from "./pages/CourseEnglandArte";
@@ -53,7 +55,9 @@ export default function App() {
       <Route path="/curso/history/player"   element={<CourseHistoryPlayer />} />
       <Route path="/curso/mitologia"        element={<CourseMitologia />} />
       <Route path="/curso/mitologia/player" element={<CourseMitologiaPlayer />} />
-      <Route path="/curso/historia"         element={<CourseHistoria />} />
+      <Route path="/curso/historia"                     element={<HistoriaCapitulos />} />
+      <Route path="/curso/historia/capitulo-1/personaje" element={<HistoriaSeleccionPersonaje />} />
+      <Route path="/curso/historia/capitulo-1"           element={<HistoriaCapitulo />} />
 
       {/* ── Inglaterra ── */}
       <Route path="/curso/england/arte"             element={<CourseEnglandArte />} />

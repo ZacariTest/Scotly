@@ -2,9 +2,17 @@ import { useState } from "react";
 import DialogueBox from "./DialogueBox";
 import historiaData from "./HistoriaData";
 
-export default function HistoriaGame() {
+export default function HistoriaGame({ protagonista }) {
   const [index, setIndex] = useState(0);
   const capitulo = historiaData[index];
+
+  const personaje = capitulo.isProtagonista && protagonista
+    ? protagonista.nombre
+    : capitulo.character;
+
+  const avatar = capitulo.isProtagonista && protagonista
+    ? protagonista.imagen
+    : null;
 
   const handleNext = () => {
     if (index < historiaData.length - 1) {
@@ -34,7 +42,8 @@ export default function HistoriaGame() {
       {/* DIÁLOGO */}
       <div className="historia-dialogue">
         <DialogueBox
-          character={capitulo.character}
+          character={personaje}
+          avatar={avatar}
           text={capitulo.text}
           onNext={handleNext}
           isLast={index === historiaData.length - 1}

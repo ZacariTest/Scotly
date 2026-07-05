@@ -7,6 +7,7 @@ import usuariosRoutes from './routes/usuarios.js';
 import tiendaRoutes from './routes/tienda.js';
 import invasionRoutes from './routes/invasion.js';
 import inventarioRoutes from './routes/inventario.js';
+import gachaRoutes from './routes/gacha.js';
 
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use('/api/regalos', regalosRoutes);
 app.use('/api/inventario', inventarioRoutes);
 app.use('/api/tienda', tiendaRoutes);
 app.use('/api/invasion', invasionRoutes);
+app.use('/api/gacha', gachaRoutes);
 
 const PORT = process.env.PORT || 3000;
 

@@ -182,3 +182,35 @@
   .hsp-body { padding: 2rem 1.25rem 3rem; }
   .hsp-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
 }
+
+
+
+
+/* ── BADGE DE REGIÓN — selección de personaje ── */
+.hsp-card__region-badge {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+.hsp-card__region-badge--sc {
+  background: rgba(91, 155, 213, 0.15);
+  color: #99d4ff;
+  border: 1px solid rgba(91, 155, 213, 0.3);
+}
+.hsp-card__region-badge--en {
+  background: rgba(184, 80, 80, 0.12);
+  color: #ffb8b8;
+  border: 1px solid rgba(184, 80, 80, 0.3);
+}
+.hsp-card__region-badge--wa {
+  background: rgba(74, 154, 96, 0.15);
+  color: #bdffca;
+  border: 1px solid rgba(74, 154, 96, 0.3);
+}

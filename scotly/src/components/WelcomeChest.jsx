@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useAuth } from "../context/AuthContext";
 import "../styles/welcome-chest.css";
 
@@ -40,8 +41,6 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
 
   const handleClose = () => setPhase("claimed");
 
-  if (phase === "claimed") return null;
-
   return (
     <>
       {/* SECCIÓN PRINCIPAL */}
@@ -53,35 +52,50 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
 
           <div className="wc-content">
 
-            <h2 className="wc-title">
-              Un regalo<br />
-              <span className="wc-title-accent">de las Highlands</span>
-            </h2>
+            {phase === "claimed" ? (
+              <>
+                <h2 className="wc-title">
+                  ¡Felicidades! Ya reclamaste tu carta<br />
+                  <span className="wc-title-accent">de bienvenida</span>
+                </h2>
 
-            <p className="wc-desc">
-              Para celebrar el inicio de Scotly, cada viajero que llegue hoy recibirá una <strong>carta épica exclusiva</strong> — Bonnie, Guía de las Highlands. No estará disponible de ninguna otra forma.
-            </p>
+                <p className="wc-desc">
+                  <strong>Bonnie, Guía de las Highlands</strong> ya está en tu colección. Podés verla en tu inventario cuando quieras.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="wc-title">
+                  Un regalo<br />
+                  <span className="wc-title-accent">de las Highlands</span>
+                </h2>
 
-            <div className="wc-reward-preview">
-              <span className="wc-reward-preview__badge">ÉPICA</span>
-              <span className="wc-reward-preview__name">Bonnie</span>
-              <span className="wc-reward-preview__sub">Guía de las Highlands</span>
-            </div>
+                <p className="wc-desc">
+                  Para celebrar el inicio de Scotly, cada viajero que llegue hoy recibirá una <strong>carta épica exclusiva</strong> — Bonnie, Guía de las Highlands. No estará disponible de ninguna otra forma.
+                </p>
 
-            <button className="wc-claim-btn" onClick={handleClaim} disabled={phase === "opening"}>
-              <span className="wc-claim-btn__icon">🎁</span>
-              {userLoggedIn ? (phase === "opening" ? "Abriendo..." : "Abrir cofre") : "Reclamar — Iniciar sesión"}
-            </button>
+                <div className="wc-reward-preview">
+                  <span className="wc-reward-preview__badge">ÉPICA</span>
+                  <span className="wc-reward-preview__name">Bonnie</span>
+                  <span className="wc-reward-preview__sub">Guía de las Highlands</span>
+                </div>
 
-            {phase === "error" && (
-              <p style={{ color: "#ff6b6b", fontSize: "0.85rem", marginTop: "0.5rem" }}>
-                {errorMsg}
-              </p>
+                <button className="wc-claim-btn" onClick={handleClaim} disabled={phase === "opening"}>
+                  <span className="wc-claim-btn__icon">🎁</span>
+                  {userLoggedIn ? (phase === "opening" ? "Abriendo..." : "Abrir cofre") : "Reclamar — Iniciar sesión"}
+                </button>
+
+                {phase === "error" && (
+                  <p style={{ color: "#ff6b6b", fontSize: "0.85rem", marginTop: "0.5rem" }}>
+                    {errorMsg}
+                  </p>
+                )}
+
+                <p className="wc-fine-print">
+                  Disponible solo durante el período de lanzamiento · Una carta por cuenta
+                </p>
+              </>
             )}
-
-            <p className="wc-fine-print">
-              Disponible solo durante el período de lanzamiento · Una carta por cuenta
-            </p>
           </div>
 
           <div className="wc-chest-wrap">
@@ -106,8 +120,10 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
         <div className="wc-bottom-line" />
       </section>
 
-      {/* MODAL DE CARTA REVELADA */}
-      {phase === "revealed" && carta && (
+      {/* MODAL DE CARTA REVELADA — renderizado en document.body vía portal
+          para evitar quedar atrapado dentro de .wc-section, que tiene
+          backdrop-filter + overflow:hidden (eso recortaba el modal) */}
+      {phase === "revealed" && carta && createPortal(
         <div className="wc-modal-backdrop" onClick={handleClose}>
           <div className="wc-modal" onClick={e => e.stopPropagation()}>
 
@@ -148,7 +164,8 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
             </button>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

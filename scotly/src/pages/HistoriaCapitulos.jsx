@@ -7,6 +7,12 @@ import Footer from "../components/Footer";
 import capitulos from "../components/HistoriaCapitulosData";
 import "../styles/historiaCapitulos.css";
 
+const REGION_CODE = {
+  Escocia: "sc",
+  Inglaterra: "en",
+  Gales: "wa",
+};
+
 export default function HistoriaCapitulos() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -39,7 +45,10 @@ export default function HistoriaCapitulos() {
                 className={`hc-card${cap.estado === "disponible" ? " hc-card--available" : " hc-card--locked"}`}
               >
                 <div className="hc-card__info">
-                  <p className="hc-card__numero">Capítulo {cap.numero} — {cap.region}</p>
+                  <span className={`hc-card__region-badge hc-card__region-badge--${REGION_CODE[cap.region] || "sc"}`}>
+                    {cap.region}
+                  </span>
+                  <p className="hc-card__numero">Capítulo {cap.numero}</p>
                   <p className="hc-card__titulo">{cap.titulo}</p>
                   <p className="hc-card__desc">{cap.descripcion}</p>
                   <p className="hc-card__estado">

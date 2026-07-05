@@ -160,3 +160,33 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+
+/* ── BADGE DE REGIÓN — capítulos de Historia ── */
+.hc-card__region-badge {
+  align-self: flex-start;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.hc-card__region-badge--sc {
+  background: rgba(91, 155, 213, 0.15);
+  color: #99d4ff;
+  border: 1px solid rgba(91, 155, 213, 0.3);
+}
+.hc-card__region-badge--en {
+  background: rgba(184, 80, 80, 0.12);
+  color: #ffb8b8;
+  border: 1px solid rgba(184, 80, 80, 0.3);
+}
+.hc-card__region-badge--wa {
+  background: rgba(74, 154, 96, 0.15);
+  color: #bdffca;
+  border: 1px solid rgba(74, 154, 96, 0.3);
+}

@@ -23,50 +23,50 @@ const REGION_CONTENT = {
       ],
     },
   },
-  england: {
-    label: "Región activa: Inglaterra",
-    sub: "Caballeros, reyes y relatos de la vieja Inglaterra",
-    left: {
-      label: "Cursos destacados",
-      courses: [
-        { img: "/img/Ing-Art4.jpg", alt: "Arte Medieval", tag: "Inglaterra", tagClass: "region-en", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
-        { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Inglaterra", tagClass: "region-en", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
-      ],
-    },
-    center: {
-      label: "Historia",
-      course: { img: "/img/History.jpg", alt: "Historia de Inglaterra", tag: "Inglaterra", tagClass: "region-en", name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo moderno", route: "/curso/england/history", locked: false },
-    },
-    right: {
-      label: "Cursos principales",
-      courses: [
-        { img: "/img/Mitologia.PNG", alt: "Leyendas Artúricas", tag: "Mitología", tagClass: "region-en", name: "Leyendas Artúricas", route: "/curso/england/mitologia", locked: false },
-        { img: "/img/Banner-2.jpg", alt: "Próximamente", tag: "Pronto", tagClass: "game", name: "Historia Gamificada", locked: true },
-      ],
-    },
+england: {
+  label: "Región activa: Inglaterra",
+  sub: "Caballeros, reyes y relatos de la vieja Inglaterra",
+  left: {
+    label: "Cursos destacados",
+    courses: [
+      { img: "/img/Ing-Art4.jpg", alt: "Arte Medieval", tag: "Inglaterra", tagClass: "dest", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
+      { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Inglaterra", tagClass: "dest", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
+    ],
   },
-  wales: {
-    label: "Próximamente: Gales",
-    sub: "Dragones, bardos y el ciclo del Mabinogi (región en desarrollo)",
-    left: {
-      label: "Próximamente",
-      courses: [
-        { img: "/img/Arte.jpg", alt: "Arte Galés", tag: "Gales", tagClass: "region-wa", name: "Arte y Simbolismo Galés", locked: true },
-        { img: "/img/Comida.jpg", alt: "Gastronomía", tag: "Gales", tagClass: "region-wa", name: "Gastronomía de Gales", locked: true },
-      ],
-    },
-    center: {
-      label: "Historia gamificada",
-      course: { img: "/img/Banner-2.jpg", alt: "Mabinogi", tag: "Próximamente", tagClass: "game", name: "El Ciclo del Mabinogi", desc: "Recorré los cuatro ramos del Mabinogi galés", locked: true },
-    },
-    right: {
-      label: "Próximamente",
-      courses: [
-        { img: "/img/History.jpg", alt: "Dragones", tag: "Gales", tagClass: "region-wa", name: "Dragones y Bardos", locked: true },
-        { img: "/img/Mitologia.PNG", alt: "Merlin", tag: "Gales", tagClass: "region-wa", name: "Merlin y la Magia Celta", locked: true },
-      ],
-    },
+center: {
+  label: "Historia gamificada",
+  course: { img: "/img/History.jpg", alt: "Historia Gamificada", tag: "Misión interactiva", tagClass: "game", name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — vivís la historia a través de decisiones y narrativa", route: "/curso/historia" },
+},
+  right: {
+    label: "Cursos principales",
+    courses: [
+      { img: "/img/Mitologia.PNG", alt: "Leyendas Artúricas", tag: "Mitología", tagClass: "hist", name: "Leyendas Artúricas", route: "/curso/england/mitologia", locked: false },
+      { img: "/img/Banner-2.jpg", alt: "Próximamente", tag: "Pronto", tagClass: "game", name: "Historia Gamificada", locked: true },
+    ],
   },
+},
+wales: {
+  label: "Próximamente: Gales",
+  sub: "Dragones, bardos y el ciclo del Mabinogi (región en desarrollo)",
+  left: {
+    label: "Próximamente",
+    courses: [
+      { img: "/img/Arte.jpg", alt: "Arte Galés", tag: "Gales", tagClass: "dest", name: "Arte y Simbolismo Galés", locked: true },
+      { img: "/img/Comida.jpg", alt: "Gastronomía", tag: "Gales", tagClass: "dest", name: "Gastronomía de Gales", locked: true },
+    ],
+  },
+  center: {
+    label: "Historia gamificada",
+    course: { img: "/img/Banner-2.jpg", alt: "Mabinogi", tag: "Próximamente", tagClass: "game", name: "El Ciclo del Mabinogi", desc: "Recorré los cuatro ramos del Mabinogi galés", locked: true },
+  },
+  right: {
+    label: "Próximamente",
+    courses: [
+      { img: "/img/History.jpg", alt: "Dragones", tag: "Gales", tagClass: "hist", name: "Dragones y Bardos", locked: true },
+      { img: "/img/Mitologia.PNG", alt: "Merlin", tag: "Gales", tagClass: "hist", name: "Merlin y la Magia Celta", locked: true },
+    ],
+  },
+},
 };
 
 const COMING_SOON = [

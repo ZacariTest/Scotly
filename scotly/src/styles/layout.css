@@ -1964,3 +1964,30 @@ main {
     padding: 0.6rem 1rem;
   }
 }
+
+
+
+
+/* Variante Provisiones — mismo estilo, tono azul en vez de dorado */
+.navbar__coins--provisiones {
+  background: color-mix(in srgb, #5b9bd5 12%, transparent);
+  border-color: color-mix(in srgb, #5b9bd5 35%, transparent);
+  color: #99d4ff;
+}
+
+.navbar__mobile-coins-group {
+  display: none;
+  gap: 0.4rem;
+}
+
+.navbar__mobile-coins--provisiones {
+  background: color-mix(in srgb, #5b9bd5 12%, transparent);
+  border-color: color-mix(in srgb, #5b9bd5 35%, transparent);
+  color: #99d4ff;
+}
+
+@media (max-width: 768px) {
+  .navbar__mobile-coins-group {
+    display: flex;
+  }
+}

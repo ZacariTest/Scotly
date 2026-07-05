@@ -8,28 +8,29 @@ import Shop from "./pages/Shop";
 import InvasionPage from "./pages/InvasionPage";
 import SobreNosotros from "./pages/SobreNosotros";
 import Donaciones from "./pages/Donaciones";
+import GachaPage from "./pages/GachaPage";
 
 // ── Escocia ──
-import CourseArte            from "./pages/CourseArte";
-import CourseArtePlayer      from "./pages/CourseArtePlayer";
-import CourseCocina          from "./pages/CourseCocina";
-import CourseCocinaPlayer    from "./pages/CourseCocinaPlayer";
-import CourseHistory         from "./pages/CourseHistory";
-import CourseHistoryPlayer   from "./pages/CourseHistoryPlayer";
-import CourseMitologia       from "./pages/CourseMitologia";
+import CourseArte from "./pages/CourseArte";
+import CourseArtePlayer from "./pages/CourseArtePlayer";
+import CourseCocina from "./pages/CourseCocina";
+import CourseCocinaPlayer from "./pages/CourseCocinaPlayer";
+import CourseHistory from "./pages/CourseHistory";
+import CourseHistoryPlayer from "./pages/CourseHistoryPlayer";
+import CourseMitologia from "./pages/CourseMitologia";
 import CourseMitologiaPlayer from "./pages/CourseMitologiaPlayer";
-import HistoriaCapitulos          from "./pages/HistoriaCapitulos";
+import HistoriaCapitulos from "./pages/HistoriaCapitulos";
 import HistoriaSeleccionPersonaje from "./pages/HistoriaSeleccionPersonaje";
-import HistoriaCapitulo           from "./pages/HistoriaCapitulo";
+import HistoriaCapitulo from "./pages/HistoriaCapitulo";
 
 // ── Inglaterra ──
-import CourseEnglandArte            from "./pages/CourseEnglandArte";
-import CourseEnglandArtePlayer      from "./pages/CourseEnglandArtePlayer";
-import CourseEnglandCocina          from "./pages/CourseEnglandCocina";
-import CourseEnglandCocinaPlayer    from "./pages/CourseEnglandCocinaPlayer";
-import CourseEnglandHistory         from "./pages/CourseEnglandHistory";
-import CourseEnglandHistoryPlayer   from "./pages/CourseEnglandHistoryPlayer";
-import CourseEnglandMitologia       from "./pages/CourseEnglandMitologia";
+import CourseEnglandArte from "./pages/CourseEnglandArte";
+import CourseEnglandArtePlayer from "./pages/CourseEnglandArtePlayer";
+import CourseEnglandCocina from "./pages/CourseEnglandCocina";
+import CourseEnglandCocinaPlayer from "./pages/CourseEnglandCocinaPlayer";
+import CourseEnglandHistory from "./pages/CourseEnglandHistory";
+import CourseEnglandHistoryPlayer from "./pages/CourseEnglandHistoryPlayer";
+import CourseEnglandMitologia from "./pages/CourseEnglandMitologia";
 import CourseEnglandMitologiaPlayer from "./pages/CourseEnglandMitologiaPlayer";
 
 export default function App() {
@@ -45,28 +46,30 @@ export default function App() {
       <Route path="/invasion" element={<InvasionPage />} />
       <Route path="/sobre-nosotros" element={<SobreNosotros />} />
       <Route path="/donaciones" element={<Donaciones />} />
+      <Route path="/invasion" element={<InvasionPage />} />
+      <Route path="/reclutamiento" element={<GachaPage />} />
 
       {/* ── Escocia ── */}
-      <Route path="/curso/arte"             element={<CourseArte />} />
-      <Route path="/curso/arte/player"      element={<CourseArtePlayer />} />
-      <Route path="/curso/cocina"           element={<CourseCocina />} />
-      <Route path="/curso/cocina/player"    element={<CourseCocinaPlayer />} />
-      <Route path="/curso/history"          element={<CourseHistory />} />
-      <Route path="/curso/history/player"   element={<CourseHistoryPlayer />} />
-      <Route path="/curso/mitologia"        element={<CourseMitologia />} />
+      <Route path="/curso/arte" element={<CourseArte />} />
+      <Route path="/curso/arte/player" element={<CourseArtePlayer />} />
+      <Route path="/curso/cocina" element={<CourseCocina />} />
+      <Route path="/curso/cocina/player" element={<CourseCocinaPlayer />} />
+      <Route path="/curso/history" element={<CourseHistory />} />
+      <Route path="/curso/history/player" element={<CourseHistoryPlayer />} />
+      <Route path="/curso/mitologia" element={<CourseMitologia />} />
       <Route path="/curso/mitologia/player" element={<CourseMitologiaPlayer />} />
-      <Route path="/curso/historia"                     element={<HistoriaCapitulos />} />
+      <Route path="/curso/historia" element={<HistoriaCapitulos />} />
       <Route path="/curso/historia/capitulo-1/personaje" element={<HistoriaSeleccionPersonaje />} />
-      <Route path="/curso/historia/capitulo-1"           element={<HistoriaCapitulo />} />
+      <Route path="/curso/historia/capitulo-1" element={<HistoriaCapitulo />} />
 
       {/* ── Inglaterra ── */}
-      <Route path="/curso/england/arte"             element={<CourseEnglandArte />} />
-      <Route path="/curso/england/arte/player"      element={<CourseEnglandArtePlayer />} />
-      <Route path="/curso/england/cocina"           element={<CourseEnglandCocina />} />
-      <Route path="/curso/england/cocina/player"    element={<CourseEnglandCocinaPlayer />} />
-      <Route path="/curso/england/history"          element={<CourseEnglandHistory />} />
-      <Route path="/curso/england/history/player"   element={<CourseEnglandHistoryPlayer />} />
-      <Route path="/curso/england/mitologia"        element={<CourseEnglandMitologia />} />
+      <Route path="/curso/england/arte" element={<CourseEnglandArte />} />
+      <Route path="/curso/england/arte/player" element={<CourseEnglandArtePlayer />} />
+      <Route path="/curso/england/cocina" element={<CourseEnglandCocina />} />
+      <Route path="/curso/england/cocina/player" element={<CourseEnglandCocinaPlayer />} />
+      <Route path="/curso/england/history" element={<CourseEnglandHistory />} />
+      <Route path="/curso/england/history/player" element={<CourseEnglandHistoryPlayer />} />
+      <Route path="/curso/england/mitologia" element={<CourseEnglandMitologia />} />
       <Route path="/curso/england/mitologia/player" element={<CourseEnglandMitologiaPlayer />} />
     </Routes>
   );

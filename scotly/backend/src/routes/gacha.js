@@ -51,6 +51,7 @@ router.get('/estado', verificarToken, async (req, res) => {
       pity_rareza: GACHA_CONFIG.pityRareza,
       costo_monedas: GACHA_CONFIG.costoMonedas,
       costo_puntos: GACHA_CONFIG.costoPuntos,
+      probabilidades: GACHA_CONFIG.probabilidades,
     });
   } catch (err) {
     console.error(err);

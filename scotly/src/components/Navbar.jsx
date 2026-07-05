@@ -30,6 +30,7 @@ export default function Navbar() {
     { to: "/shop", label: "Tienda" },
     { to: "/donaciones", label: "Donar" },
     { to: "/invasion", label: "Invasión", badge: "Evento" },
+    { to: "/reclutamiento", label: "Reclutamiento" },
   ];
 
   return (
@@ -72,6 +73,10 @@ export default function Navbar() {
                 <span className="navbar__coins-icon">Monedas 🪙</span>
                 <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
               </div>
+              <div className="navbar__coins navbar__coins--provisiones" title="Tus provisiones">
+                <span className="navbar__coins-icon">Provisiones 📜</span>
+                <span className="navbar__coins-amount">{user.puntos ?? 0}</span>
+              </div>
               <Link to="/inventario" className="navbar__inv-link" title="Mi inventario">
                 Inventario
               </Link>
@@ -96,9 +101,15 @@ export default function Navbar() {
         </div>
 
         {user && (
-          <div className="navbar__mobile-coins" title="Tus monedas">
-            <span className="navbar__coins-icon">🪙</span>
-            <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
+          <div className="navbar__mobile-coins-group">
+            <div className="navbar__mobile-coins" title="Tus monedas">
+              <span className="navbar__coins-icon">🪙</span>
+              <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
+            </div>
+            <div className="navbar__mobile-coins navbar__mobile-coins--provisiones" title="Tus provisiones">
+              <span className="navbar__coins-icon">📜</span>
+              <span className="navbar__coins-amount">{user.puntos ?? 0}</span>
+            </div>
           </div>
         )}
 

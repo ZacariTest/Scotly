@@ -1,0 +1,584 @@
+/* ==========================================================
+   GACHA — Reclutamiento
+   Mismo lenguaje visual que Invasión: RPG épico oscuro,
+   sin fantasía brillante — un cofre de campaña, no un portal.
+========================================================== */
+
+.gacha-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: calc(75px + 2rem) 3rem 4rem;
+  color: #f8f4e6;
+  min-height: 100vh;
+  font-family: var(--font-body);
+}
+
+.gacha-empty {
+  text-align: center;
+  padding: 3rem 0;
+  opacity: .7;
+  font-family: var(--font-narrative);
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════════════
+   BANNER
+══════════════════════════════════════════════ */
+.gacha-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid #1e3a5e;
+  padding: 2.25rem 2rem;
+  text-align: center;
+  margin-bottom: 1.75rem;
+  background: linear-gradient(to bottom, rgba(7,16,32,0.85) 0%, rgba(4,10,20,0.95) 100%);
+  box-shadow: 0 8px 48px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.gacha-banner__glow {
+  position: absolute;
+  top: -40%; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 200px;
+  background: radial-gradient(ellipse, rgba(217,154,40,.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.gacha-banner__eyebrow {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #d99a28;
+  margin-bottom: .5rem;
+}
+.gacha-banner__title {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #f8f4e6;
+  text-shadow: 0 2px 4px rgba(0,0,0,.8);
+  margin-bottom: .5rem;
+}
+.gacha-banner__sub {
+  font-family: var(--font-narrative);
+  font-style: italic;
+  color: #7aaad5;
+  font-size: 1.05rem;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════
+   PANEL PRINCIPAL — envuelve todo el contenido
+   interactivo para que sea legible sobre la foto
+   de fondo, sin importar qué haya detrás.
+══════════════════════════════════════════════ */
+.gacha-panel {
+  position: relative;
+  background: rgba(7, 16, 32, 0.82);
+  border: 1px solid #1e3a5e;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem 1.75rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 50px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.03);
+  overflow: hidden;
+}
+.gacha-panel__top-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #d99a28 30%, #ffe186 50%, #d99a28 70%, transparent);
+  opacity: .7;
+}
+
+/* ══════════════════════════════════════════════
+   STATUS — saldo y pity
+══════════════════════════════════════════════ */
+.gacha-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.gacha-coin-chip {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .5rem .9rem;
+  background: color-mix(in srgb, #d99a28 12%, transparent);
+  border: 1px solid color-mix(in srgb, #d99a28 35%, transparent);
+  border-radius: 999px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: .95rem;
+  color: #ffc61c;
+  white-space: nowrap;
+}
+.gacha-coin-chip--puntos {
+  background: color-mix(in srgb, #5b9bd5 12%, transparent);
+  border-color: color-mix(in srgb, #5b9bd5 35%, transparent);
+  color: #99d4ff;
+}
+.gacha-coin-chip__label {
+  font-size: .7rem;
+  opacity: .75;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.gacha-pity {
+  flex: 1;
+  min-width: 200px;
+}
+.gacha-pity__header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-title);
+  font-size: .78rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: #7aaad5;
+  margin-bottom: 5px;
+}
+.gacha-pity__track {
+  height: 8px;
+  background: rgba(4,10,20,.9);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(30,58,94,.6);
+}
+.gacha-pity__fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #7a5aaa, #b08ada);
+  transition: width .5s ease;
+}
+
+/* ══════════════════════════════════════════════
+   ESCENARIO DEL COFRE
+══════════════════════════════════════════════ */
+.gacha-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  margin-bottom: 1.5rem;
+}
+
+.gacha-chest {
+  position: relative;
+  width: 230px;
+  height: 185px;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.gacha-chest--revelada {
+  opacity: 0;
+  transform: scale(.85);
+  position: absolute;
+  pointer-events: none;
+}
+
+.gacha-chest__glow {
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,154,40,.12) 0%, transparent 70%);
+  animation: gacha-glow-pulse 3s ease-in-out infinite;
+}
+@keyframes gacha-glow-pulse {
+  0%, 100% { opacity: .6; transform: scale(1); }
+  50%      { opacity: 1;  transform: scale(1.08); }
+}
+
+.gacha-chest__body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 122px;
+  background: linear-gradient(160deg, #3a2414 0%, #1c1209 100%);
+  border: 2px solid #0d0805;
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.6), inset 0 2px 0 rgba(255,255,255,.05);
+}
+.gacha-chest__strap {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 18px;
+  background: linear-gradient(180deg, #6b5335, #4a3820);
+  border-left: 1px solid rgba(0,0,0,.4);
+  border-right: 1px solid rgba(0,0,0,.4);
+}
+.gacha-chest__strap--left  { left: 28px; }
+.gacha-chest__strap--right { right: 28px; }
+
+.gacha-chest__lock {
+  position: absolute;
+  top: -7px; left: 50%;
+  transform: translateX(-50%);
+  width: 30px; height: 25px;
+  background: linear-gradient(160deg, #6b5335, #3a2c18);
+  border: 1px solid #1c1209;
+  border-radius: 3px;
+  z-index: 2;
+}
+
+.gacha-chest__lid {
+  position: absolute;
+  top: 20px; left: 0; right: 0;
+  height: 68px;
+  background: linear-gradient(160deg, #4a3018 0%, #241608 100%);
+  border: 2px solid #0d0805;
+  border-radius: 10px 10px 4px 4px;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: 0 4px 12px rgba(0,0,0,.5), inset 0 2px 0 rgba(255,255,255,.06);
+  z-index: 1;
+}
+
+.gacha-chest__seal {
+  position: absolute;
+  bottom: -16px; left: 50%;
+  transform: translateX(-50%);
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #c03030, #7a1a1a);
+  border: 2px solid #4a0f0f;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,.5);
+  transition: transform .25s ease, opacity .25s ease;
+  z-index: 3;
+}
+.gacha-chest__seal-crest {
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: 1rem;
+  color: rgba(255,255,255,.85);
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+/* ── Secuencia de apertura ── */
+.gacha-chest--abriendo {
+  animation: gacha-shake .5s ease-out;
+}
+.gacha-chest--abriendo .gacha-chest__seal {
+  animation: gacha-seal-crack .4s ease-out .5s forwards;
+}
+.gacha-chest--abriendo .gacha-chest__lid {
+  transition-delay: .85s;
+  transform: rotateX(-115deg) translateY(-6px);
+}
+
+@keyframes gacha-shake {
+  0%   { transform: translateX(0) rotate(0); }
+  15%  { transform: translateX(-4px) rotate(-1deg); }
+  30%  { transform: translateX(4px) rotate(1deg); }
+  45%  { transform: translateX(-3px) rotate(-1deg); }
+  60%  { transform: translateX(3px) rotate(1deg); }
+  75%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes gacha-seal-crack {
+  0%   { transform: translateX(-50%) scale(1);   opacity: 1; }
+  60%  { transform: translateX(-50%) scale(1.15); opacity: 1; }
+  100% { transform: translateX(-50%) scale(.3);   opacity: 0; }
+}
+
+.gacha-chest__burst {
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe186 0%, #d99a28 40%, transparent 75%);
+  opacity: 0;
+  animation: gacha-burst .7s ease-out .95s forwards;
+  z-index: 2;
+  pointer-events: none;
+}
+@keyframes gacha-burst {
+  0%   { opacity: 0;  transform: translateX(-50%) scale(.2); }
+  30%  { opacity: 1; }
+  100% { opacity: 0;  transform: translateX(-50%) scale(14); }
+}
+
+/* Color del resplandor según rareza obtenida */
+.gacha-chest[data-rareza="common"] .gacha-chest__burst   { background: radial-gradient(circle, #cfe6ff 0%, #7aaad5 40%, transparent 75%); }
+.gacha-chest[data-rareza="rare"] .gacha-chest__burst     { background: radial-gradient(circle, #ffe186 0%, #d99a28 40%, transparent 75%); }
+.gacha-chest[data-rareza="epic"] .gacha-chest__burst     { background: radial-gradient(circle, #e0c8ff 0%, #b08ada 40%, transparent 75%); }
+.gacha-chest[data-rareza="legendary"] .gacha-chest__burst { background: radial-gradient(circle, #ffcf9e 0%, #ff6b47 40%, transparent 75%); }
+
+/* ══════════════════════════════════════════════
+   REVELACIÓN DE LA CARTA
+══════════════════════════════════════════════ */
+.gacha-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 240px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  border-radius: 14px;
+  background: linear-gradient(160deg, #0d1f36 0%, #071020 100%);
+  border: 1px solid #1e3a5e;
+  box-shadow: 0 12px 40px rgba(0,0,0,.6);
+  animation: gacha-reveal-in .5s cubic-bezier(.16,1,.3,1) both;
+  position: relative;
+}
+@keyframes gacha-reveal-in {
+  from { opacity: 0; transform: translateY(18px) scale(.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.gacha-reveal--rare {
+  border-color: rgba(217,154,40,.4);
+  box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 30px rgba(217,154,40,.15);
+}
+.gacha-reveal--epic {
+  border-color: rgba(180,130,255,.4);
+  box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 34px rgba(180,130,255,.18);
+}
+.gacha-reveal--legendary {
+  border-color: rgba(255,107,71,.45);
+  box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 38px rgba(255,107,71,.2);
+}
+
+/* Brillo diagonal recorriendo la carta — mismo lenguaje que pres-char-card */
+.gacha-reveal__img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.12) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: gacha-shine-sweep 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes gacha-shine-sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Chispas — cantidad crece con la rareza, ver ChestReveal.jsx */
+.gacha-reveal__sparks {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.gacha-spark {
+  position: absolute;
+  bottom: 12%;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: gacha-spark-float 1.6s ease-out forwards;
+}
+@keyframes gacha-spark-float {
+  0%   { opacity: 0; transform: translateY(0) scale(.5); }
+  18%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-150px) scale(1.3); }
+}
+.gacha-reveal--rare .gacha-spark      { background: #ffe186; box-shadow: 0 0 6px rgba(255,225,134,.8); }
+.gacha-reveal--epic .gacha-spark      { background: #d8b8ff; box-shadow: 0 0 6px rgba(216,184,255,.8); }
+.gacha-reveal--legendary .gacha-spark { background: #ffb37a; box-shadow: 0 0 6px rgba(255,179,122,.8); }
+
+.gacha-reveal__pity {
+  position: absolute;
+  top: -12px;
+  font-family: var(--font-title);
+  font-size: .65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: #d99a28;
+  color: #0b1f17;
+  padding: .2rem .7rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(217,154,40,.4);
+}
+
+.gacha-reveal__rareza {
+  font-family: var(--font-title);
+  font-size: .8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7aaad5;
+  margin-bottom: .6rem;
+}
+.gacha-reveal--rare .gacha-reveal__rareza      { color: #d99a28; }
+.gacha-reveal--epic .gacha-reveal__rareza      { color: #b08ada; }
+.gacha-reveal--legendary .gacha-reveal__rareza { color: #ff9d7a; }
+
+.gacha-reveal__img-wrap {
+  width: 140px; height: 140px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #071020;
+  margin-bottom: .75rem;
+  position: relative;
+}
+.gacha-reveal__img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.gacha-reveal__nombre {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f8f4e6;
+  margin-bottom: .5rem;
+}
+
+.gacha-reveal__stats {
+  display: flex;
+  gap: 6px;
+  margin-bottom: .6rem;
+}
+.gacha-reveal__stat {
+  font-family: var(--font-title);
+  font-size: .7rem;
+  padding: .15rem .45rem;
+  border-radius: 3px;
+}
+.gacha-reveal__stat--hp  { background: rgba(74,154,96,.12);  color: #7aaa8a; }
+.gacha-reveal__stat--atk { background: rgba(184,80,80,.12);  color: #e07878; }
+.gacha-reveal__stat--spd { background: rgba(217,154,40,.1);  color: #d99a28; }
+
+.gacha-reveal__skill {
+  text-align: center;
+  border-top: 1px solid rgba(30,58,94,.8);
+  padding-top: .5rem;
+  width: 100%;
+}
+.gacha-reveal__skill-name {
+  display: block;
+  font-family: var(--font-title);
+  font-size: .78rem;
+  font-weight: 700;
+  color: #99d4ff;
+  margin-bottom: 2px;
+}
+.gacha-reveal__skill-desc {
+  display: block;
+  font-size: .72rem;
+  color: #7aaad5;
+  line-height: 1.3;
+}
+
+/* ══════════════════════════════════════════════
+   ACCIONES
+══════════════════════════════════════════════ */
+.gacha-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.gacha-btn {
+  padding: .85rem 1.75rem;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .2s;
+}
+.gacha-btn--monedas {
+  background: #d99a28;
+  color: #0b1f17;
+  box-shadow: 0 4px 20px rgba(217,154,40,.25);
+}
+.gacha-btn--monedas:hover:not(:disabled) {
+  background: #ffe186;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(217,154,40,.4);
+}
+.gacha-btn--puntos {
+  background: #5b9bd5;
+  color: #0b1f17;
+  box-shadow: 0 4px 20px rgba(91,155,213,.25);
+}
+.gacha-btn--puntos:hover:not(:disabled) {
+  background: #99d4ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(91,155,213,.4);
+}
+.gacha-btn--secundario {
+  background: transparent;
+  border: 1px solid #1e3a5e;
+  color: #7aaad5;
+}
+.gacha-btn--secundario:hover {
+  border-color: #d99a28;
+  color: #d99a28;
+  background: rgba(217,154,40,.06);
+}
+.gacha-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ══════════════════════════════════════════════
+   INFO — probabilidades
+══════════════════════════════════════════════ */
+.gacha-info {
+  background: rgba(7, 16, 32, 0.6);
+  border: 1px solid #1e3a5e;
+  border-radius: 8px;
+  padding: .75rem 1.25rem;
+  font-size: .85rem;
+  color: #7aaad5;
+}
+.gacha-info summary {
+  cursor: pointer;
+  font-family: var(--font-title);
+  font-size: .85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d99a28;
+}
+.gacha-info ul {
+  list-style: none;
+  padding: 0;
+  margin: .75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gacha-info li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gacha-info__dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.gacha-info__dot--common    { background: #7aaad5; }
+.gacha-info__dot--rare      { background: #d99a28; }
+.gacha-info__dot--epic      { background: #b08ada; }
+.gacha-info__dot--legendary { background: #ff6b47; }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .gacha-page { padding: calc(58px + 1.5rem) 1rem 3rem; }
+  .gacha-banner { padding: 1.5rem 1.25rem; }
+  .gacha-banner__title { font-size: 1.6rem; }
+  .gacha-status { flex-direction: column; align-items: stretch; }
+  .gacha-pity { min-width: 0; }
+  .gacha-stage { min-height: 300px; }
+}

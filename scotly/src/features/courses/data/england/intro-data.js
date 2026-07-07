@@ -30,11 +30,11 @@ export const introCocinaEngland = {
   category: "Gastronomía",
   title: "Cocina Inglesa",
   subtitle: "Del roast beef al fish and chips — la gastronomía que alimentó un imperio.",
-  img: "/img/Comida.jpg",
+  img: "/img/C2.jpg",
   playerRoute: "/curso/england/cocina/player",
   stepCount: 8,
   description:
-    "Más allá del estereotipo de comida insípida, la cocina inglesa tiene una historia fascinante. Este curso recorre los platos icónicos, el ritual del té, la cultura del pub y el renacimiento gastronómico moderno — con cuatro desafíos para demostrar que conocés Inglaterra por el paladar.",
+    "Más allá del estereotipo de comida insípida, la cocina inglesa tiene una historia fascinante. Este curso recorre los platos icónicos, el ritual del té, la cultura del pub y el renacimiento gastronómico moderno, con cuatro desafíos para demostrar que conocés Inglaterra por el paladar.",
   topics: [
     "La cocina inglesa y su historia",
     "Fish and chips, roast y full English",
@@ -53,11 +53,11 @@ export const introHistoryEngland = {
   category: "Historia",
   title: "Historia de Inglaterra",
   subtitle: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo.",
-  img: "/img/History.jpg",
+  img: "/img/H222.jpg",
   playerRoute: "/curso/england/history/player",
   stepCount: 8,
   description:
-    "Romanos, vikingos, la Carta Magna, el mayor imperio de la historia y la Revolución Industrial — Inglaterra concentra más historia por kilómetro cuadrado que casi cualquier otro lugar del mundo. Cuatro lecturas y cuatro desafíos para recorrer los momentos que definieron la modernidad.",
+    "Romanos, vikingos, la Carta Magna, el mayor imperio de la historia y la Revolución Industrial, Inglaterra concentra más historia por kilómetro cuadrado que casi cualquier otro lugar del mundo. Cuatro lecturas y cuatro desafíos para recorrer los momentos que definieron la modernidad.",
   topics: [
     "Roma, los anglosajones y los vikingos",
     "La Carta Magna y el nacimiento del parlamento",
@@ -76,11 +76,11 @@ export const introMitologiaEngland = {
   category: "Mitología",
   title: "Leyendas Artúricas",
   subtitle: "El rey Arturo, Merlín y los Caballeros de la Mesa Redonda.",
-  img: "/img/Mitologia.PNG",
+  img: "/img/M11.jpg",
   playerRoute: "/curso/england/mitologia/player",
   stepCount: 8,
   description:
-    "¿Existió realmente el rey Arturo? ¿Hubo una Excalibur, un Camelot, una Mesa Redonda? Este curso explora la frontera entre historia y mito en la leyenda más poderosa de la tradición británica — con cuatro desafíos para ver si sobrevivís a la corte de Camelot.",
+    "¿Existió realmente el rey Arturo? ¿Hubo una Excalibur, un Camelot, una Mesa Redonda? Este curso explora la frontera entre historia y mito en la leyenda más poderosa de la tradición británica, con cuatro desafíos para ver si sobrevivís a la corte de Camelot.",
   topics: [
     "El rey Arturo: ¿mito o historia?",
     "Merlín: el mago de los reyes",

@@ -3,16 +3,16 @@ export const course = {
   region: "england",
   title: "Historia de Inglaterra",
   subtitle: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo",
-  img: "/img/History.jpg",
+  img: "/img/H22.jpg",
 
   steps: [
     {
       type: "reading",
       label: "Orígenes",
       title: "Roma, los anglosajones y los vikingos",
-      img: "/img/History.jpg",
+      img: "/img/H33.jpg",
       body: [
-        "Las islas británicas fueron conquistadas por Roma en el año **43 d.C.** bajo el emperador Claudio. Los romanos construyeron ciudades, calzadas y la famosa **Muralla de Adriano** en el norte para contener a los pictos escoceses. Londinium — la actual Londres — nació como asentamiento romano a orillas del Támesis.",
+        "Las islas británicas fueron conquistadas por Roma en el año **43 d.C.** bajo el emperador Claudio. Los romanos construyeron ciudades, calzadas y la famosa **Muralla de Adriano** en el norte para contener a los pictos escoceses. Londinium (la actual Londres) nació como asentamiento romano a orillas del Támesis.",
         "Tras la retirada romana en el siglo V, llegaron los **anglosajones** desde Germania, dividiendo el territorio en reinos como Wessex, Mercia y Northumbria. Luego vinieron los **vikingos** daneses, que establecieron el **Danelaw** en el norte y el este. Fue el rey **Alfredo el Grande de Wessex** quien frenó la expansión vikinga y unificó los reinos ingleses, siendo considerado el primer rey de Inglaterra.",
       ],
     },
@@ -36,10 +36,10 @@ export const course = {
       type: "reading",
       label: "Magna Carta",
       title: "La Carta Magna y el nacimiento del parlamento",
-      img: "/img/History.jpg",
+      img: "/img/H44.jpg",
       body: [
-        "En **1215**, los barones ingleses obligaron al rey **Juan Sin Tierra** a firmar la **Carta Magna** — el documento que por primera vez limitaba el poder absoluto del monarca y establecía que incluso el rey estaba sujeto a la ley. Es considerado uno de los fundamentos del **constitucionalismo moderno** y del sistema democrático occidental.",
-        "De la Carta Magna nació el **Parlamento inglés**, que fue ganando poder gradualmente durante los siglos siguientes. La tensión entre la corona y el parlamento culminó en el siglo XVII con la **Guerra Civil Inglesa** (1642-1651), en la que el rey **Carlos I** fue decapitado — un acto sin precedentes en Europa que sacudió las monarquías del continente.",
+        "En **1215**, los barones ingleses obligaron al rey **Juan Sin Tierra** a firmar la **Carta Magna.**  El documento que por primera vez limitaba el poder absoluto del monarca y establecía que incluso el rey estaba sujeto a la ley. Es considerado uno de los fundamentos del **constitucionalismo moderno** y del sistema democrático occidental.",
+        "De la Carta Magna nació el **Parlamento inglés**, que fue ganando poder gradualmente durante los siglos siguientes. La tensión entre la corona y el parlamento culminó en el siglo XVII con la **Guerra Civil Inglesa** (1642-1651), en la que el rey **Carlos I** fue decapitado. Un acto sin precedentes en Europa que sacudió las monarquías del continente.",
       ],
     },
     {
@@ -62,7 +62,7 @@ export const course = {
       type: "reading",
       label: "Imperio",
       title: "El Imperio Británico",
-      img: "/img/History.jpg",
+      img: "/img/H55.png",
       body: [
         "En su apogeo a principios del siglo XX, el **Imperio Británico** controlaba aproximadamente un cuarto de la superficie terrestre del planeta y gobernaba sobre 400 millones de personas. Fue el mayor imperio de la historia. Su expansión comenzó en el siglo XVI con la exploración marítima y se aceleró tras la Revolución Industrial, que dio a Gran Bretaña una ventaja tecnológica y militar decisiva.",
         "El Imperio dejó huellas profundas y contradictorias: difundió el idioma inglés, el sistema legal y las instituciones parlamentarias por el mundo, pero también sostuvo la **trata de esclavos** hasta 1807 y explotó los recursos de sus colonias. La descolonización del siglo XX transformó el imperio en la **Commonwealth**, una asociación voluntaria de 56 naciones que mantienen lazos históricos con Gran Bretaña.",
@@ -88,10 +88,10 @@ export const course = {
       type: "reading",
       label: "Revolución",
       title: "La Revolución Industrial: el mundo cambia en Inglaterra",
-      img: "/img/History.jpg",
+      img: "/img/H66.jpg",
       body: [
         "La **Revolución Industrial** comenzó en Inglaterra en la segunda mitad del siglo XVIII y transformó al mundo de manera más radical que cualquier evento desde la invención de la agricultura. Ciudades como **Manchester, Birmingham y Liverpool** pasaron de aldeas a metrópolis industriales en pocas décadas. La máquina de vapor de **James Watt**, las fábricas textiles y los ferrocarriles reescribieron la economía global.",
-        "El precio humano fue enorme — niños trabajaban en minas y fábricas, las ciudades eran insalubres y la jornada laboral era brutal. Pero también generó una clase media próspera, impulsó la ciencia y la educación, y produjo pensadores como **Charles Darwin**, **Charles Dickens** — que documentó el sufrimiento obrero — y **Karl Marx**, quien desde Londres escribió El Capital analizando el sistema que lo rodeaba.",
+        "El precio humano fue enorme, niños trabajaban en minas y fábricas, las ciudades eran insalubres y la jornada laboral era brutal. Pero también generó una clase media próspera, impulsó la ciencia y la educación, Y produjo pensadores como **Charles Darwin**, **Charles Dickens**, que documentó el sufrimiento obrero, y **Karl Marx**, quien desde Londres escribió *El capital* analizando el sistema que lo rodeaba.",
       ],
     },
     {

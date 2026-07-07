@@ -5,7 +5,7 @@ const SPARKS_POR_RAREZA = {
   legendary: 12,
 };
 
-export default function ChestReveal({ fase, carta, fuePity }) {
+export default function ChestReveal({ fase, carta, fuePity, fueRateUp }) {
   const rareza = carta?.rareza || "common";
   const cantidadSparks = SPARKS_POR_RAREZA[rareza] ?? 0;
 
@@ -48,6 +48,7 @@ export default function ChestReveal({ fase, carta, fuePity }) {
           )}
 
           {fuePity && <span className="gacha-reveal__pity">Garantía activada</span>}
+          {fueRateUp && !fuePity && <span className="gacha-reveal__rateup">¡Personaje de temporada!</span>}
           <span className="gacha-reveal__rareza">{rareza}</span>
 
           <div className="gacha-reveal__img-wrap">

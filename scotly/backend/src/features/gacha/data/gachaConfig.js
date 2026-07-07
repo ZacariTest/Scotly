@@ -23,6 +23,16 @@ export const GACHA_CONFIG = {
   pityRareza: "epic",
 };
 
+// Personaje destacado de la temporada — sistema de rate-up estilo Genshin/HoyoVerse.
+// Cuando la tirada resulta en la rareza indicada, hay "probabilidadRateUp" de que
+// sea específicamente este personaje. Si se "pierde" esa moneda al aire, la
+// siguiente carta de esta rareza está garantizada para el personaje destacado.
+export const FEATURED_CONFIG = {
+  cartaCodigo: "alasdair",
+  rareza: "epic",
+  probabilidadRateUp: 0.5,
+};
+
 // Orden de rareza, de menor a mayor. Se usa para saber qué rarezas
 // cuentan como "iguales o superiores" a la rareza de pity.
 export const ORDEN_RAREZA = ["common", "rare", "epic", "legendary"];

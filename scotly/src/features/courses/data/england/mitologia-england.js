@@ -10,7 +10,7 @@ export const course = {
       type: "reading",
       label: "Arturo",
       title: "El rey Arturo: ¿mito o historia?",
-      img: "/img/Mitologia.PNG",
+      img: "/img/M22.jpg",
       body: [
         "El **rey Arturo** es la figura más poderosa de la mitología británica — y una de las más misteriosas. Los historiadores debaten si existió como persona real: las primeras menciones aparecen en textos galeses del siglo IX, siglos después de cuando supuestamente vivió. Lo más probable es que sea una **figura compuesta**, construida sobre recuerdos de un jefe de guerra romano-britano que resistió a los sajones alrededor del siglo V.",
         "Lo que sí es real es su impacto cultural. Desde el siglo XII, cuando el escritor **Godofredo de Monmouth** publicó su «Historia de los Reyes de Britania», Arturo se convirtió en el rey ideal de la caballería medieval. Su corte de **Camelot**, la espada **Excalibur** y los **Caballeros de la Mesa Redonda** inspiraron a poetas, pintores y escritores durante 900 años.",
@@ -36,7 +36,7 @@ export const course = {
       type: "reading",
       label: "Merlín",
       title: "Merlín: el mago de los reyes",
-      img: "/img/Mitologia.PNG",
+      img: "/img/M33.jpg",
       body: [
         "**Merlín** es el mago más famoso de la literatura occidental. En la tradición artúrica es mentor, profeta y guardián — guía a Arturo desde su nacimiento, organiza el nacimiento secreto del futuro rey y lo prepara para su destino. Su nombre tiene raíces en el galés antiguo, y algunos estudiosos lo conectan con la figura del **bardo y druida** de la tradición celta.",
         "Su destino final es tan misterioso como su origen: según distintas versiones, Merlín queda atrapado para siempre en una cueva, en un árbol de espino o en una torre de aire por la hechicera **Nimue** o **Viviane**, a quien él mismo enseñó su magia. La ironía de que el mago más poderoso sea víctima de su propio conocimiento es uno de los elementos más perturbadores de la leyenda.",
@@ -54,7 +54,7 @@ export const course = {
       ],
       correct: 2,
       feedback: {
-        correct: "¡Correcto! Nimue o Viviane, la Dama del Lago, usa la propia magia que Merlín le enseñó para atraparlo — una de las ironías más oscuras de la leyenda.",
+        correct: "¡Correcto! Nimue o Viviane, la Dama del Lago, usa la propia magia que Merlín le enseñó para atraparlo. Una de las ironías más oscuras de la leyenda.",
         wrong: "Es Nimue o Viviane, la Dama del Lago, quien atrapa a Merlín usando la magia que él mismo le enseñó, encerrándolo para siempre en una cueva o árbol de espino.",
       },
     },
@@ -62,10 +62,10 @@ export const course = {
       type: "reading",
       label: "Excalibur",
       title: "Excalibur y la Mesa Redonda",
-      img: "/img/Mitologia.PNG",
+      img: "/img/M44.jpg",
       body: [
         "**Excalibur** es la espada más famosa de la mitología occidental. Existen en realidad dos versiones: la espada clavada en la piedra que solo el verdadero rey puede extraer, y la Excalibur entregada por la **Dama del Lago** a Arturo ya como rey. En la mayoría de las versiones modernas ambas historias se fusionan. Lo que es constante es que la espada representa la **legitimidad del poder** — quien la porta tiene derecho a gobernar.",
-        "La **Mesa Redonda** es igualmente simbólica. Al no tener cabecera, ningún caballero ocupa un lugar superior — todos son **iguales en honor**. Esta idea radical para la Edad Media convirtió a Camelot en el ideal de una sociedad justa. Los caballeros que la rodean — Lancelot, Gawain, Percival, Galahad — representan distintas virtudes y defectos de la humanidad.",
+        "La **Mesa Redonda** es igualmente simbólica. Al no tener cabecera, ningún caballero ocupa un lugar superior. Todos son **iguales en honor**. Esta idea radical para la Edad Media convirtió a Camelot en el ideal de una sociedad justa. Los caballeros que la rodean; Lancelot, Gawain, Percival Y Galahad, representan distintas virtudes y defectos de la humanidad.",
       ],
     },
     {
@@ -80,7 +80,7 @@ export const course = {
       ],
       correct: 1,
       feedback: {
-        correct: "¡Correcto! Sin cabecera, la Mesa Redonda simboliza que todos los caballeros son iguales en honor — una idea revolucionaria para la jerarquía medieval.",
+        correct: "¡Correcto! Sin cabecera, la Mesa Redonda simboliza que todos los caballeros son iguales en honor. Una idea revolucionaria para la jerarquía medieval.",
         wrong: "La Mesa Redonda simboliza la igualdad de honor entre los caballeros: al no tener cabecera, ninguno ocupa un lugar superior, una idea radical para la Edad Media.",
       },
     },
@@ -88,10 +88,10 @@ export const course = {
       type: "reading",
       label: "Legado",
       title: "El legado artúrico en la cultura moderna",
-      img: "/img/Mitologia.PNG",
+      img: "/img/M77.jpg",
       body: [
         "La leyenda artúrica nunca dejó de reinventarse. En el siglo XIX los **prerrafaelitas** pintaron escenas de Camelot con una intensidad visual obsesiva. **T.H. White** reescribió la historia en «The Once and Future King» (1958), una visión melancólica y humanista que inspiró el musical Camelot. **Tolkien** y **C.S. Lewis** bebieron de esta fuente para construir sus mundos fantásticos.",
-        "Hoy Arturo aparece en películas de Hollywood, series de televisión y videojuegos. El sitio de **Tintagel** en Cornwall — considerado el lugar de nacimiento de Arturo — recibe cientos de miles de visitantes al año. La leyenda persiste porque toca algo universal: el anhelo de un líder justo, una comunidad igualitaria y un mundo donde el valor y la virtud importan más que el nacimiento.",
+        "Hoy Arturo aparece en películas de Hollywood, series de televisión y videojuegos. El sitio de **Tintagel** en Cornwall,considerado el lugar de nacimiento de Arturo, recibe cientos de miles de visitantes al año. La leyenda persiste porque toca algo universal: el anhelo de un líder justo, una comunidad igualitaria y un mundo donde el valor y la virtud importan más que el nacimiento.",
       ],
     },
     {

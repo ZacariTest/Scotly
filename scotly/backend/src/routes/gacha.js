@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import pool from '../db.js';
 import { verificarToken } from '../middleware/auth.js';
-import { GACHA_CONFIG, ORDEN_RAREZA } from '../features/gacha/data/gachaConfig.js';
+import { GACHA_CONFIG, ORDEN_RAREZA, FEATURED_CONFIG } from '../features/gacha/data/gachaConfig.js';
 
 const router = Router();
 
@@ -29,11 +29,23 @@ function elegirRarezaAleatoria() {
   return rarezas[rarezas.length - 1];
 }
 
-// GET /api/gacha/estado — saldo actual y progreso de pity
+async function obtenerPersonajeTemporada() {
+  const [filas] = await pool.query(
+    `SELECT id, codigo, nombre, rareza, hp, ataque, velocidad,
+            habilidad_nombre, habilidad_descripcion, imagen
+     FROM cartas
+     WHERE codigo = ? AND activa = 1
+     LIMIT 1`,
+    [FEATURED_CONFIG.cartaCodigo]
+  );
+  return filas[0] || null;
+}
+
+// GET /api/gacha/estado — saldo actual, progreso de pity y personaje de temporada
 router.get('/estado', verificarToken, async (req, res) => {
   try {
     const [filas] = await pool.query(
-      'SELECT monedas, puntos, pity_contador FROM usuarios WHERE id = ?',
+      'SELECT monedas, puntos, pity_contador, gacha_rateup_garantizado FROM usuarios WHERE id = ?',
       [req.usuario.id]
     );
 
@@ -42,6 +54,7 @@ router.get('/estado', verificarToken, async (req, res) => {
     }
 
     const usuario = filas[0];
+    const personajeTemporada = await obtenerPersonajeTemporada();
 
     res.json({
       monedas: usuario.monedas,
@@ -52,6 +65,9 @@ router.get('/estado', verificarToken, async (req, res) => {
       costo_monedas: GACHA_CONFIG.costoMonedas,
       costo_puntos: GACHA_CONFIG.costoPuntos,
       probabilidades: GACHA_CONFIG.probabilidades,
+      rateup_garantizado: !!usuario.gacha_rateup_garantizado,
+      rateup_probabilidad: FEATURED_CONFIG.probabilidadRateUp,
+      personaje_temporada: personajeTemporada,
     });
   } catch (err) {
     console.error(err);
@@ -78,7 +94,7 @@ router.post('/tirar', verificarToken, async (req, res) => {
     // Bloqueamos la fila del usuario para evitar tiradas dobles simultáneas
     // (ej. doble click) que dejen el saldo en un estado inconsistente.
     const [usuarios] = await connection.query(
-      'SELECT monedas, puntos, pity_contador FROM usuarios WHERE id = ? FOR UPDATE',
+      'SELECT monedas, puntos, pity_contador, gacha_rateup_garantizado FROM usuarios WHERE id = ? FOR UPDATE',
       [usuarioId]
     );
 
@@ -103,32 +119,66 @@ router.post('/tirar', verificarToken, async (req, res) => {
     const seResetaPity = cumplePity(rarezaObtenida);
     const nuevoPityContador = seResetaPity ? 0 : usuario.pity_contador + 1;
 
-    // --- Elegir una carta al azar de esa rareza ---
-    const [cartasDisponibles] = await connection.query(
-      `SELECT id, codigo, nombre, rareza, hp, ataque, velocidad,
-              habilidad_nombre, habilidad_descripcion, imagen
-       FROM cartas
-       WHERE rareza = ? AND activa = 1
-       ORDER BY RAND()
-       LIMIT 1`,
-      [rarezaObtenida]
-    );
+    // --- Elegir la carta específica, aplicando el rate-up si corresponde ---
+    let cartaObtenida = null;
+    let fueRateUp = false;
+    let nuevoRateupGarantizado = !!usuario.gacha_rateup_garantizado;
 
-    if (cartasDisponibles.length === 0) {
+    const esRarezaDestacada = rarezaObtenida === FEATURED_CONFIG.rareza;
+
+    if (esRarezaDestacada) {
+      const gano50 = usuario.gacha_rateup_garantizado || Math.random() < FEATURED_CONFIG.probabilidadRateUp;
+
+      if (gano50) {
+        cartaObtenida = await obtenerPersonajeTemporada();
+        fueRateUp = true;
+        nuevoRateupGarantizado = false;
+      }
+
+      if (!cartaObtenida) {
+        // Perdió la moneda al aire: le tocará otra carta de la misma rareza
+        // (nunca el destacado) y la próxima de esta rareza queda garantizada.
+        const [otras] = await connection.query(
+          `SELECT id, codigo, nombre, rareza, hp, ataque, velocidad,
+                  habilidad_nombre, habilidad_descripcion, imagen
+           FROM cartas
+           WHERE rareza = ? AND codigo != ? AND activa = 1
+           ORDER BY RAND()
+           LIMIT 1`,
+          [rarezaObtenida, FEATURED_CONFIG.cartaCodigo]
+        );
+        cartaObtenida = otras[0] || null;
+        nuevoRateupGarantizado = true;
+      }
+    }
+
+    if (!cartaObtenida) {
+      // Camino normal: cualquier otra rareza, o fallback si algo faltó arriba.
+      const [cartasDisponibles] = await connection.query(
+        `SELECT id, codigo, nombre, rareza, hp, ataque, velocidad,
+                habilidad_nombre, habilidad_descripcion, imagen
+         FROM cartas
+         WHERE rareza = ? AND activa = 1
+         ORDER BY RAND()
+         LIMIT 1`,
+        [rarezaObtenida]
+      );
+      cartaObtenida = cartasDisponibles[0] || null;
+    }
+
+    if (!cartaObtenida) {
       await connection.rollback();
       connection.release();
       return res.status(500).json({ error: `No hay cartas disponibles de rareza '${rarezaObtenida}'` });
     }
 
-    const cartaObtenida = cartasDisponibles[0];
-
-    // --- Descontar saldo ---
+    // --- Descontar saldo y actualizar pity/garantía ---
     const campoMoneda = moneda === 'monedas' ? 'monedas' : 'puntos';
     await connection.query(
       `UPDATE usuarios
-       SET ${campoMoneda} = ${campoMoneda} - ?, pity_contador = ?
+       SET ${campoMoneda} = ${campoMoneda} - ?, pity_contador = ?, gacha_rateup_garantizado = ?
        WHERE id = ?`,
-      [costo, nuevoPityContador, usuarioId]
+      [costo, nuevoPityContador, nuevoRateupGarantizado ? 1 : 0, usuarioId]
     );
 
     // --- Sumar la carta al inventario (o incrementar si ya la tenía) ---
@@ -158,7 +208,7 @@ router.post('/tirar', verificarToken, async (req, res) => {
     connection.release();
 
     const [usuarioActualizado] = await pool.query(
-      'SELECT monedas, puntos, pity_contador FROM usuarios WHERE id = ?',
+      'SELECT monedas, puntos, pity_contador, gacha_rateup_garantizado FROM usuarios WHERE id = ?',
       [usuarioId]
     );
 
@@ -176,6 +226,8 @@ router.post('/tirar', verificarToken, async (req, res) => {
         imagen: cartaObtenida.imagen,
       },
       fue_pity: pityActivado,
+      fue_rate_up: fueRateUp,
+      rateup_garantizado: !!usuarioActualizado[0].gacha_rateup_garantizado,
       usuario: usuarioActualizado[0],
       pity_umbral: GACHA_CONFIG.pityUmbral,
     });
@@ -184,6 +236,32 @@ router.post('/tirar', verificarToken, async (req, res) => {
     connection.release();
     console.error(err);
     res.status(500).json({ error: 'Error al procesar la tirada de gacha' });
+  }
+});
+
+// GET /api/gacha/historial?limit=10 — últimas tiradas del usuario
+router.get('/historial', verificarToken, async (req, res) => {
+  try {
+    const limiteSolicitado = parseInt(req.query.limit, 10);
+    const limite = Number.isInteger(limiteSolicitado)
+      ? Math.min(Math.max(limiteSolicitado, 1), 50)
+      : 10;
+
+    const [filas] = await pool.query(
+      `SELECT tg.id, tg.rareza_obtenida, tg.moneda_usada, tg.fecha_tirada,
+              c.nombre AS carta_nombre, c.imagen AS carta_imagen
+       FROM tiradas_gacha tg
+       JOIN cartas c ON c.id = tg.carta_id
+       WHERE tg.usuario_id = ?
+       ORDER BY tg.fecha_tirada DESC
+       LIMIT ${limite}`,
+      [req.usuario.id]
+    );
+
+    res.json({ tiradas: filas });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener el historial de tiradas' });
   }
 });
 

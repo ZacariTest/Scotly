@@ -55,6 +55,16 @@ async function migrar() {
       console.log('✅ inventario_cartas: restricción única agregada.');
     }
 
+    // 4. Flag de garantía del rate-up (sistema 50/50 estilo Genshin)
+    if (await columnaExiste('usuarios', 'gacha_rateup_garantizado')) {
+      console.log('ℹ️ usuarios.gacha_rateup_garantizado ya existe, se omite.');
+    } else {
+      await pool.query(
+        'ALTER TABLE usuarios ADD COLUMN gacha_rateup_garantizado TINYINT(1) NOT NULL DEFAULT 0'
+      );
+      console.log('✅ usuarios.gacha_rateup_garantizado agregada.');
+    }
+
     console.log('🏁 Migración de gacha completada.');
     process.exit(0);
   } catch (err) {

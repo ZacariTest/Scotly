@@ -22,20 +22,20 @@ const COURSES = {
     {
       category: "Gastronomía",
       items: [
-        { name: "Comida Escocesa", desc: "Desde el haggis hasta el cranachan — los sabores más emblemáticos de Escocia y cómo prepararlos.", img: "/img/Comida.jpg", tag: "Gratis", tagType: "free", route: "/curso/cocina" },
+        { name: "Comida Escocesa", desc: "Desde el haggis hasta el cranachan. Los sabores más emblemáticos de Escocia y cómo prepararlos.", img: "/img/Comida.jpg", tag: "Gratis", tagType: "free", route: "/curso/cocina" },
       ],
     },
     {
       category: "Historia",
       items: [
-        { name: "Historia Escocesa", desc: "Clanes, batallas, reyes y revoluciones — un recorrido por los momentos que forjaron Escocia.", img: "/img/History.jpg", tag: "Gratis", tagType: "free", route: "/curso/history" },
+        { name: "Historia Escocesa", desc: "Clanes, batallas, reyes y revoluciones, un recorrido por los momentos que forjaron Escocia.", img: "/img/History.jpg", tag: "Gratis", tagType: "free", route: "/curso/history" },
         { name: "Historia Gamificada", desc: "Revivís la historia escocesa a través de decisiones, narrativa y personajes interactivos.", img: "/img/Banner-2.jpg", tag: "Interactivo", tagType: "game", route: "/curso/historia", featured: true },
       ],
     },
     {
       category: "Mitología",
       items: [
-        { name: "Mitología y Leyendas", desc: "Selkies, kelpies y el Loch Ness — las criaturas y leyendas que habitan el imaginario escocés.", img: "/img/Mitologia.PNG", tag: "Gratis", tagType: "free", route: "/curso/mitologia" },
+        { name: "Mitología y Leyendas", desc: "Selkies, kelpies y el Loch Ness. Las criaturas y leyendas que habitan el imaginario escocés.", img: "/img/Mitologia.PNG", tag: "Gratis", tagType: "free", route: "/curso/mitologia" },
       ],
     },
   ],
@@ -43,25 +43,25 @@ const COURSES = {
     {
       category: "Arte",
       items: [
-        { name: "Arte Medieval Inglés", desc: "Iluminaciones, catedrales y tapices — el arte que la Iglesia y la nobleza dejaron como herencia al mundo.", img: "/img/Ing-Art4.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/arte" },
+        { name: "Arte Medieval Inglés", desc: "Iluminaciones, catedrales y tapices, el arte que la Iglesia y la nobleza dejaron como herencia al mundo.", img: "/img/Ing-Art4.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/arte" },
       ],
     },
     {
       category: "Gastronomía",
       items: [
-        { name: "Cocina Inglesa", desc: "Del roast beef al fish and chips — la gastronomía que alimentó un imperio.", img: "/img/C2.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/cocina" },
+        { name: "Cocina Inglesa", desc: "Del roast beef al fish and chips. La gastronomía que alimentó un imperio.", img: "/img/C2.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/cocina" },
       ],
     },
     {
       category: "Historia",
       items: [
-        { name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo moderno.", img: "/img/H22.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/history" },
+        { name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial. Los eventos que moldearon el mundo moderno.", img: "/img/H22.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/history" },
       ],
     },
     {
       category: "Mitología",
       items: [
-        { name: "Leyendas Artúricas", desc: "El rey Arturo, Merlín y los Caballeros de la Mesa Redonda — mito e historia entrelazados.", img: "/img/M11.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/mitologia" },
+        { name: "Leyendas Artúricas", desc: "El rey Arturo, Merlín y los Caballeros de la Mesa Redonda. Mito e historia entrelazados.", img: "/img/M11.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/mitologia" },
       ],
     },
   ],

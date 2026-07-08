@@ -12,7 +12,12 @@ export default function CardDisplay({ character, selected, onClick, disabled }) 
       </div>
 
       <div className="inv-card__body">
-        <p className="inv-card__name">{character.name}</p>
+        <div className="inv-card__name-row">
+          <p className="inv-card__name">{character.name}</p>
+          {character.nivel && (
+            <span className="inv-card__nivel-tag">Nv. {character.nivel}</span>
+          )}
+        </div>
         <p className="inv-card__title">{character.title}</p>
 
         <div className="inv-card__stats">

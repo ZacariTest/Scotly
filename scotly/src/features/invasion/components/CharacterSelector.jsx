@@ -3,6 +3,7 @@ import CardDisplay from "./CardDisplay";
 import { CHARACTERS } from "../data/characters";
 import { CURRENT_SEASON } from "../data/seasons";
 import { useAuth } from "../../../context/AuthContext";
+import { aplicarEscaladoPorNivel } from "../utils/nivelScaling";
 
 const MAX_SELECTION = 3;
 
@@ -12,11 +13,10 @@ export default function CharacterSelector({ selected, onToggle, onConfirm }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fix: esperar a que AuthContext termine de leer localStorage
-    // antes de disparar el fetch (evita que salga sin el token -> 401).
+    // Esperar a que AuthContext termine de leer localStorage antes de pedir
+    // el inventario (evita que salga sin el token -> 401).
     if (authLoading) return;
 
-    // Si ya terminó de cargar y no hay usuario logueado, no hay nada que pedir.
     if (!user) {
       setLoading(false);
       return;
@@ -27,10 +27,19 @@ export default function CharacterSelector({ selected, onToggle, onConfirm }) {
         const res = await authFetch("/api/inventario/cartas");
         const data = await res.json();
         if (res.ok) {
-          const codigosPropios = data.cartas.map((c) => (c.codigo ?? "").toLowerCase());
-          const disponibles = CHARACTERS.filter((c) =>
-            codigosPropios.includes(c.id.toLowerCase())
-          );
+          // Mapa código -> { nivel, cantidad } para saber qué tenés y en qué nivel.
+          const infoPorCodigo = {};
+          data.cartas.forEach((c) => {
+            infoPorCodigo[(c.codigo ?? "").toLowerCase()] = {
+              nivel: c.nivel ?? 1,
+              cantidad: c.cantidad ?? 1,
+            };
+          });
+
+          const disponibles = CHARACTERS
+            .filter((c) => infoPorCodigo[c.id.toLowerCase()])
+            .map((c) => aplicarEscaladoPorNivel(c, infoPorCodigo[c.id.toLowerCase()].nivel));
+
           setOwnedCharacters(disponibles);
         }
       } catch (err) {

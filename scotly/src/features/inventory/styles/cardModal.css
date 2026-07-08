@@ -1,0 +1,258 @@
+/* ==========================================================
+   INVENTARIO — badges de nivel y duplicadas + modal de
+   subida de nivel (consume copias repetidas)
+========================================================== */
+
+/* ── Badge de nivel — esquina superior izquierda de la carta ── */
+.inv-card__nivel-badge {
+  position: absolute;
+  top: 8px; left: 8px;
+  z-index: 3;
+  font-family: var(--font-title);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #d99a28;
+  background: rgba(7, 16, 32, 0.85);
+  border: 1px solid rgba(217,154,40,.4);
+  padding: .1rem .5rem;
+  border-radius: 3px;
+}
+
+/* ── Badge de duplicadas — esquina inferior derecha de la imagen ── */
+.inv-card__dup-badge {
+  position: absolute;
+  bottom: 6px; right: 6px;
+  z-index: 3;
+  font-family: var(--font-title);
+  font-size: .72rem;
+  font-weight: 800;
+  color: #0b1f17;
+  background: #d99a28;
+  padding: .1rem .5rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+
+/* ══════════════════════════════════════════════
+   MODAL — detalle de carta y subida de nivel
+══════════════════════════════════════════════ */
+.card-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 1.5rem;
+  animation: card-modal-fade-in .2s ease-out;
+}
+@keyframes card-modal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.card-modal {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(160deg, #0d1f36 0%, #071020 100%);
+  border: 1px solid #1e3a5e;
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  animation: card-modal-pop-in .25s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes card-modal-pop-in {
+  from { opacity: 0; transform: scale(.92) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.card-modal--epic {
+  border-color: rgba(180,130,255,.4);
+  box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 40px rgba(180,130,255,.15);
+}
+.card-modal--rare {
+  border-color: rgba(217,154,40,.4);
+  box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 40px rgba(217,154,40,.12);
+}
+
+.card-modal__close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(7,16,32,.8);
+  border: 1px solid #1e3a5e;
+  color: #7aaad5;
+  font-size: .85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+.card-modal__close:hover {
+  border-color: #d99a28;
+  color: #d99a28;
+}
+
+.card-modal__rareza {
+  font-family: var(--font-title);
+  font-size: .78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7aaad5;
+  margin-bottom: .75rem;
+}
+.card-modal--rare .card-modal__rareza { color: #d99a28; }
+.card-modal--epic .card-modal__rareza { color: #b08ada; }
+
+.card-modal__img-wrap {
+  width: 160px; height: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #071020;
+  margin-bottom: .85rem;
+}
+.card-modal__img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.card-modal__nombre {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #f8f4e6;
+  margin-bottom: 2px;
+}
+.card-modal__titulo {
+  font-family: var(--font-narrative);
+  font-size: .82rem;
+  font-style: italic;
+  color: #7aaad5;
+  margin-bottom: .75rem;
+}
+
+.card-modal__stats {
+  display: flex;
+  gap: 6px;
+  margin-bottom: .85rem;
+}
+.card-modal__stat {
+  font-family: var(--font-title);
+  font-size: .75rem;
+  padding: .18rem .55rem;
+  border-radius: 3px;
+}
+.card-modal__stat--hp  { background: rgba(74,154,96,.12);  color: #7aaa8a; }
+.card-modal__stat--atk { background: rgba(184,80,80,.12);  color: #e07878; }
+.card-modal__stat--spd { background: rgba(217,154,40,.1);  color: #d99a28; }
+
+.card-modal__skill {
+  border-top: 1px solid rgba(30,58,94,.8);
+  padding-top: .6rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.card-modal__skill-name {
+  display: block;
+  font-family: var(--font-title);
+  font-size: .82rem;
+  font-weight: 700;
+  color: #99d4ff;
+  margin-bottom: 3px;
+}
+.card-modal__skill-desc {
+  display: block;
+  font-size: .75rem;
+  color: #7aaad5;
+  line-height: 1.4;
+}
+
+.card-modal__nivel-panel {
+  width: 100%;
+  background: rgba(4, 10, 20, 0.6);
+  border: 1px solid #1e3a5e;
+  border-radius: 10px;
+  padding: .9rem 1rem;
+}
+
+.card-modal__nivel-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-title);
+  font-size: .75rem;
+  letter-spacing: .5px;
+  color: #d99a28;
+  margin-bottom: 6px;
+}
+
+.card-modal__nivel-track {
+  height: 7px;
+  background: rgba(7,16,32,.9);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(30,58,94,.6);
+  margin-bottom: .85rem;
+}
+.card-modal__nivel-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #d99a28, #ffe186);
+  transition: width .5s ease;
+}
+
+.card-modal__error {
+  font-size: .78rem;
+  color: #ff8a8a;
+  margin-bottom: .6rem;
+}
+
+.card-modal__nivel-msg {
+  font-family: var(--font-narrative);
+  font-style: italic;
+  font-size: .82rem;
+  color: #7aaa8a;
+  margin: 0;
+}
+
+.card-modal__btn {
+  width: 100%;
+  padding: .75rem 1rem;
+  background: #d99a28;
+  color: #0b1f17;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-title);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: .2s;
+}
+.card-modal__btn:hover:not(:disabled) {
+  background: #ffe186;
+  transform: translateY(-2px);
+}
+.card-modal__btn:disabled {
+  background: rgba(30,58,94,.6);
+  color: #7aaad5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 480px) {
+  .card-modal { max-width: 100%; padding: 1.25rem 1.25rem 1.5rem; }
+  .card-modal__img-wrap { width: 130px; height: 130px; }
+}

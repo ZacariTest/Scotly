@@ -1,0 +1,14 @@
+.inv-card__nivel-badge {
+  position: absolute;
+  bottom: 8px; left: 8px;
+  z-index: 3;
+  font-family: var(--font-title);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #d99a28;
+  background: rgba(7, 16, 32, 0.85);
+  border: 1px solid rgba(217,154,40,.4);
+  padding: .1rem .5rem;
+  border-radius: 3px;
+}

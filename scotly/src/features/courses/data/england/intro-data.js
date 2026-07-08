@@ -26,10 +26,11 @@ export const introArteEngland = {
 
 export const introCocinaEngland = {
   id: "cocina-england",
+  region: "england",
   region_label: "Inglaterra",
   category: "Gastronomía",
   title: "Cocina Inglesa",
-  subtitle: "Del roast beef al fish and chips — la gastronomía que alimentó un imperio.",
+  subtitle: "Del roast beef al fish and chips. La gastronomía que alimentó un imperio.",
   img: "/img/C2.jpg",
   playerRoute: "/curso/england/cocina/player",
   stepCount: 8,
@@ -49,10 +50,11 @@ export const introCocinaEngland = {
 
 export const introHistoryEngland = {
   id: "history-england",
+  region: "england",
   region_label: "Inglaterra",
   category: "Historia",
   title: "Historia de Inglaterra",
-  subtitle: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo.",
+  subtitle: "De los romanos a la Revolución Industrial. Los eventos que moldearon el mundo.",
   img: "/img/H222.jpg",
   playerRoute: "/curso/england/history/player",
   stepCount: 8,
@@ -72,6 +74,7 @@ export const introHistoryEngland = {
 
 export const introMitologiaEngland = {
   id: "mitologia-england",
+  region: "england",
   region_label: "Inglaterra",
   category: "Mitología",
   title: "Leyendas Artúricas",

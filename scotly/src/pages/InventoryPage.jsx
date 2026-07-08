@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CardLevelUpModal from "../features/inventory/components/CardLevelUpModal";
 import "../features/invasion/styles/invasion.css";
 import "../styles/inventory.css";
+import "../features/inventory/styles/cardModal.css";
 
 const RARITY_ORDER = { legendary: 0, epic: 1, rare: 2, common: 3 };
 
@@ -23,6 +25,8 @@ export default function InventoryPage() {
   const [activeTab, setActiveTab] = useState("all");
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading]     = useState(true);
+  const [nivelMaximo, setNivelMaximo] = useState(7);
+  const [cartaSeleccionada, setCartaSeleccionada] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -42,12 +46,15 @@ export default function InventoryPage() {
             attack: c.ataque,
             speed: c.velocidad,
             rarity: c.rareza,
+            cantidad: c.cantidad,
+            nivel: c.nivel,
             skill: {
               name: c.habilidad_nombre,
               description: c.habilidad_descripcion,
             },
           }));
           setInventory(cartasMapeadas);
+          if (data.nivel_maximo) setNivelMaximo(data.nivel_maximo);
         }
       } catch (err) {
         console.error("Error al cargar inventario:", err);
@@ -59,13 +66,10 @@ export default function InventoryPage() {
     cargarInventario();
   }, [user, authFetch]);
 
-  // Fix: la redirección va en un useEffect, nunca directamente en el render.
   useEffect(() => {
     if (!user) navigate("/");
   }, [user, navigate]);
 
-  // Fix: este useMemo ahora se llama SIEMPRE, sin importar si hay user o no,
-  // para que el orden de hooks nunca cambie entre renders (evita el error #310).
   const filtered = useMemo(() => {
     return inventory
       .filter((c) => {
@@ -91,8 +95,15 @@ export default function InventoryPage() {
     common: inventory.filter((c) => c.rarity === "common").length,
   };
 
-  // Fix: el return anticipado ahora va DESPUÉS de todos los hooks.
-  // Mientras el useEffect de arriba redirige, no renderizamos nada.
+  const handleLevelUp = (cartaId, { nivel, cantidad }) => {
+    setInventory((prev) =>
+      prev.map((c) => (c.id === cartaId ? { ...c, nivel, cantidad } : c))
+    );
+    setCartaSeleccionada((prev) =>
+      prev && prev.id === cartaId ? { ...prev, nivel, cantidad } : prev
+    );
+  };
+
   if (!user) return null;
 
   return (
@@ -165,9 +176,16 @@ export default function InventoryPage() {
         ) : (
           <div className="invent-grid">
             {filtered.map((card) => (
-              <div key={card.id} className={`inv-card inv-card--${card.rarity}`}>
+              <div
+                key={card.id}
+                className={`inv-card inv-card--${card.rarity}`}
+                onClick={() => setCartaSeleccionada(card)}
+                role="button"
+                tabIndex={0}
+              >
 
                 <span className="inv-card__rarity-label">{card.rarity}</span>
+                <span className="inv-card__nivel-badge">Nv. {card.nivel}</span>
 
                 <div className="inv-card__img-wrap">
                   <img
@@ -176,6 +194,9 @@ export default function InventoryPage() {
                     alt={card.name}
                     onError={(e) => { e.target.style.display = "none"; }}
                   />
+                  {card.cantidad > 1 && (
+                    <span className="inv-card__dup-badge">x{card.cantidad}</span>
+                  )}
                 </div>
 
                 <div className="inv-card__body">
@@ -201,6 +222,15 @@ export default function InventoryPage() {
 
       </main>
       <Footer />
+
+      {cartaSeleccionada && (
+        <CardLevelUpModal
+          card={cartaSeleccionada}
+          nivelMaximo={nivelMaximo}
+          onClose={() => setCartaSeleccionada(null)}
+          onLevelUp={handleLevelUp}
+        />
+      )}
     </>
   );
 }

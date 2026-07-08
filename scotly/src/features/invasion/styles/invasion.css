@@ -373,13 +373,11 @@
   padding: .65rem .85rem .85rem;
 }
 
-.inv-card__name {
-  font-family: var(--font-title);
-  font-size: 1rem;
-  font-weight: 700;
-  color: #f8f4e6;
+.inv-card__name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin-bottom: 1px;
-  letter-spacing: .5px;
 }
 .inv-card--epic .inv-card__name { color: #c8a8f8; }
 .inv-card--rare .inv-card__name { color: #d99a28; }
@@ -392,23 +390,45 @@
   margin-bottom: .45rem;
 }
 
+.inv-card__nivel-tag {
+  font-family: var(--font-title);
+  font-size: .68rem;
+  font-weight: 700;
+  color: #d99a28;
+  background: rgba(217,154,40,.18);
+  border: 1px solid rgba(217,154,40,.4);
+  padding: .05rem .4rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+
+.inv-card__name-row .inv-card__name {
+  margin-bottom: 0;
+}
+
 .inv-card__stats {
   display: flex;
   gap: 5px;
   margin-bottom: .45rem;
   flex-wrap: wrap;
 }
+
+.inv-stat--nivel { background: rgba(217,154,40,.1); color: #d99a28; border: 1px solid rgba(217,154,40,.25); }
+
 .inv-stat {
   font-family: var(--font-title);
   font-size: .72rem;
+  font-weight: 700;
   padding: .15rem .45rem;
   border-radius: 3px;
   letter-spacing: .5px;
 }
-.inv-stat--hp  { background: rgba(74,154,96,.12);  color: #7aaa8a; border: 1px solid rgba(74,154,96,.2); }
-.inv-stat--atk { background: rgba(184,80,80,.12);  color: #e07878; border: 1px solid rgba(184,80,80,.2); }
-.inv-stat--spd { background: rgba(217,154,40,.1);  color: #d99a28; border: 1px solid rgba(217,154,40,.2); }
-
+.inv-stat--hp  { background: rgba(74,154,96,.28);  color: #a8e0b4; border: 1px solid rgba(74,154,96,.5); }
+.inv-stat--atk { background: rgba(184,80,80,.28);  color: #ffb0b0; border: 1px solid rgba(184,80,80,.5); }
+.inv-stat--spd { background: rgba(217,154,40,.24); color: #ffd166; border: 1px solid rgba(217,154,40,.5); }
+ 
 .inv-card__skill {
   border-top: 1px solid rgba(30,58,94,.8);
   padding-top: .35rem;
@@ -1271,6 +1291,11 @@
     grid-template-columns: 1fr;  /* 1 sola columna, carta full ancho */
   }
 }
+
+
+
+
+
 
 
 

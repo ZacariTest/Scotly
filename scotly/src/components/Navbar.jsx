@@ -130,18 +130,22 @@ export default function Navbar() {
 
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
+              <Link to="/campus" onClick={() => setMenuOpen(false)}>Campus</Link>
               <button className="btn btn-secondary" style={{ marginTop: "1.25rem" }} onClick={handleLogout}>
                 Cerrar sesión
               </button>
             </>
           ) : (
-            <button
-              className="btn btn-primary"
-              style={{ marginTop: "1.25rem", width: "100%", textAlign: "center" }}
-              onClick={() => { setMenuOpen(false); setAuthOpen(true); }}
-            >
-              Iniciar sesión
-            </button>
+            <>
+              <Link to="/campus" onClick={() => setMenuOpen(false)}>Campus</Link>
+              <button
+                className="btn btn-primary"
+                style={{ marginTop: "1.25rem", width: "100%", textAlign: "center" }}
+                onClick={() => { setMenuOpen(false); setAuthOpen(true); }}
+              >
+                Iniciar sesión
+              </button>
+            </>
           )}
         </div>
 

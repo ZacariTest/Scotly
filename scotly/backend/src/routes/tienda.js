@@ -17,6 +17,22 @@ router.get('/items', async (req, res) => {
   }
 });
 
+// GET /api/tienda/monedas — paquetes de monedas comprables con dinero real
+router.get('/monedas', async (req, res) => {
+  try {
+    const [items] = await pool.query(
+      `SELECT id, codigo, nombre, descripcion, precio_real, cantidad_otorgada
+       FROM tienda_items
+       WHERE tipo = 'moneda' AND activo = 1
+       ORDER BY precio_real ASC`
+    );
+    res.json({ items });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener los paquetes de monedas' });
+  }
+});
+
 // GET /api/tienda/destacado — carta(s) destacada(s) de temporada
 router.get('/destacado', async (req, res) => {
   try {
@@ -43,7 +59,7 @@ router.post('/comprar-item', verificarToken, async (req, res) => {
     await connection.beginTransaction();
 
     const [items] = await connection.query(
-      'SELECT * FROM tienda_items WHERE id = ? AND activo = 1',
+      "SELECT * FROM tienda_items WHERE id = ? AND activo = 1 AND tipo != 'moneda'",
       [item_id]
     );
     if (items.length === 0) {
@@ -98,6 +114,64 @@ router.post('/comprar-item', verificarToken, async (req, res) => {
     await connection.rollback(); connection.release();
     console.error(err);
     res.status(500).json({ error: 'Error al procesar la compra' });
+  }
+});
+
+// POST /api/tienda/comprar-moneda  { item_id }
+// Compra de un paquete de monedas con dinero real. El pago en sí (pasarela)
+// todavía no está integrado (MercadoPago está planeado, ver roadmap) — por
+// ahora esta ruta acredita las monedas directamente, igual que el resto de
+// compras "de prueba" del proyecto (metodo_pago sin pasarela real todavía).
+// Cuando se integre MercadoPago, el acreditado de monedas debe moverse al
+// webhook de confirmación de pago en lugar de hacerse aquí de forma síncrona.
+router.post('/comprar-moneda', verificarToken, async (req, res) => {
+  const { item_id } = req.body;
+  const usuarioId = req.usuario.id;
+
+  if (!item_id) return res.status(400).json({ error: 'Falta item_id' });
+
+  const connection = await pool.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    const [items] = await connection.query(
+      "SELECT * FROM tienda_items WHERE id = ? AND tipo = 'moneda' AND activo = 1",
+      [item_id]
+    );
+    if (items.length === 0) {
+      await connection.rollback(); connection.release();
+      return res.status(404).json({ error: 'Paquete de monedas no encontrado' });
+    }
+    const item = items[0];
+
+    await connection.query(
+      'UPDATE usuarios SET monedas = monedas + ? WHERE id = ?',
+      [item.cantidad_otorgada, usuarioId]
+    );
+
+    await connection.query(
+      'INSERT INTO compras (usuario_id, tipo, referencia_id, metodo_pago, importe) VALUES (?, ?, ?, ?, ?)',
+      [usuarioId, 'moneda', item_id, 'tarjeta', item.precio_real]
+    );
+
+    const [usuarios] = await connection.query(
+      'SELECT monedas FROM usuarios WHERE id = ?',
+      [usuarioId]
+    );
+
+    await connection.commit();
+    connection.release();
+
+    res.status(201).json({
+      mensaje: 'Monedas acreditadas',
+      item,
+      monedas_totales: usuarios[0].monedas,
+    });
+  } catch (err) {
+    await connection.rollback(); connection.release();
+    console.error(err);
+    res.status(500).json({ error: 'Error al procesar la compra de monedas' });
   }
 });
 

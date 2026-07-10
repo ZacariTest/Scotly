@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import AuthModal from "../components/AuthModal";
 import { useAuth } from "../context/AuthContext";
 import Toast from "../components/Toast";
+import { TIENDA_ASSETS } from "../features/tienda/data/tiendaAssets";
 
 const RARITY_LABEL = {
   legendary: "Legendaria",
@@ -17,6 +18,7 @@ export default function Shop() {
   const [category, setCategory] = useState("all");
   const [items, setItems] = useState([]);
   const [destacados, setDestacados] = useState([]);
+  const [monedasPacks, setMonedasPacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [comprando, setComprando] = useState(null);
   const [mensaje, setMensaje] = useState(null);
@@ -25,15 +27,18 @@ export default function Shop() {
   useEffect(() => {
     async function cargarTienda() {
       try {
-        const [resItems, resDestacado] = await Promise.all([
+        const [resItems, resDestacado, resMonedas] = await Promise.all([
           fetch(`${import.meta.env.VITE_API_URL}/api/tienda/items`),
           fetch(`${import.meta.env.VITE_API_URL}/api/tienda/destacado`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/tienda/monedas`),
         ]);
         const dataItems = await resItems.json();
         const dataDestacado = await resDestacado.json();
+        const dataMonedas = await resMonedas.json();
 
         setItems(dataItems.items || []);
         setDestacados(dataDestacado.cartas || []);
+        setMonedasPacks(dataMonedas.items || []);
       } catch (err) {
         console.error("Error al cargar la tienda:", err);
       } finally {
@@ -96,6 +101,32 @@ export default function Shop() {
     }
   };
 
+  const comprarMoneda = async (pack) => {
+    if (!user) { setAuthOpen(true); return; }
+    const comprandoId = `moneda-${pack.id}`;
+    setComprando(comprandoId);
+    try {
+      const res = await authFetch("/api/tienda/comprar-moneda", {
+        method: "POST",
+        body: JSON.stringify({ item_id: pack.id }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        mostrarMensaje("No se pudo completar la compra.", "error");
+        return;
+      }
+
+      // El backend devuelve el saldo real (fuente de verdad), no lo calculamos a mano
+      updateUser({ monedas: data.monedas_totales });
+      mostrarMensaje(`¡+${pack.cantidad_otorgada} monedas acreditadas!`, "ok");
+    } catch (err) {
+      mostrarMensaje("Error de conexión.", "error");
+    } finally {
+      setComprando(null);
+    }
+  };
+
   // Normaliza items + cartas destacadas a un mismo shape para el grid
   const normalizados = [
     ...destacados.map((c) => ({
@@ -113,7 +144,7 @@ export default function Shop() {
       rawId: i.id,
       tipo: "item",
       name: i.nombre,
-      img: null,
+      img: TIENDA_ASSETS[i.codigo]?.img ?? null,
       price: i.precio_monedas,
       rarity: "common",
       categoria: i.tipo === "cosmetico" ? "cosmeticos" : "objetos",
@@ -126,6 +157,15 @@ export default function Shop() {
       : normalizados.filter((i) => i.categoria === category);
 
   const featured = destacados[0];
+
+  // Paquete con mejor relación monedas/precio — se marca como "mejor oferta"
+  const mejorOfertaId = monedasPacks.reduce((mejorId, pack) => {
+    if (!mejorId) return pack.id;
+    const mejor = monedasPacks.find((p) => p.id === mejorId);
+    const valorActual = pack.cantidad_otorgada / pack.precio_real;
+    const valorMejor = mejor.cantidad_otorgada / mejor.precio_real;
+    return valorActual > valorMejor ? pack.id : mejorId;
+  }, null);
 
   const handleComprar = (entry) => {
     if (entry.tipo === "carta") {
@@ -159,7 +199,7 @@ export default function Shop() {
 
         {/* Categorías */}
         <section className="shop-categories">
-          {["all", "personajes", "cosmeticos", "objetos"].map((cat) => (
+          {["all", "personajes", "cosmeticos", "objetos", "monedas"].map((cat) => (
             <button
               key={cat}
               className={category === cat ? "active" : ""}
@@ -170,8 +210,8 @@ export default function Shop() {
           ))}
         </section>
 
-        {/* Destacado */}
-        {featured && (
+        {/* Destacado (solo tiene sentido fuera de la pestaña de monedas) */}
+        {featured && category !== "monedas" && (
           <div className="shop-featured">
             <div className="shop-featured-icon">★</div>
             <div className="shop-featured-info">
@@ -192,6 +232,41 @@ export default function Shop() {
         {/* Grid */}
         {loading ? (
           <p style={{ textAlign: "center", padding: "2rem" }}>Cargando tienda...</p>
+        ) : category === "monedas" ? (
+          <section className="shop-coin-grid">
+            {monedasPacks.map((pack) => {
+              const comprandoId = `moneda-${pack.id}`;
+              const esMejorOferta = pack.id === mejorOfertaId;
+              return (
+                <div
+                  className={`shop-coin-card${esMejorOferta ? " mejor-oferta" : ""}`}
+                  key={pack.id}
+                >
+                  {esMejorOferta && (
+                    <span className="shop-coin-ribbon">Mejor oferta</span>
+                  )}
+                  <div className="shop-coin-icon">
+                    {TIENDA_ASSETS[pack.codigo]?.img ? (
+                      <img src={TIENDA_ASSETS[pack.codigo].img} alt={pack.nombre} />
+                    ) : (
+                      "🪙"
+                    )}
+                  </div>
+                  <h3 className="shop-coin-amount">
+                    {pack.cantidad_otorgada.toLocaleString("es-AR")}
+                  </h3>
+                  <p className="shop-coin-desc">{pack.descripcion}</p>
+                  <button
+                    className="shop-coin-btn"
+                    onClick={() => comprarMoneda(pack)}
+                    disabled={comprando === comprandoId}
+                  >
+                    {comprando === comprandoId ? "..." : `US$ ${Number(pack.precio_real).toFixed(2)}`}
+                  </button>
+                </div>
+              );
+            })}
+          </section>
         ) : (
           <section className="shop-grid">
             {filtrados.map((item) => (

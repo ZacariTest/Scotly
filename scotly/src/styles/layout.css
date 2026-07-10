@@ -910,9 +910,7 @@ html, body {
 }
 .course-card:hover .course-card__img { filter: brightness(0.9); }
 
-/* Gradiente reforzado: oscurece progresivamente desde abajo y mantiene
-   sombra hasta bien arriba, para que el texto tenga contraste incluso
-   sobre imágenes claras (cielo, agua, pergamino, etc.) */
+/* Gradiente reforzado*/
 .course-card__overlay {
   position: absolute;
   inset: 0;
@@ -1446,25 +1444,111 @@ html, body {
 .shop-item-btn.rarity-rare { border-color: rgba(255,198,28,0.4); color: #ffc61c; }
 .shop-item-btn.rarity-epic { border-color: rgba(122,90,170,0.4); color: #b08ada; }
 
+/* ==========================================================
+   SHOP — PAQUETES DE MONEDAS (compra con dinero real)
+========================================================== */
+.shop-coin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  padding: 8px 24px 0;
+}
+
+.shop-coin-card {
+  position: relative;
+  background: color-mix(in srgb, var(--region-primary) 80%, #000);
+  border: 1px solid rgba(255,198,28,0.25);
+  border-radius: 8px;
+  padding: 22px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s, background 0.6s ease;
+}
+.shop-coin-card:hover {
+  transform: translateY(-4px);
+  border-color: #ffc61c;
+}
+.shop-coin-card.mejor-oferta {
+  border-color: #ffc61c;
+  background: color-mix(in srgb, var(--region-primary) 70%, #000);
+}
+
+.shop-coin-ribbon {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: #ffc61c;
+  color: #0b1f17;
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.shop-coin-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 6px rgba(255,198,28,0.35));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shop-coin-icon img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.shop-coin-amount {
+  color: #ffc61c;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+}
+
+.shop-coin-desc {
+  color: var(--region-muted);
+  font-size: 0.72rem;
+  font-style: italic;
+  min-height: 2.2em;
+  margin: 0 0 14px;
+  transition: color 0.6s ease;
+}
+
+.shop-coin-btn {
+  width: 100%;
+  background: #ffc61c;
+  color: #0b1f17;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+}
+.shop-coin-btn:hover { background: #ffe186; }
+.shop-coin-btn:disabled { opacity: 0.6; cursor: default; }
+
 @media (max-width: 768px) {
   .shop-featured { flex-direction: column; text-align: center; }
   .shop-featured-btn { width: 100%; }
   .shop-grid { grid-template-columns: 1fr 1fr; padding: 0 12px; }
+  .shop-coin-grid { grid-template-columns: 1fr 1fr; padding: 8px 12px 0; }
     .shop-banner {
     padding: calc(58px + 24px) 24px 20px;
   }
 }
 @media (max-width: 480px) {
   .shop-grid { grid-template-columns: 1fr; }
+  .shop-coin-grid { grid-template-columns: 1fr 1fr; }
 }
-
-
-
-
-
-
-
-
 
 
 

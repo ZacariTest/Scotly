@@ -528,6 +528,39 @@
   display: block;
 }
 
+
+
+
+.cp-reward-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cp-reward-xp {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.cp-reward-compact {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .reading-step { grid-template-columns: 260px 1fr; }

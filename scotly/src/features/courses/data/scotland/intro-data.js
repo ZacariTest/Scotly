@@ -1,6 +1,20 @@
 // src/features/courses/data/scotland/intro-data.js
 // Datos de presentación para las páginas intro de cada curso escocés
 
+import { CHARACTERS } from "../../../invasion/data/characters.js";
+
+// Convierte una carta real del catálogo (characters.js) en el formato
+// visual que espera el panel de recompensas de CourseIntro.
+function cartaComoRecompensa(codigo) {
+  const carta = CHARACTERS.find((c) => c.id === codigo);
+  if (!carta) return null;
+  return {
+    name: carta.name,
+    type: carta.rarity === "common" ? "Carta común" : `Carta ${carta.rarity}`,
+    img: carta.img,
+  };
+}
+
 export const introArte = {
   id: "arte",
   region_label: "Escocia",
@@ -19,8 +33,8 @@ export const introArte = {
     "El arte celta en el mundo moderno",
   ],
   rewards: [
-    { name: "Artesano Celta", type: "Título desbloqueado", img: "/img/Arte.jpg" },
-    { name: "Libro de Kells", type: "Artefacto histórico", img: "/img/Arte.jpg" },
+    cartaComoRecompensa("catriona"),
+    cartaComoRecompensa("catriona"),
   ],
 };
 
@@ -41,6 +55,8 @@ export const introCocina = {
     "Postres y dulces tradicionales",
     "El Scotch whisky y sus regiones",
   ],
+  // TODO: reemplazar por cartaComoRecompensa("codigo") cuando se definan
+  // los rewardCards de este curso en su archivo cocina.js
   rewards: [
     { name: "Cocinero de las Highlands", type: "Título desbloqueado", img: "/img/Comida.jpg" },
     { name: "Copa de Cranachan", type: "Artefacto gastronómico", img: "/img/Comida.jpg" },
@@ -64,6 +80,8 @@ export const introHistory = {
     "Los clanes y la era jacobita",
     "La Unión y la Ilustración Escocesa",
   ],
+  // TODO: reemplazar por cartaComoRecompensa("codigo") cuando se definan
+  // los rewardCards de este curso en su archivo history.js
   rewards: [
     { name: "Cronista de las Highlands", type: "Título desbloqueado", img: "/img/History.jpg" },
     { name: "Declaración de Arbroath", type: "Documento histórico", img: "/img/History.jpg" },
@@ -87,6 +105,8 @@ export const introMitologia = {
     "Las selkies: focas del alma",
     "El Monstruo del Lago Ness",
   ],
+  // TODO: reemplazar por cartaComoRecompensa("codigo") cuando se definan
+  // los rewardCards de este curso en su archivo mitologia.js
   rewards: [
     { name: "Guardián del Velo", type: "Título desbloqueado", img: "/img/Mitologia.PNG" },
     { name: "Piel de Selkie", type: "Artefacto mítico", img: "/img/Mitologia.PNG" },

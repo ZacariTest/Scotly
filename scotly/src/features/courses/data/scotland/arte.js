@@ -4,6 +4,8 @@ export const course = {
   title: "Arte Celta",
   subtitle: "Los patrones que definieron la identidad visual escocesa",
   img: "/img/Arte.jpg",
+  rewardCards: ["catriona", "duncan"], // reemplazar por 2 códigos distintos cuando haya más cartas comunes
+  rewardXp: 150,
 
   steps: [
     // ── LECTURA 1 ──────────────────────────────────────────

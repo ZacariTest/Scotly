@@ -8,7 +8,7 @@ const router = Router();
 router.get('/items', async (req, res) => {
   try {
     const [items] = await pool.query(
-      'SELECT id, codigo, nombre, tipo, descripcion, precio_monedas, cantidad_otorgada FROM tienda_items WHERE activo = 1'
+      "SELECT id, codigo, nombre, tipo, descripcion, precio_monedas, cantidad_otorgada FROM tienda_items WHERE activo = 1 AND tipo != 'moneda'"
     );
     res.json({ items });
   } catch (err) {
@@ -18,6 +18,10 @@ router.get('/items', async (req, res) => {
 });
 
 // GET /api/tienda/monedas — paquetes de monedas comprables con dinero real
+// `precio_real` es el valor que se MUESTRA en la tienda, en EUROS.
+// El cobro efectivo (cuando se integre MercadoPago) se hará en pesos
+// argentinos — la conversión EUR→ARS pasa por el gateway/backend en ese
+// momento, no acá. Esta columna nunca representa el monto cobrado en ARS.
 router.get('/monedas', async (req, res) => {
   try {
     const [items] = await pool.query(
@@ -118,11 +122,11 @@ router.post('/comprar-item', verificarToken, async (req, res) => {
 });
 
 // POST /api/tienda/comprar-moneda  { item_id }
-// Compra de un paquete de monedas con dinero real. El pago en sí (pasarela)
-// todavía no está integrado (MercadoPago está planeado, ver roadmap) — por
+// Compra de un paquete de monedas con dinero real. El pago
+// todavía no está integrado (MercadoPago está planeado) por
 // ahora esta ruta acredita las monedas directamente, igual que el resto de
-// compras "de prueba" del proyecto (metodo_pago sin pasarela real todavía).
-// Cuando se integre MercadoPago, el acreditado de monedas debe moverse al
+// compras "de prueba" del proyecto (metodo_pago sin pasarela real).
+// Cuando se integre MercadoPago, el acreditado de monedas se movera al
 // webhook de confirmación de pago en lugar de hacerse aquí de forma síncrona.
 router.post('/comprar-moneda', verificarToken, async (req, res) => {
   const { item_id } = req.body;

@@ -87,4 +87,106 @@ router.post('/subir-nivel', verificarToken, async (req, res) => {
   }
 });
 
+// POST /api/inventario/recompensa-curso  { curso_codigo, cartas: [codigo,...], experiencia }
+// Otorga las cartas y la experiencia de completar un curso, una sola vez por curso.
+router.post('/recompensa-curso', verificarToken, async (req, res) => {
+  const { curso_codigo, cartas, experiencia } = req.body;
+  const usuarioId = req.usuario.id;
+
+  if (!curso_codigo || !Array.isArray(cartas) || cartas.length === 0) {
+    return res.status(400).json({ error: 'Faltan datos de la recompensa' });
+  }
+
+  const codigoRegalo = `curso_${curso_codigo}`;
+  const connection = await pool.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    // Evita reclamar la recompensa del mismo curso más de una vez
+    const [yaReclamado] = await connection.query(
+      'SELECT id FROM regalos_reclamados WHERE usuario_id = ? AND codigo_regalo = ? FOR UPDATE',
+      [usuarioId, codigoRegalo]
+    );
+
+    if (yaReclamado.length > 0) {
+      await connection.rollback();
+      connection.release();
+      return res.status(409).json({ error: 'Ya reclamaste la recompensa de este curso' });
+    }
+
+    // Busca las cartas por código (sin duplicados para el WHERE IN)
+    const codigosUnicos = [...new Set(cartas)];
+    const [filasCartas] = await connection.query(
+      `SELECT id, codigo FROM cartas WHERE codigo IN (${codigosUnicos.map(() => '?').join(',')})`,
+      codigosUnicos
+    );
+
+    if (filasCartas.length !== codigosUnicos.length) {
+      await connection.rollback();
+      connection.release();
+      return res.status(400).json({ error: 'Alguna de las cartas de recompensa no existe' });
+    }
+
+    const idPorCodigo = Object.fromEntries(filasCartas.map((c) => [c.codigo, c.id]));
+
+    // Otorga cada carta (respetando duplicados, ej: 2 de la misma) y lo registra en `recompensas`
+    for (const codigo of cartas) {
+      const cartaId = idPorCodigo[codigo];
+
+      const [existe] = await connection.query(
+        'SELECT id FROM inventario_cartas WHERE usuario_id = ? AND carta_id = ? FOR UPDATE',
+        [usuarioId, cartaId]
+      );
+
+      if (existe.length > 0) {
+        await connection.query(
+          'UPDATE inventario_cartas SET cantidad = cantidad + 1 WHERE id = ?',
+          [existe[0].id]
+        );
+      } else {
+        await connection.query(
+          'INSERT INTO inventario_cartas (usuario_id, carta_id, cantidad) VALUES (?, ?, 1)',
+          [usuarioId, cartaId]
+        );
+      }
+
+      await connection.query(
+        `INSERT INTO recompensas (usuario_id, origen, tipo, cantidad, carta_id) VALUES (?, ?, 'carta', 1, ?)`,
+        [usuarioId, codigoRegalo, cartaId]
+      );
+    }
+
+    // Suma experiencia (validada en el server, no confiar ciegamente en el valor del cliente)
+    const xp = Number.isFinite(experiencia) ? Math.max(0, Math.min(1000, Math.floor(experiencia))) : 0;
+    if (xp > 0) {
+      await connection.query(
+        'UPDATE usuarios SET experiencia = experiencia + ? WHERE id = ?',
+        [xp, usuarioId]
+      );
+    }
+
+    // Marca el curso como reclamado
+    await connection.query(
+      'INSERT INTO regalos_reclamados (usuario_id, codigo_regalo) VALUES (?, ?)',
+      [usuarioId, codigoRegalo]
+    );
+
+    await connection.commit();
+
+    const [usuarios] = await pool.query(
+      'SELECT id, username, email, monedas, puntos, energia, experiencia, rol, foto_perfil FROM usuarios WHERE id = ?',
+      [usuarioId]
+    );
+
+    res.json({ usuario: usuarios[0], cartas: filasCartas.map((c) => c.codigo) });
+  } catch (err) {
+    await connection.rollback();
+    console.error(err);
+    res.status(500).json({ error: 'Error al otorgar la recompensa' });
+  } finally {
+    connection.release();
+  }
+});
+
 export default router;

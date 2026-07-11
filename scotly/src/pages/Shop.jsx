@@ -13,6 +13,9 @@ const RARITY_LABEL = {
   common: "Común",
 };
 
+const formatEuros = (value) =>
+  new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(value);
+
 export default function Shop() {
   const { user, authFetch, updateUser } = useAuth();
   const [category, setCategory] = useState("all");
@@ -101,11 +104,17 @@ export default function Shop() {
     }
   };
 
+  // pack: { id, cantidad_otorgada } — alcanza con eso, no hace falta el objeto completo
   const comprarMoneda = async (pack) => {
     if (!user) { setAuthOpen(true); return; }
     const comprandoId = `moneda-${pack.id}`;
     setComprando(comprandoId);
     try {
+      // TODO(mercadopago): esta llamada acredita las monedas de forma directa
+      // porque todavía no hay pasarela de pago. Cuando se integre MercadoPago,
+      // este onClick debe abrir el checkout en vez de llamar directo al
+      // endpoint — el acreditado real se dispara desde el webhook de pago
+      // confirmado, no desde acá.
       const res = await authFetch("/api/tienda/comprar-moneda", {
         method: "POST",
         body: JSON.stringify({ item_id: pack.id }),
@@ -127,7 +136,9 @@ export default function Shop() {
     }
   };
 
-  // Normaliza items + cartas destacadas a un mismo shape para el grid
+  // Normaliza items + cartas destacadas + paquetes de moneda a un mismo
+  // shape para el grid. Los paquetes de moneda entran con categoria
+  // "monedas" así aparecen tanto en "Todos" como en la pestaña "Monedas".
   const normalizados = [
     ...destacados.map((c) => ({
       id: `carta-${c.id}`,
@@ -148,6 +159,17 @@ export default function Shop() {
       price: i.precio_monedas,
       rarity: "common",
       categoria: i.tipo === "cosmetico" ? "cosmeticos" : "objetos",
+    })),
+    ...monedasPacks.map((p) => ({
+      id: `moneda-${p.id}`,
+      rawId: p.id,
+      tipo: "moneda",
+      name: p.nombre,
+      img: TIENDA_ASSETS[p.codigo]?.img ?? null,
+      price: p.precio_real,
+      cantidadOtorgada: p.cantidad_otorgada,
+      descripcion: p.descripcion,
+      categoria: "monedas",
     })),
   ];
 
@@ -171,6 +193,8 @@ export default function Shop() {
     if (entry.tipo === "carta") {
       const carta = destacados.find((c) => c.id === entry.rawId);
       comprarCarta(carta);
+    } else if (entry.tipo === "moneda") {
+      comprarMoneda({ id: entry.rawId, cantidad_otorgada: entry.cantidadOtorgada });
     } else {
       const item = items.find((i) => i.id === entry.rawId);
       comprarItem(item);
@@ -210,7 +234,7 @@ export default function Shop() {
           ))}
         </section>
 
-        {/* Destacado (solo tiene sentido fuera de la pestaña de monedas) */}
+        {/* Destacado */}
         {featured && category !== "monedas" && (
           <div className="shop-featured">
             <div className="shop-featured-icon">★</div>
@@ -232,76 +256,85 @@ export default function Shop() {
         {/* Grid */}
         {loading ? (
           <p style={{ textAlign: "center", padding: "2rem" }}>Cargando tienda...</p>
-        ) : category === "monedas" ? (
-          <section className="shop-coin-grid">
-            {monedasPacks.map((pack) => {
-              const comprandoId = `moneda-${pack.id}`;
-              const esMejorOferta = pack.id === mejorOfertaId;
-              return (
-                <div
-                  className={`shop-coin-card${esMejorOferta ? " mejor-oferta" : ""}`}
-                  key={pack.id}
-                >
-                  {esMejorOferta && (
-                    <span className="shop-coin-ribbon">Mejor oferta</span>
-                  )}
-                  <div className="shop-coin-icon">
-                    {TIENDA_ASSETS[pack.codigo]?.img ? (
-                      <img src={TIENDA_ASSETS[pack.codigo].img} alt={pack.nombre} />
-                    ) : (
-                      "🪙"
-                    )}
-                  </div>
-                  <h3 className="shop-coin-amount">
-                    {pack.cantidad_otorgada.toLocaleString("es-AR")}
-                  </h3>
-                  <p className="shop-coin-desc">{pack.descripcion}</p>
-                  <button
-                    className="shop-coin-btn"
-                    onClick={() => comprarMoneda(pack)}
-                    disabled={comprando === comprandoId}
-                  >
-                    {comprando === comprandoId ? "..." : `US$ ${Number(pack.precio_real).toFixed(2)}`}
-                  </button>
-                </div>
-              );
-            })}
-          </section>
         ) : (
           <section className="shop-grid">
-            {filtrados.map((item) => (
-              <div className={`shop-item rarity-${item.rarity}`} key={item.id}>
-                <span className={`shop-rarity-badge rarity-${item.rarity}`}>
-                  {RARITY_LABEL[item.rarity]}
-                </span>
-                <div className="shop-image-wrapper">
-                  {item.img && <img src={item.img} alt={item.name} />}
-                  <div className="shop-item-glow" />
-                  <div className="shop-item-overlay">
-                    <button
-                      className="shop-overlay-btn"
-                      onClick={() => handleComprar(item)}
-                      disabled={comprando === item.rawId}
-                    >
-                      {comprando === item.rawId ? "..." : "Obtener"}
-                    </button>
+            {filtrados.map((item) =>
+              item.tipo === "moneda" ? (
+                <div
+                  className={`shop-item shop-item-moneda${item.rawId === mejorOfertaId ? " mejor-oferta" : ""}`}
+                  key={item.id}
+                >
+                  {item.rawId === mejorOfertaId && (
+                    <span className="shop-moneda-ribbon">Mejor oferta</span>
+                  )}
+                  <div className="shop-image-wrapper">
+                    {item.img ? (
+                      <img src={item.img} alt={item.name} />
+                    ) : (
+                      <span className="shop-coin-fallback">🪙</span>
+                    )}
+                    <div className="shop-item-glow" />
+                    <div className="shop-item-overlay">
+                      <button
+                        className="shop-overlay-btn"
+                        onClick={() => handleComprar(item)}
+                        disabled={comprando === `moneda-${item.rawId}`}
+                      >
+                        {comprando === `moneda-${item.rawId}` ? "..." : "Comprar"}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="shop-item-body">
+                    <h3 className="shop-item-name">{item.name}</h3>
+                    <p className="shop-item-desc-moneda">{item.descripcion}</p>
+                    <div className="shop-item-footer">
+                      <span className="shop-item-price shop-item-price-real">
+                        {formatEuros(item.price)}
+                      </span>
+                      <button
+                        className="shop-item-btn shop-item-btn-moneda"
+                        onClick={() => handleComprar(item)}
+                        disabled={comprando === `moneda-${item.rawId}`}
+                      >
+                        {comprando === `moneda-${item.rawId}` ? "..." : "Comprar"}
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="shop-item-body">
-                  <h3 className="shop-item-name">{item.name}</h3>
-                  <div className="shop-item-footer">
-                    <span className="shop-item-price">{item.price} monedas</span>
-                    <button
-                      className={`shop-item-btn rarity-${item.rarity}`}
-                      onClick={() => handleComprar(item)}
-                      disabled={comprando === item.rawId}
-                    >
-                      {comprando === item.rawId ? "..." : "Obtener"}
-                    </button>
+              ) : (
+                <div className={`shop-item rarity-${item.rarity}`} key={item.id}>
+                  <span className={`shop-rarity-badge rarity-${item.rarity}`}>
+                    {RARITY_LABEL[item.rarity]}
+                  </span>
+                  <div className="shop-image-wrapper">
+                    {item.img && <img src={item.img} alt={item.name} />}
+                    <div className="shop-item-glow" />
+                    <div className="shop-item-overlay">
+                      <button
+                        className="shop-overlay-btn"
+                        onClick={() => handleComprar(item)}
+                        disabled={comprando === item.rawId}
+                      >
+                        {comprando === item.rawId ? "..." : "Obtener"}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="shop-item-body">
+                    <h3 className="shop-item-name">{item.name}</h3>
+                    <div className="shop-item-footer">
+                      <span className="shop-item-price">{item.price} monedas</span>
+                      <button
+                        className={`shop-item-btn rarity-${item.rarity}`}
+                        onClick={() => handleComprar(item)}
+                        disabled={comprando === item.rawId}
+                      >
+                        {comprando === item.rawId ? "..." : "Obtener"}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </section>
         )}
 

@@ -6,12 +6,16 @@ import ProgressScroll from "./ProgressScroll";
 import ReadingStep from "./ReadingStep";
 import QuizStep from "./QuizStep";
 import { applyRegionTheme } from "../../../constants/regionThemes";
+import { useAuth } from "../../../context/AuthContext";
+import { CHARACTERS } from "../../invasion/data/characters.js";
 import "../styles/course-player.css";
 
 export default function CoursePlayer({ course }) {
   const navigate = useNavigate();
+  const { authFetch, updateUser } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
+  const [rewardStatus, setRewardStatus] = useState("idle"); // idle | loading | done | error
 
   useEffect(() => {
     applyRegionTheme(course.region);
@@ -26,11 +30,44 @@ export default function CoursePlayer({ course }) {
     }
   };
 
+  // Llama al backend para otorgar las cartas + XP de completar el curso.
+  // El backend rechaza (409) si ya se reclamó antes, así que es seguro
+  // de llamar más de una vez sin duplicar la recompensa.
+  const reclamarRecompensa = async () => {
+    if (!course.rewardCards || rewardStatus === "loading" || rewardStatus === "done") return;
+
+    setRewardStatus("loading");
+    try {
+      const res = await authFetch("/api/inventario/recompensa-curso", {
+        method: "POST",
+        body: JSON.stringify({
+          curso_codigo: course.id,
+          cartas: course.rewardCards,
+          experiencia: course.rewardXp ?? 0,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok && res.status !== 409) {
+        throw new Error(data.error || "No se pudo otorgar la recompensa");
+      }
+
+      if (data.usuario) updateUser(data.usuario);
+      setRewardStatus("done");
+    } catch (err) {
+      console.error(err);
+      setRewardStatus("error");
+    }
+  };
+
   const goNext = () => {
     markComplete();
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: "instant" });
+    } else {
+      reclamarRecompensa();
     }
   };
 
@@ -49,6 +86,23 @@ export default function CoursePlayer({ course }) {
   };
 
 const isQuiz = step.type === "quiz";
+
+// Texto compacto de la recompensa (ej: "Catriona x2"), en vez de
+// mostrar las imágenes de las cartas en cada paso de lectura.
+const rewardNames = (() => {
+  if (!course.rewardCards || course.rewardCards.length === 0) return "";
+  const conteo = {};
+  course.rewardCards.forEach((codigo) => {
+    conteo[codigo] = (conteo[codigo] || 0) + 1;
+  });
+  return Object.entries(conteo)
+    .map(([codigo, cantidad]) => {
+      const carta = CHARACTERS.find((c) => c.id === codigo);
+      const nombre = carta ? carta.name : codigo;
+      return cantidad > 1 ? `${nombre} x${cantidad}` : nombre;
+    })
+    .join(", ");
+})();
 
 // Imagen del reading step que precede al quiz actual
 const precedingImg = (() => {
@@ -123,17 +177,10 @@ const precedingImg = (() => {
 
                 <div className="cp-side-card">
                   <span className="cp-side-card__label">Recompensa</span>
-                  <div className="cp-reward-card">
-                    <img
-                      src="/img/cards/william-wallace.jpg"
-                      alt="---"
-                      className="cp-reward-card__img"
-                    />
-                    <div className="cp-reward-card__info">
-                      <h3>Carta común</h3>
-                      <p>Personaje</p>
-                    </div>
-                  </div>
+                  <h3 className="cp-reward-compact">
+                    {rewardNames || "—"}
+                    {course.rewardXp ? ` · +${course.rewardXp} XP` : ""}
+                  </h3>
                 </div>
 
                 <button className="cp-player__next-btn" onClick={goNext}>

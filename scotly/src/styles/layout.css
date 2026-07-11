@@ -243,7 +243,7 @@ html, body {
 
 
 
-/* ── CHIP DE MONEDAS ── */
+/* ── CHIP DE MONEDAS (desktop, dentro de navbar__right) ── */
 .navbar__coins {
   display: flex;
   align-items: center;
@@ -262,27 +262,6 @@ html, body {
 
 .navbar__coins-icon {
   font-size: 0.95rem;
-}
-
-.navbar__mobile-coins {
-  display: none;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.65rem;
-  background: color-mix(in srgb, #d99a28 12%, transparent);
-  border: 1px solid color-mix(in srgb, #d99a28 35%, transparent);
-  border-radius: 999px;
-  font-family: var(--font-title);
-  font-weight: 700;
-  font-size: 0.8rem;
-  color: #ffc61c;
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-  .navbar__mobile-coins {
-    display: flex;
-  }
 }
 
 .navbar__profile-avatar--img {
@@ -320,6 +299,29 @@ html, body {
 }
 .mobile-menu.active { left: 0; }
 
+/* Bloque de monedas / provisiones dentro del menú móvil */
+.mobile-menu__coins {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--region-accent, #5b9bd5) 20%, transparent);
+}
+
+.mobile-menu__coin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffc61c;
+  letter-spacing: 0.3px;
+}
+
 .mobile-menu a {
   width: 100%;
   font-family: var(--font-title);
@@ -343,6 +345,8 @@ html, body {
   text-align: center;
   display: block;
 }
+
+
 
 /* ==========================================================
    RESPONSIVE
@@ -369,7 +373,6 @@ html, body {
     letter-spacing: 1.5px;
   }
 }
-
 
 /* ==========================================================
    HERO

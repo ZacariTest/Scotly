@@ -2,26 +2,26 @@
 export const TIENDA_ASSETS = {
   // Cosméticos / objetos / energía
   COSM_ROPAJES: {
-    img: "/img/C1.jpg",
+    img: "/img/Rop1.png",
   },
   OBJ_SCONES: {
-    img: "/img/objetos/scones.png",
+    img: "/img/Scones3.PNG",
   },
   ENERGIA_POCION: {
-    img: "/img/objetos/pocion-energia.png",
+    img: "/img/Po25.png",
   },
 
   // Paquetes de monedas
   MONEDAS_60: {
-    img: "/img/monedas/pack-60.png",
+    img: "/img/Monedas1.png",
   },
   MONEDAS_300: {
-    img: "/img/monedas/pack-300.png",
+    img: "/img/Monedas2.png",
   },
   MONEDAS_980: {
-    img: "/img/monedas/pack-980.png",
+    img: "/img/Monedas(3).png",
   },
   MONEDAS_1980: {
-    img: "/img/monedas/pack-1980.png",
+    img: "/img/Monedas4.png",
   },
 };

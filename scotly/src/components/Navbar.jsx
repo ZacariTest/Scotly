@@ -65,7 +65,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* DERECHA — chip de perfil o botones auth */}
+        {/* DERECHA — chip de perfil o botones auth (solo desktop, se oculta en mobile por CSS) */}
         <div className="navbar__right">
           {user ? (
             <>
@@ -100,23 +100,23 @@ export default function Navbar() {
           )}
         </div>
 
-        {user && (
-          <div className="navbar__mobile-coins-group">
-            <div className="navbar__mobile-coins" title="Tus monedas">
-              <span className="navbar__coins-icon">🪙</span>
-              <span className="navbar__coins-amount">{user.monedas ?? 0}</span>
-            </div>
-            <div className="navbar__mobile-coins navbar__mobile-coins--provisiones" title="Tus provisiones">
-              <span className="navbar__coins-icon">📜</span>
-              <span className="navbar__coins-amount">{user.puntos ?? 0}</span>
-            </div>
-          </div>
-        )}
-
-
-
         {/* MENÚ MÓVIL */}
         <div className={`mobile-menu ${menuOpen ? "active" : ""}`}>
+
+          {/* Monedas y provisiones — solo visibles en mobile, dentro del menú */}
+          {user && (
+            <div className="mobile-menu__coins">
+              <div className="mobile-menu__coin-item" title="Tus monedas">
+                <span>🪙 Monedas</span>
+                <span>{user.monedas ?? 0}</span>
+              </div>
+              <div className="mobile-menu__coin-item" title="Tus provisiones">
+                <span>📜 Provisiones</span>
+                <span>{user.puntos ?? 0}</span>
+              </div>
+            </div>
+          )}
+
           {NAV_LINKS.map(({ to, label, badge }) => (
             <Link key={to} to={to} onClick={() => setMenuOpen(false)}>
               {label}
@@ -127,7 +127,6 @@ export default function Navbar() {
 
           {user ? (
             <>
-
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
               <Link to="/campus" onClick={() => setMenuOpen(false)}>Campus</Link>

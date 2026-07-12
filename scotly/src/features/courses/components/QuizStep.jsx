@@ -1,26 +1,58 @@
 import { useState } from "react";
+import { useAuth } from "../../../context/AuthContext";
 
 const LETTERS = ["A", "B", "C", "D"];
 
-export default function QuizStep({ step, onAnswer, onNext }) {
+export default function QuizStep({ step, stepIndex, courseCodigo, onAnswer, onNext }) {
+  const { authFetch } = useAuth();
   const [selected, setSelected] = useState(null);
+  const [correctIndex, setCorrectIndex] = useState(null); // lo llena el server, recién tras responder
+  const [checking, setChecking] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  const answered = selected !== null;
-  const isCorrect = selected === step.correct;
+  const answered = correctIndex !== null;
+  const isCorrect = answered && selected === correctIndex;
 
-  const handleSelect = (index) => {
-    if (answered) return;
+  const handleSelect = async (index) => {
+    if (answered || checking) return;
 
     setSelected(index);
+    setChecking(true);
+    setErrorMsg(null);
 
-    // Solo marcar como completado si es correcta
-    if (index === step.correct) {
-      onAnswer();
+    try {
+      const res = await authFetch("/api/progreso/validar-respuesta", {
+        method: "POST",
+        body: JSON.stringify({
+          curso_codigo: courseCodigo,
+          paso_index: stepIndex,
+          seleccionada: index,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "No se pudo validar la respuesta");
+      }
+
+      setCorrectIndex(data.correctIndex);
+
+      if (data.correcto) {
+        onAnswer();
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMsg("No se pudo validar tu respuesta. Probá de nuevo.");
+      setSelected(null);
+    } finally {
+      setChecking(false);
     }
   };
 
   const resetQuestion = () => {
     setSelected(null);
+    setCorrectIndex(null);
   };
 
   return (
@@ -40,7 +72,7 @@ export default function QuizStep({ step, onAnswer, onNext }) {
           let modifier = "";
 
           if (answered) {
-            if (i === step.correct) {
+            if (i === correctIndex) {
               modifier = "quiz-opt--correct";
             } else if (i === selected) {
               modifier = "quiz-opt--wrong";
@@ -52,7 +84,7 @@ export default function QuizStep({ step, onAnswer, onNext }) {
               key={i}
               className={`quiz-opt ${modifier}`}
               onClick={() => handleSelect(i)}
-              disabled={answered}
+              disabled={answered || checking}
             >
               <span className="quiz-opt__letter">
                 {LETTERS[i]}
@@ -64,6 +96,12 @@ export default function QuizStep({ step, onAnswer, onNext }) {
         })}
 
       </div>
+
+      {errorMsg && (
+        <div className="quiz-step__feedback quiz-feedback--wrong">
+          {errorMsg}
+        </div>
+      )}
 
       {answered && (
         <>

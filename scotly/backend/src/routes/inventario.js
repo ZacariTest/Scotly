@@ -2,6 +2,7 @@ import { Router } from 'express';
 import pool from '../db.js';
 import { verificarToken } from '../middleware/auth.js';
 import { NIVEL_MAXIMO, COSTO_NIVEL } from '../features/inventario/data/inventarioConfig.js';
+import { COURSE_REWARDS } from '../features/inventario/data/courseRewards.js';
 
 const router = Router();
 
@@ -87,21 +88,44 @@ router.post('/subir-nivel', verificarToken, async (req, res) => {
   }
 });
 
-// POST /api/inventario/recompensa-curso  { curso_codigo, cartas: [codigo,...], experiencia }
+// POST /api/inventario/recompensa-curso  { curso_codigo }
 // Otorga las cartas y la experiencia de completar un curso, una sola vez por curso.
+// Las cartas y la XP se leen de COURSE_REWARDS (server), NUNCA del body:
+// si el cliente pudiera mandar `cartas`/`experiencia`, podría inventar
+// cualquier curso_codigo y farmear cartas/XP infinitas.
 router.post('/recompensa-curso', verificarToken, async (req, res) => {
-  const { curso_codigo, cartas, experiencia } = req.body;
+  const { curso_codigo } = req.body;
   const usuarioId = req.usuario.id;
 
-  if (!curso_codigo || !Array.isArray(cartas) || cartas.length === 0) {
-    return res.status(400).json({ error: 'Faltan datos de la recompensa' });
+  if (!curso_codigo) {
+    return res.status(400).json({ error: 'Falta curso_codigo' });
   }
 
+  const recompensa = COURSE_REWARDS[curso_codigo];
+  if (!recompensa) {
+    return res.status(400).json({ error: 'Curso desconocido' });
+  }
+
+  const { cartas, experiencia, puntos } = recompensa;
   const codigoRegalo = `curso_${curso_codigo}`;
   const connection = await pool.getConnection();
 
   try {
     await connection.beginTransaction();
+
+    // El progreso real (quizzes validados en el server) tiene que existir
+    // y estar marcado como completado. Sin esto, cualquiera podía pegarle
+    // directo a este endpoint sin haber contestado nada.
+    const [[progreso]] = await connection.query(
+      'SELECT completado FROM progreso_cursos WHERE usuario_id = ? AND curso_codigo = ?',
+      [usuarioId, curso_codigo]
+    );
+
+    if (!progreso || !progreso.completado) {
+      await connection.rollback();
+      connection.release();
+      return res.status(403).json({ error: 'Todavía no completaste este curso' });
+    }
 
     // Evita reclamar la recompensa del mismo curso más de una vez
     const [yaReclamado] = await connection.query(
@@ -163,6 +187,19 @@ router.post('/recompensa-curso', verificarToken, async (req, res) => {
       await connection.query(
         'UPDATE usuarios SET experiencia = experiencia + ? WHERE id = ?',
         [xp, usuarioId]
+      );
+    }
+
+    // Suma puntos ("Provisiones" en el front)
+    const puntosOtorgados = Number.isFinite(puntos) ? Math.max(0, Math.min(1000, Math.floor(puntos))) : 0;
+    if (puntosOtorgados > 0) {
+      await connection.query(
+        'UPDATE usuarios SET puntos = puntos + ? WHERE id = ?',
+        [puntosOtorgados, usuarioId]
+      );
+      await connection.query(
+        `INSERT INTO recompensas (usuario_id, origen, tipo, cantidad) VALUES (?, ?, 'punto', ?)`,
+        [usuarioId, codigoRegalo, puntosOtorgados]
       );
     }
 

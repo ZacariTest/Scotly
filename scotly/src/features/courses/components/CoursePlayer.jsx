@@ -31,8 +31,9 @@ export default function CoursePlayer({ course }) {
   };
 
   // Llama al backend para otorgar las cartas + XP de completar el curso.
-  // El backend rechaza (409) si ya se reclamó antes, así que es seguro
-  // de llamar más de una vez sin duplicar la recompensa.
+  // El servidor decide QUÉ otorga según curso_codigo (ver COURSE_REWARDS
+  // en el backend) — acá solo avisamos qué curso se completó, nunca
+  // mandamos las cartas ni la XP, porque eso sería fácil de falsificar.
   const reclamarRecompensa = async () => {
     if (!course.rewardCards || rewardStatus === "loading" || rewardStatus === "done") return;
 
@@ -40,11 +41,7 @@ export default function CoursePlayer({ course }) {
     try {
       const res = await authFetch("/api/inventario/recompensa-curso", {
         method: "POST",
-        body: JSON.stringify({
-          curso_codigo: course.id,
-          cartas: course.rewardCards,
-          experiencia: course.rewardXp ?? 0,
-        }),
+        body: JSON.stringify({ curso_codigo: course.id }),
       });
 
       const data = await res.json();
@@ -159,6 +156,8 @@ const precedingImg = (() => {
             {isQuiz ? (
               <QuizStep
                 step={step}
+                stepIndex={currentStep}
+                courseCodigo={course.id}
                 onAnswer={markComplete}
                 onNext={goNext}
               />
@@ -180,6 +179,7 @@ const precedingImg = (() => {
                   <h3 className="cp-reward-compact">
                     {rewardNames || "—"}
                     {course.rewardXp ? ` · +${course.rewardXp} XP` : ""}
+                    {course.rewardPuntos ? ` · +${course.rewardPuntos} Provisiones` : ""}
                   </h3>
                 </div>
 

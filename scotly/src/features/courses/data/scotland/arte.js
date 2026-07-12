@@ -4,8 +4,9 @@ export const course = {
   title: "Arte Celta",
   subtitle: "Los patrones que definieron la identidad visual escocesa",
   img: "/img/Arte.jpg",
-  rewardCards: ["catriona", "duncan"], // reemplazar por 2 códigos distintos cuando haya más cartas comunes
+  rewardCards: ["catriona", "duncan"], // solo para mostrar en pantalla; lo que realmente otorga es courseRewards.js en el backend
   rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     // ── LECTURA 1 ──────────────────────────────────────────
@@ -31,7 +32,6 @@ export const course = {
         "Del siglo I d.C. al siglo XV d.C.",
         "Del siglo III a.C. al siglo III d.C.",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! El arte celta tuvo su auge entre el siglo V a.C. y el XII d.C., periodo en el que se desarrollaron sus formas más características.",
         wrong: "No exactamente. El arte celta floreció desde el siglo V antes de Cristo hasta el siglo XII después de Cristo, un período de casi 1700 años.",
@@ -61,7 +61,6 @@ export const course = {
         "No tienen principio ni fin",
         "Representan al sol naciente",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Exacto! La línea continua sin inicio ni final es la clave: representa el ciclo eterno de la vida y la interconexión de todas las cosas.",
         wrong: "No es eso. Lo que los hace únicos es que son trazos continuos sin principio ni fin, lo que los convierte en un símbolo perfecto de eternidad.",
@@ -91,7 +90,6 @@ export const course = {
         "Está siempre tallada en granito negro",
         "No tiene brazo inferior",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! El círculo alrededor de la intersección es la marca distintiva de la cruz celta, presente en cientos de ejemplares en Escocia e Irlanda.",
         wrong: "La respuesta correcta es el círculo que rodea la intersección de los brazos, ese detalle es lo que hace inconfundible a una cruz celta.",
@@ -121,7 +119,6 @@ export const course = {
         "En tatuajes, diseño gráfico y joyería moderna",
         "Exclusivamente en edificios religiosos",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! El arte celta sigue muy vivo. Aparece en tatuajes, packaging de whisky, joyas y diseño gráfico en todo el mundo.",
         wrong: "El arte celta está mucho más presente de lo que parece: lo encontrás en tatuajes, joyas, diseño de marcas y hasta en empaques de whisky escocés.",

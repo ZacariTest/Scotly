@@ -30,6 +30,7 @@ const COURSES = {
       items: [
         { name: "Historia Escocesa", desc: "Clanes, batallas, reyes y revoluciones, un recorrido por los momentos que forjaron Escocia.", img: "/img/History.jpg", tag: "Gratis", tagType: "free", route: "/curso/history" },
         { name: "Historia Gamificada", desc: "Revivís la historia escocesa a través de decisiones, narrativa y personajes interactivos.", img: "/img/Banner-2.jpg", tag: "Interactivo", tagType: "game", route: "/curso/historia", featured: true },
+        { name: "Guía Completa de los Clanes", desc: "Un recorrido detallado por los clanes que forjaron las Highlands, en formato guía descargable.", img: "/img/Clanes1.jpg", tag: "€1,50", tagType: "paid", route: "/curso/paid/clanes-escoceses" },
       ],
     },
     {
@@ -56,6 +57,7 @@ const COURSES = {
       category: "Historia",
       items: [
         { name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial. Los eventos que moldearon el mundo moderno.", img: "/img/H22.jpg", tag: "Gratis", tagType: "free", route: "/curso/england/history" },
+        { name: "Los Reyes de Inglaterra", desc: "De Alfredo el Grande a la Casa de Windsor, en formato guía descargable.", img: "/img/K1.jpg", tag: "€1,50", tagType: "paid", route: "/curso/paid/reyes-ingleses" },
       ],
     },
     {
@@ -77,12 +79,10 @@ export default function Cursos() {
 
   const [activeRegion, setActiveRegion] = useState(() => loadActiveRegion());
 
-  // Al montar
   useEffect(() => {
     applyRegionThemeById(activeRegion);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Al cambiar tab
   useEffect(() => {
     applyRegionThemeById(activeRegion);
   }, [activeRegion]);

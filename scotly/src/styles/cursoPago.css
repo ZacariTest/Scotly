@@ -1,0 +1,149 @@
+/* CursoPagoIntro.jsx */
+
+.curso-pago-page {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  background: var(--region-bg, #0e1a12);
+  color: #f4ead1;
+}
+
+/* Hero con imagen de portada */
+.curso-pago-hero {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.curso-pago-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.curso-pago-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(14, 26, 18, 0) 0%,
+    rgba(14, 26, 18, 0.85) 75%,
+    rgba(14, 26, 18, 1) 100%
+  );
+}
+
+.curso-pago-content {
+  max-width: 720px;
+  margin: -80px auto 0;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.curso-pago-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffc61c, #d99a28);
+  color: #1a1206;
+  font-family: "Marcellus", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(217, 154, 40, 0.4);
+}
+
+.curso-pago-title {
+  font-family: "Cinzel", serif;
+  font-size: 2.1rem;
+  margin: 0.5rem 0 1rem;
+  color: #ffe9b3;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.curso-pago-desc {
+  font-family: "EB Garamond", serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #d8cbb0;
+  margin-bottom: 2rem;
+}
+
+/* Paywall (sin acceso) */
+.curso-pago-paywall {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(217, 154, 40, 0.35);
+  border-radius: 14px;
+  background: rgba(255, 198, 28, 0.06);
+}
+
+.curso-pago-precio {
+  font-family: "Cinzel", serif;
+  font-size: 1.8rem;
+  color: #ffc61c;
+  font-weight: 700;
+}
+
+/* Ya comprado */
+.curso-pago-desbloqueado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(96, 173, 94, 0.35);
+  border-radius: 14px;
+  background: rgba(96, 173, 94, 0.08);
+}
+
+.curso-pago-ok {
+  font-family: "Inter", sans-serif;
+  color: #a6d9a0;
+  font-weight: 500;
+}
+
+/* Botones */
+.curso-pago-btn {
+  font-family: "Marcellus", serif;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.curso-pago-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.curso-pago-btn-comprar {
+  background: linear-gradient(135deg, #ffc61c, #d99a28);
+  color: #1a1206;
+  font-weight: 600;
+}
+
+.curso-pago-btn-comprar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(217, 154, 40, 0.45);
+}
+
+.curso-pago-btn-descargar {
+  background: linear-gradient(135deg, #60ad5e, #3f7d3d);
+  color: #f4ead1;
+  font-weight: 600;
+}
+
+.curso-pago-btn-descargar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(63, 125, 61, 0.45);
+}

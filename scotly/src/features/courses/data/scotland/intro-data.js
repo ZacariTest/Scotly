@@ -2,6 +2,7 @@
 // Datos de presentación para las páginas intro de cada curso escocés
 
 import { CHARACTERS } from "../../../invasion/data/characters.js";
+import { course as courseArte } from "./arte.js";
 
 // Convierte una carta real del catálogo (characters.js) en el formato
 // visual que espera el panel de recompensas de CourseIntro.
@@ -13,6 +14,35 @@ function cartaComoRecompensa(codigo) {
     type: carta.rarity === "common" ? "Carta común" : `Carta ${carta.rarity}`,
     img: carta.img,
   };
+}
+
+// Arma la lista de recompensas a mostrar en la intro a partir de los
+// mismos campos (rewardCards/rewardXp/rewardPuntos) que usa CoursePlayer
+// para el panel del quiz. Un solo lugar de verdad por curso: el propio
+// archivo del curso (arte.js, cocina.js, etc.) — así no se desincroniza
+// lo que se muestra acá con lo que realmente se otorga al terminar.
+function construirRewards(courseData) {
+  const rewards = (courseData.rewardCards ?? [])
+    .map(cartaComoRecompensa)
+    .filter(Boolean);
+
+  if (courseData.rewardXp) {
+    rewards.push({
+      name: `+${courseData.rewardXp} XP`,
+      type: "Experiencia",
+      img: courseData.img,
+    });
+  }
+
+  if (courseData.rewardPuntos) {
+    rewards.push({
+      name: `+${courseData.rewardPuntos} Provisiones`,
+      type: "Recurso",
+      img: courseData.img,
+    });
+  }
+
+  return rewards;
 }
 
 export const introArte = {
@@ -32,10 +62,7 @@ export const introArte = {
     "Cruces de piedra y piedras pictas",
     "El arte celta en el mundo moderno",
   ],
-  rewards: [
-    cartaComoRecompensa("catriona"),
-    cartaComoRecompensa("catriona"),
-  ],
+  rewards: construirRewards(courseArte),
 };
 
 export const introCocina = {

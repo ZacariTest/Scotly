@@ -4,7 +4,7 @@ export const course = {
   title: "Arte Celta",
   subtitle: "Los patrones que definieron la identidad visual escocesa",
   img: "/img/Arte.jpg",
-  rewardCards: ["catriona", "duncan"], // solo para mostrar en pantalla; lo que realmente otorga es courseRewards.js en el backend
+  rewardCards: ["catriona", "duncan"], 
   rewardXp: 150,
   rewardPuntos: 40, // "Provisiones"
 

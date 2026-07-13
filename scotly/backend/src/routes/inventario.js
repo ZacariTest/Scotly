@@ -127,16 +127,25 @@ router.post('/recompensa-curso', verificarToken, async (req, res) => {
       return res.status(403).json({ error: 'Todavía no completaste este curso' });
     }
 
-    // Evita reclamar la recompensa del mismo curso más de una vez
-    const [yaReclamado] = await connection.query(
+    // Si ya se reclamó antes, no es un error real — devolvemos el estado
+    // actual del usuario igual (mismo patrón que /api/invasion/resultado),
+    // así el frontend no tiene que andar mirando el status HTTP para saber
+    // si mostrar "ya la tenías" en vez de tratarlo como una falla.
+    const [yaReclamadoFilas] = await connection.query(
       'SELECT id FROM regalos_reclamados WHERE usuario_id = ? AND codigo_regalo = ? FOR UPDATE',
       [usuarioId, codigoRegalo]
     );
 
-    if (yaReclamado.length > 0) {
+    if (yaReclamadoFilas.length > 0) {
       await connection.rollback();
       connection.release();
-      return res.status(409).json({ error: 'Ya reclamaste la recompensa de este curso' });
+
+      const [usuariosActuales] = await pool.query(
+        'SELECT id, username, email, monedas, puntos, energia, experiencia, rol, foto_perfil FROM usuarios WHERE id = ?',
+        [usuarioId]
+      );
+
+      return res.json({ yaReclamado: true, usuario: usuariosActuales[0], cartas: [], experiencia: 0, puntos: 0 });
     }
 
     // Busca las cartas por código (sin duplicados para el WHERE IN)
@@ -216,9 +225,28 @@ router.post('/recompensa-curso', verificarToken, async (req, res) => {
       [usuarioId]
     );
 
-    res.json({ usuario: usuarios[0], cartas: filasCartas.map((c) => c.codigo) });
+    res.json({
+      yaReclamado: false,
+      usuario: usuarios[0],
+      cartas, // lista real otorgada, respeta duplicados (ej: 2x la misma carta)
+      experiencia: xp,
+      puntos: puntosOtorgados,
+    });
   } catch (err) {
     await connection.rollback();
+
+    // Carrera: otra request para el mismo curso ganó por un instante y ya
+    // insertó la fila en regalos_reclamados (tiene UNIQUE KEY). Esta
+    // request perdió la carrera, así que no es un error real — el curso
+    // igual quedó reclamado, solo que por la otra request.
+    if (err.code === 'ER_DUP_ENTRY') {
+      const [usuariosActuales] = await pool.query(
+        'SELECT id, username, email, monedas, puntos, energia, experiencia, rol, foto_perfil FROM usuarios WHERE id = ?',
+        [usuarioId]
+      );
+      return res.json({ yaReclamado: true, usuario: usuariosActuales[0], cartas: [], experiencia: 0, puntos: 0 });
+    }
+
     console.error(err);
     res.status(500).json({ error: 'Error al otorgar la recompensa' });
   } finally {

@@ -3,6 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { applyRegionTheme } from "../../../constants/regionThemes";
 import "../styles/course-intro.css";
 
+const RAREZA_LABEL = {
+  Legendary: "Legendaria",
+  Epic: "Épica",
+  Rare: "Rara",
+  Common: "Común",
+};
+
+function translateRewardType(type) {
+  if (!type) return type;
+  let traducido = type;
+  Object.entries(RAREZA_LABEL).forEach(([en, es]) => {
+    traducido = traducido.replace(new RegExp(en, "i"), es);
+  });
+  return traducido;
+}
+
 export default function CourseIntro({ course }) {
   const navigate = useNavigate();
 
@@ -67,17 +83,30 @@ export default function CourseIntro({ course }) {
         <p className="ci-sidebar__label">Recompensas</p>
 
         <div className="ci-reward-list">
-          {course.rewards.map((reward, i) => (
-            <div key={i} className="ci-reward-card">
-              <div className="ci-reward-card__img-wrap">
-                <img src={reward.img} alt={reward.name} />
+          {course.rewards.map((reward, i) => {
+            const isXP = reward.type === "Experiencia";
+            const isRecurso = reward.type === "Recurso";
+
+            return (
+              <div key={i} className="ci-reward-card">
+                <div className="ci-reward-card__img-wrap">
+                  {isXP ? (
+                    <span className="ci-reward-card__emoji">⭐</span>
+                  ) : isRecurso ? (
+                    <span className="ci-reward-card__emoji">📜</span>
+                  ) : (
+                    <img src={reward.img} alt={reward.name} />
+                  )}
+                </div>
+                <div className="ci-reward-card__info">
+                  <p className="ci-reward-card__name">{reward.name}</p>
+                  <p className="ci-reward-card__type">
+                    {translateRewardType(reward.type)}
+                  </p>
+                </div>
               </div>
-              <div className="ci-reward-card__info">
-                <p className="ci-reward-card__name">{reward.name}</p>
-                <p className="ci-reward-card__type">{reward.type}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="ci-mascot">

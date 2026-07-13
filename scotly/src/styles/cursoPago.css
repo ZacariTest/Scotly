@@ -147,3 +147,44 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(63, 125, 61, 0.45);
 }
+
+/* Preview de recompensa (antes de comprar) */
+.curso-pago-recompensa {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.curso-pago-recompensa__label {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #d99a28;
+  margin-bottom: 0.6rem;
+}
+
+.curso-pago-recompensa__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.curso-pago-recompensa__item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  color: #f4ead1;
+  background: rgba(255, 198, 28, 0.08);
+  border: 1px solid rgba(217, 154, 40, 0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+}
+
+.curso-pago-recompensa__item img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}

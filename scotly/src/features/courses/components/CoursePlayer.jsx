@@ -5,17 +5,16 @@ import Footer from "../../../components/Footer";
 import ProgressScroll from "./ProgressScroll";
 import ReadingStep from "./ReadingStep";
 import QuizStep from "./QuizStep";
+import CourseRewardScreen from "./CourseRewardScreen";
 import { applyRegionTheme } from "../../../constants/regionThemes";
-import { useAuth } from "../../../context/AuthContext";
 import { CHARACTERS } from "../../invasion/data/characters.js";
 import "../styles/course-player.css";
 
 export default function CoursePlayer({ course }) {
   const navigate = useNavigate();
-  const { authFetch, updateUser } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
-  const [rewardStatus, setRewardStatus] = useState("idle"); // idle | loading | done | error
+  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     applyRegionTheme(course.region);
@@ -30,41 +29,17 @@ export default function CoursePlayer({ course }) {
     }
   };
 
-  // Llama al backend para otorgar las cartas + XP de completar el curso.
-  // El servidor decide QUÉ otorga según curso_codigo (ver COURSE_REWARDS
-  // en el backend) — acá solo avisamos qué curso se completó, nunca
-  // mandamos las cartas ni la XP, porque eso sería fácil de falsificar.
-  const reclamarRecompensa = async () => {
-    if (!course.rewardCards || rewardStatus === "loading" || rewardStatus === "done") return;
-
-    setRewardStatus("loading");
-    try {
-      const res = await authFetch("/api/inventario/recompensa-curso", {
-        method: "POST",
-        body: JSON.stringify({ curso_codigo: course.id }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok && res.status !== 409) {
-        throw new Error(data.error || "No se pudo otorgar la recompensa");
-      }
-
-      if (data.usuario) updateUser(data.usuario);
-      setRewardStatus("done");
-    } catch (err) {
-      console.error(err);
-      setRewardStatus("error");
-    }
-  };
-
   const goNext = () => {
     markComplete();
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: "instant" });
     } else {
-      reclamarRecompensa();
+      // Último paso resuelto: en vez de seguir mostrando el player,
+      // pasamos a la pantalla de recompensa (que hace su propio POST
+      // a /api/inventario/recompensa-curso al montarse).
+      setFinished(true);
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
   };
 
@@ -112,7 +87,11 @@ const precedingImg = (() => {
   return (
     <>
       <Navbar />
-      <div className="cp-player">
+      <div className={`cp-player${finished ? " cp-player--finished" : ""}`}>
+      {finished ? (
+        <CourseRewardScreen course={course} />
+      ) : (
+      <>
 
         <ProgressScroll
           steps={course.steps}
@@ -192,6 +171,8 @@ const precedingImg = (() => {
           </div>
 
         </div>
+      </>
+      )}
       </div>
       <Footer />
     </>

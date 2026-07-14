@@ -3,6 +3,9 @@
 
 import { CHARACTERS } from "../../../invasion/data/characters.js";
 import { course as courseArte } from "./arte.js";
+import { course as courseCocina } from "./cocina.js";
+import { course as courseHistory } from "./history.js";
+import { course as courseMitologia } from "./mitologia.js";
 
 // Convierte una carta real del catálogo (characters.js) en el formato
 // visual que espera el panel de recompensas de CourseIntro.
@@ -82,12 +85,7 @@ export const introCocina = {
     "Postres y dulces tradicionales",
     "El Scotch whisky y sus regiones",
   ],
-  // TODO: reemplazar por cartaComoRecompensa("codigo") cuando se definan
-  // los rewardCards de este curso en su archivo cocina.js
-  rewards: [
-    { name: "Cocinero de las Highlands", type: "Título desbloqueado", img: "/img/Comida.jpg" },
-    { name: "Copa de Cranachan", type: "Artefacto gastronómico", img: "/img/Comida.jpg" },
-  ],
+  rewards: construirRewards(courseCocina),
 };
 
 export const introHistory = {
@@ -107,12 +105,7 @@ export const introHistory = {
     "Los clanes y la era jacobita",
     "La Unión y la Ilustración Escocesa",
   ],
-  // TODO: reemplazar por cartaComoRecompensa("codigo") cuando se definan
-  // los rewardCards de este curso en su archivo history.js
-  rewards: [
-    { name: "Cronista de las Highlands", type: "Título desbloqueado", img: "/img/History.jpg" },
-    { name: "Declaración de Arbroath", type: "Documento histórico", img: "/img/History.jpg" },
-  ],
+  rewards: construirRewards(courseHistory),
 };
 
 export const introMitologia = {
@@ -132,10 +125,5 @@ export const introMitologia = {
     "Las selkies: focas del alma",
     "El Monstruo del Lago Ness",
   ],
-  // TODO: reemplazar por cartaComoRecompensa("codigo") cuando se definan
-  // los rewardCards de este curso en su archivo mitologia.js
-  rewards: [
-    { name: "Guardián del Velo", type: "Título desbloqueado", img: "/img/Mitologia.PNG" },
-    { name: "Piel de Selkie", type: "Artefacto mítico", img: "/img/Mitologia.PNG" },
-  ],
+  rewards: construirRewards(courseMitologia),
 };

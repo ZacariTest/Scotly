@@ -4,6 +4,9 @@ export const course = {
   title: "Mitología y Leyendas",
   subtitle: "Las criaturas y leyendas que habitan el imaginario escocés",
   img: "/img/Mitologia.PNG",
+  rewardCards: ["catriona", "catriona"],
+  rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     // ── LECTURA 1 ──────────────────────────────────────────
@@ -29,7 +32,6 @@ export const course = {
         "Mitología gaélica, creencias pictas e influencia vikinga",
         "Tradiciones árabes y africanas",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! El folclore escocés es una mezcla de mitología gaélica, creencias de los pueblos pictos e influencia vikinga, todo filtrado por siglos de cristianismo.",
         wrong: "Las raíces del folclore escocés están en la mitología gaélica, las creencias de los pictos y la influencia vikinga. Una mezcla única forjada durante siglos.",
@@ -59,7 +61,6 @@ export const course = {
         "Rociarlo con agua bendita al amanecer",
         "Ofrecerle un sacrificio de sal y hierro",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! Un freno de plata era el único objeto capaz de someter a un kelpie y convertirlo en una montura obediente, aunque peligrosa.",
         wrong: "Según la leyenda, solo un freno hecho de plata podía dominar al kelpie. Quien lo consiguiera tenía en su poder una criatura de fuerza sobrenatural.",
@@ -89,7 +90,6 @@ export const course = {
         "Regresa al mar sin mirar atrás, abandonando todo",
         "Debe elegir entre el mar y su familia humana",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! Si una selkie recupera su piel, regresa al mar sin mirar atrás, sin importar los lazos que haya formado en tierra. Es el corazón trágico de estas leyendas.",
         wrong: "La respuesta es que regresa al mar sin mirar atrás. Una selkie con su piel recuperada no puede resistir el llamado del océano, sin importar lo que deje.",
@@ -119,7 +119,6 @@ export const course = {
         "1994",
         "2003",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! En 1994 se confirmó que la icónica fotografía de 1934 era un fraude. La «cabeza» era en realidad una figura de juguete unida a un submarino en miniatura.",
         wrong: "Fue en 1994 cuando se reveló el fraude. La fotografía de 1934 había sido fabricada con una figura de juguete sobre un submarino en miniatura, pero el mito sobrevivió intacto.",

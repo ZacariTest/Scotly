@@ -11,6 +11,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const initials = user ? user.username.slice(0, 2).toUpperCase() : null;
+  const isAdmin = user?.rol === "admin";
 
   const REGION_LABELS = { sc: "Escocia", en: "Inglaterra", wa: "Gales" };
   const REGION_ICONS = { sc: "⚔", en: "👑", wa: "🐉" };
@@ -80,6 +81,11 @@ export default function Navbar() {
               <Link to="/inventario" className="navbar__inv-link" title="Mi inventario">
                 Inventario
               </Link>
+              {isAdmin && (
+                <Link to="/admin" className="navbar__inv-link navbar__admin-link" title="Panel de administración">
+                  Admin
+                </Link>
+              )}
               <Link to="/perfil" className="navbar__profile" title={`Perfil de ${user.username}`}>
                 {user.foto_perfil ? (
                   <img src={user.foto_perfil} alt={user.username} className="navbar__profile-avatar navbar__profile-avatar--img" />
@@ -130,6 +136,9 @@ export default function Navbar() {
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
               <Link to="/campus" onClick={() => setMenuOpen(false)}>Campus</Link>
+              {isAdmin && (
+                <Link to="/admin" onClick={() => setMenuOpen(false)}>Panel de administración</Link>
+              )}
               <button className="btn btn-secondary" style={{ marginTop: "1.25rem" }} onClick={handleLogout}>
                 Cerrar sesión
               </button>

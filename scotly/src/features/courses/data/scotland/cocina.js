@@ -4,6 +4,9 @@ export const course = {
   title: "Comida Escocesa",
   subtitle: "Los sabores más emblemáticos de Escocia y cómo prepararlos",
   img: "/img/Comida.jpg",
+  rewardCards: ["catriona", "catriona"],
+  rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     // ── LECTURA 1 ──────────────────────────────────────────
@@ -29,7 +32,6 @@ export const course = {
         "Arroz, pollo, aceite de oliva y tomate",
         "Maíz, papas, carne vacuna y chile",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! La cocina escocesa se construyó sobre ingredientes del territorio: caza, pescado, avena y lácteos, disponibles en sus montañas y costas.",
         wrong: "No exactamente. La cocina escocesa se basó en lo que ofrecía su geografía: caza de las Highlands, pescado de sus ríos y costas, avena y productos lácteos.",
@@ -59,7 +61,6 @@ export const course = {
         "Neeps and tatties (nabo y puré de papas)",
         "Sopa de cebada y queso cheddar",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Exacto! «Neeps and tatties» nabo amarillo y puré de papas. Son los acompañantes clásicos del haggis en la cena de Burns.",
         wrong: "El acompañamiento clásico es «neeps and tatties»: nabo amarillo machacado y puré de papas, los dos vegetales más asociados a la cocina tradicional escocesa.",
@@ -89,7 +90,6 @@ export const course = {
         "Leche condensada, coco, limón y galletas",
         "Mantequilla, azúcar morena, canela y manzana",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! El cranachan combina crema batida, whisky escocés, miel, frambuesas frescas y avena tostada. Un postre que resume el paisaje y los sabores de Escocia.",
         wrong: "El cranachan lleva crema batida, whisky, miel, frambuesas frescas y avena tostada. Cada ingrediente tiene su raíz en la despensa tradicional escocesa.",
@@ -119,7 +119,6 @@ export const course = {
         "Tres años",
         "Diez años",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! La legislación escocesa exige un mínimo de tres años de maduración en barril de roble para que una bebida pueda llamarse Scotch whisky.",
         wrong: "La ley escocesa establece tres años como el mínimo de maduración en barril de roble. Por debajo de ese tiempo, no puede llamarse Scotch whisky.",

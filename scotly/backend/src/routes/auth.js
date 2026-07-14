@@ -66,9 +66,13 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    const usuario = usuarios[0];
-    const passwordValida = await bcrypt.compare(password, usuario.password_hash);
+const usuario = usuarios[0];
 
+if (usuario.baneado) {
+  return res.status(403).json({ error: 'Tu cuenta fue suspendida.' });
+}
+
+const passwordValida = await bcrypt.compare(password, usuario.password_hash);
     if (!passwordValida) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }

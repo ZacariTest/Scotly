@@ -4,6 +4,9 @@ export const course = {
   title: "Historia Escocesa",
   subtitle: "Clanes, batallas, reyes y revoluciones que forjaron Escocia",
   img: "/img/History.jpg",
+  rewardCards: ["catriona", "catriona"],
+  rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     // ── LECTURA 1 ──────────────────────────────────────────
@@ -29,7 +32,6 @@ export const course = {
         "William Wallace",
         "Robert the Bruce",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! Cináed mac Ailpín, conocido como Kenneth I, unificó a pictos y escoceses gaélicos en el siglo IX, creando el reino de Alba.",
         wrong: "Fue Cináed mac Ailpín (Kenneth I) quien en el siglo IX unificó a pictos y escoceses gaélicos, fundando el reino de Alba, precursor de Escocia.",
@@ -59,7 +61,6 @@ export const course = {
         "Batalla de Bannockburn",
         "Batalla de Culloden",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Exacto! Bannockburn en 1314 fue la victoria definitiva de Robert the Bruce sobre Eduardo II de Inglaterra, asegurando la independencia escocesa.",
         wrong: "Fue la Batalla de Bannockburn (1314) donde Robert the Bruce derrotó a los ingleses. Stirling Bridge fue la victoria anterior de William Wallace.",
@@ -89,7 +90,6 @@ export const course = {
         "Los clanes escoceses firmaron una alianza con Francia",
         "Bonnie Prince Charlie fue coronado rey de Escocia",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! Tras Culloden, el gobierno inglés prohibió el tartán, la gaita y las armas en las Highlands para destruir la identidad y resistencia del sistema de clanes.",
         wrong: "Tras Culloden, el gobierno inglés prohibió los símbolos de los clanes: el tartán, la gaita y las armas. Fue un intento deliberado de erradicar la cultura de las Highlands.",
@@ -119,7 +119,6 @@ export const course = {
         "Adam Smith",
         "Kenneth I",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! Adam Smith, autor de «La riqueza de las naciones», es una de las figuras clave de la Ilustración Escocesa y el padre de la economía moderna.",
         wrong: "Adam Smith es la respuesta correcta — fue el padre de la economía moderna y una de las grandes figuras de la Ilustración Escocesa del siglo XVIII.",

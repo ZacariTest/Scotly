@@ -10,6 +10,7 @@ import SobreNosotros from "./pages/SobreNosotros";
 import Donaciones from "./pages/Donaciones";
 import GachaPage from "./pages/GachaPage";
 import CursoPagoIntro from "./pages/CursoPagoIntro";
+import AdminPage from "./pages/AdminPage";
 
 // ── Escocia ──
 import CourseArte from "./pages/CourseArte";
@@ -50,6 +51,7 @@ export default function App() {
       <Route path="/invasion" element={<InvasionPage />} />
       <Route path="/reclutamiento" element={<GachaPage />} />
       <Route path="/curso/paid/:codigo" element={<CursoPagoIntro />} />
+      <Route path="/admin" element={<AdminPage />} />
 
       {/* ── Escocia ── */}
       <Route path="/curso/arte" element={<CourseArte />} />

@@ -10,6 +10,7 @@ import inventarioRoutes from './routes/inventario.js';
 import gachaRoutes from './routes/gacha.js';
 import cursosPagosRoutes from './routes/cursosPagos.js';
 import progresoRoutes from './routes/progreso.js';
+import adminRoutes from './routes/admin.js';
 
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.use('/api/invasion', invasionRoutes);
 app.use('/api/gacha', gachaRoutes);
 app.use('/api/cursos-pagos', cursosPagosRoutes);
 app.use('/api/progreso', progresoRoutes);
+app.use('/api/admin', adminRoutes);
 
 const PORT = process.env.PORT || 3000;
 

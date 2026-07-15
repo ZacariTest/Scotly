@@ -1005,7 +1005,6 @@ html, body {
 .course-card:hover .course-card__arrow { opacity: 1; }
 
 .course-card--locked {
-  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -1826,9 +1825,7 @@ html, body {
 
 /* Cards bloqueadas en home */
 .course-card--locked {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
+  opacity: 0.8;
 }
 .course-card--locked .course-card__name {
   color: #3a5a45;

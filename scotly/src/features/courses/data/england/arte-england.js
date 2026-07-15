@@ -4,6 +4,9 @@ export const course = {
   title: "Arte Medieval Inglés",
   subtitle: "Iluminaciones, catedrales y tapices que definieron la Edad Media",
   img: "/img/Ing-Art5.jpg",
+  rewardCards: ["catriona", "catriona"],
+  rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     {
@@ -26,7 +29,6 @@ export const course = {
         "La Guerra de las Rosas",
         "La fundación de la Universidad de Oxford",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! La conquista normanda de 1066 fusionó la tradición anglosajona con influencias francesas, dando origen al estilo románico y luego gótico en Inglaterra.",
         wrong: "Fue la conquista normanda de 1066 la que transformó el arte inglés, fusionando tradiciones anglosajonas con influencias francesas y mediterráneas.",
@@ -52,7 +54,6 @@ export const course = {
         "70 metros",
         "120 metros",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Exacto! El Tapiz de Bayeux mide casi 70 metros de largo, convirtiéndolo en una de las narrativas visuales más extensas del arte medieval.",
         wrong: "El Tapiz de Bayeux mide casi 70 metros, una longitud excepcional que le permite narrar toda la conquista normanda en más de 50 escenas.",
@@ -78,7 +79,6 @@ export const course = {
         "No tiene vidrieras de colores",
         "Sus torres siempre son gemelas",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! El gótico inglés se extiende horizontalmente con largas naves y torres centrales, a diferencia del gótico francés que busca la verticalidad con torres gemelas.",
         wrong: "La respuesta es la extensión horizontal. Las catedrales inglesas se desarrollan en longitud, con largas naves, a diferencia de las francesas que apuntan al cielo.",
@@ -104,7 +104,6 @@ export const course = {
         "J.R.R. Tolkien",
         "Arthur Conan Doyle",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! Tolkien era experto en lenguas y arte anglosajón, los manuscritos iluminados, las runas y la épica medieval inglesa son la base estética de la Tierra Media.",
         wrong: "Fue Tolkien quien transformó el arte y la literatura anglosajona medieval en la Tierra Media. Era profesor de anglosajón en Oxford y conocía esa tradición en profundidad.",

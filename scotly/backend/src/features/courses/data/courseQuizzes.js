@@ -40,4 +40,10 @@ export const COURSE_QUIZZES = {
     5: 2, // Quiz III
     7: 2, // Quiz Final
   },
+  "arte-england": {
+    1: 1, // Quiz I
+    3: 2, // Quiz II
+    5: 1, // Quiz III
+    7: 2, // Quiz Final
+  },
 };

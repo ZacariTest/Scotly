@@ -13,7 +13,7 @@ const REGIONS = [
     flag: "Inglaterra",
     name: "The Crown",
     desc: "Caballeros, reyes y relatos de la vieja Inglaterra",
-    status: "locked",
+    status: "active",
   },
   {
     id: "wales",

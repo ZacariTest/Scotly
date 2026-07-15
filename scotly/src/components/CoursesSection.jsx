@@ -7,8 +7,8 @@ const REGION_CONTENT = {
     left: {
       label: "Cursos destacados",
       courses: [
-        { img: "/img/Arte.jpg", alt: "Arte Celta", tag: "Escocia", tagClass: "dest", name: "Arte Celta", route: "/curso/arte" },
-        { img: "/img/Comida.jpg", alt: "Comida escocesa", tag: "Escocia", tagClass: "dest", name: "Comida escocesa", route: "/curso/cocina" },
+        { img: "/img/Arte.jpg", alt: "Arte Celta", tag: "Arte", tagClass: "dest", name: "Arte Celta", route: "/curso/arte" },
+        { img: "/img/Comida.jpg", alt: "Comida escocesa", tag: "Comida", tagClass: "dest", name: "Comida escocesa", route: "/curso/cocina" },
       ],
     },
     center: {
@@ -29,19 +29,19 @@ england: {
   left: {
     label: "Cursos destacados",
     courses: [
-      { img: "/img/Ing-Art4.jpg", alt: "Arte Medieval", tag: "Inglaterra", tagClass: "dest", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
-      { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Inglaterra", tagClass: "dest", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
+      { img: "/img/Ing-Art4.jpg", alt: "Arte Medieval", tag: "Arte", tagClass: "dest", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
+      { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Cocina", tagClass: "dest", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
     ],
   },
 center: {
   label: "Historia gamificada",
   course: { img: "/img/History.jpg", alt: "Historia Gamificada", tag: "Misión interactiva", tagClass: "game", name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — vivís la historia a través de decisiones y narrativa", route: "/curso/historia" },
 },
-  right: {
+right: {
     label: "Cursos principales",
     courses: [
+      { img: "/img/History.jpg", alt: "Historia Inglesa", tag: "Historia", tagClass: "hist", name: "Historia Inglesa", route: "/curso/england/historia", locked: false },
       { img: "/img/Mitologia.PNG", alt: "Leyendas Artúricas", tag: "Mitología", tagClass: "hist", name: "Leyendas Artúricas", route: "/curso/england/mitologia", locked: false },
-      { img: "/img/Banner-2.jpg", alt: "Próximamente", tag: "Pronto", tagClass: "game", name: "Historia Gamificada", locked: true },
     ],
   },
 },
@@ -51,8 +51,8 @@ wales: {
   left: {
     label: "Próximamente",
     courses: [
-      { img: "/img/Arte.jpg", alt: "Arte Galés", tag: "Gales", tagClass: "dest", name: "Arte y Simbolismo Galés", locked: true },
-      { img: "/img/Comida.jpg", alt: "Gastronomía", tag: "Gales", tagClass: "dest", name: "Gastronomía de Gales", locked: true },
+      { img: "/img/Arte.jpg", alt: "Arte Galés", tag: "Arte", tagClass: "dest", name: "Arte y Simbolismo Galés", locked: true },
+      { img: "/img/Comida.jpg", alt: "Gastronomía", tag: "Cocina", tagClass: "dest", name: "Gastronomía de Gales", locked: true },
     ],
   },
   center: {

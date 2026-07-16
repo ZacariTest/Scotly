@@ -30,18 +30,18 @@ england: {
     label: "Cursos destacados",
     courses: [
       { img: "/img/Ing-Art4.jpg", alt: "Arte Medieval", tag: "Arte", tagClass: "dest", name: "Arte Medieval Inglés", route: "/curso/england/arte", locked: false },
-      { img: "/img/Comida.jpg", alt: "Cocina Inglesa", tag: "Cocina", tagClass: "dest", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
+      { img: "/img/C2.jpg", alt: "Cocina Inglesa", tag: "Cocina", tagClass: "dest", name: "Cocina Inglesa", route: "/curso/england/cocina", locked: false },
     ],
   },
 center: {
   label: "Historia gamificada",
-  course: { img: "/img/History.jpg", alt: "Historia Gamificada", tag: "Misión interactiva", tagClass: "game", name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — vivís la historia a través de decisiones y narrativa", route: "/curso/historia" },
+  course: { img: "/img/HEN.png", alt: "Historia Gamificada", tag: "Misión interactiva", tagClass: "game", name: "Historia de Inglaterra", desc: "De los romanos a la Revolución Industrial — vivís la historia a través de decisiones y narrativa", route: "/curso/historia" },
 },
 right: {
     label: "Cursos principales",
     courses: [
-      { img: "/img/History.jpg", alt: "Historia Inglesa", tag: "Historia", tagClass: "hist", name: "Historia Inglesa", route: "/curso/england/historia", locked: false },
-      { img: "/img/Mitologia.PNG", alt: "Leyendas Artúricas", tag: "Mitología", tagClass: "hist", name: "Leyendas Artúricas", route: "/curso/england/mitologia", locked: false },
+      { img: "/img/H222.jpg", alt: "Historia Inglesa", tag: "Historia", tagClass: "hist", name: "Historia Inglesa", route: "/curso/england/historia", locked: false },
+      { img: "/img/M11.jpg", alt: "Leyendas Artúricas", tag: "Mitología", tagClass: "hist", name: "Leyendas Artúricas", route: "/curso/england/mitologia", locked: false },
     ],
   },
 },
@@ -51,19 +51,19 @@ wales: {
   left: {
     label: "Próximamente",
     courses: [
-      { img: "/img/Arte.jpg", alt: "Arte Galés", tag: "Arte", tagClass: "dest", name: "Arte y Simbolismo Galés", locked: true },
-      { img: "/img/Comida.jpg", alt: "Gastronomía", tag: "Cocina", tagClass: "dest", name: "Gastronomía de Gales", locked: true },
+      { img: "/img/W1.jpg", alt: "Arte Galés", tag: "Arte", tagClass: "dest", name: "Arte y Simbolismo Galés", locked: true },
+      { img: "/img/W2.jpg", alt: "Gastronomía", tag: "Cocina", tagClass: "dest", name: "Gastronomía de Gales", locked: true },
     ],
   },
   center: {
     label: "Historia gamificada",
-    course: { img: "/img/Banner-2.jpg", alt: "Mabinogi", tag: "Próximamente", tagClass: "game", name: "El Ciclo del Mabinogi", desc: "Recorré los cuatro ramos del Mabinogi galés", locked: true },
+    course: { img: "/img/W3.jpg", alt: "Mabinogi", tag: "Próximamente", tagClass: "game", name: "El Ciclo del Mabinogi", desc: "Recorré los cuatro ramos del Mabinogi galés", locked: true },
   },
   right: {
     label: "Próximamente",
     courses: [
-      { img: "/img/History.jpg", alt: "Dragones", tag: "Gales", tagClass: "hist", name: "Dragones y Bardos", locked: true },
-      { img: "/img/Mitologia.PNG", alt: "Merlin", tag: "Gales", tagClass: "hist", name: "Merlin y la Magia Celta", locked: true },
+      { img: "/img/W4.jpg", alt: "Dragones", tag: "Gales", tagClass: "hist", name: "Dragones y Bardos", locked: true },
+      { img: "/img/W5.jpg", alt: "Merlin", tag: "Gales", tagClass: "hist", name: "Merlin y la Magia Celta", locked: true },
     ],
   },
 },

@@ -35,4 +35,19 @@ export const COURSE_REWARDS = {
     experiencia: 150,
     puntos: 40,
   },
+  "cocina-england": {
+    cartas: ["catriona", "catriona"], // TODO: cambiar cuando definas cartas propias para este curso
+    experiencia: 150,
+    puntos: 40,
+  },
+  "history-england": {
+    cartas: ["catriona", "catriona"], // TODO: cambiar cuando definas cartas propias para este curso
+    experiencia: 150,
+    puntos: 40,
+  },
+  "mitologia-england": {
+    cartas: ["catriona", "catriona"], // TODO: cambiar cuando definas cartas propias para este curso
+    experiencia: 150,
+    puntos: 40,
+  },
 };

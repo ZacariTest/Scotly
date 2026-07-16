@@ -4,6 +4,9 @@ export const course = {
   title: "Historia de Inglaterra",
   subtitle: "De los romanos a la Revolución Industrial — los eventos que moldearon el mundo",
   img: "/img/H22.jpg",
+  rewardCards: ["catriona", "catriona"],
+  rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     {
@@ -26,7 +29,6 @@ export const course = {
         "Alfredo el Grande",
         "Canuto el Grande",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! Alfredo el Grande de Wessex frenó la expansión danesa y unificó los reinos anglosajones, siendo considerado el padre de la nación inglesa.",
         wrong: "Fue Alfredo el Grande de Wessex quien, en el siglo IX, detuvo a los vikingos y unificó los reinos anglosajones, ganándose el título de primer rey de Inglaterra.",
@@ -52,7 +54,6 @@ export const course = {
         "1348",
         "1485",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! La Carta Magna fue firmada en 1215 y es uno de los documentos fundacionales del constitucionalismo moderno y los derechos civiles.",
         wrong: "La Carta Magna fue firmada en 1215 — un documento que por primera vez estableció que el rey estaba sujeto a la ley, sentando las bases del constitucionalismo.",
@@ -78,7 +79,6 @@ export const course = {
         "Un cuarto",
         "Un tercio",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! En su apogeo, el Imperio Británico controlaba aproximadamente un cuarto de la superficie terrestre, siendo el mayor imperio de la historia.",
         wrong: "El Imperio Británico en su apogeo controlaba cerca de un cuarto de la superficie terrestre y gobernaba sobre 400 millones de personas — el mayor imperio de la historia.",
@@ -104,7 +104,6 @@ export const course = {
         "George Stephenson",
         "Michael Faraday",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! James Watt perfeccionó la máquina de vapor en Glasgow, una innovación que se convirtió en el motor literal de la Revolución Industrial.",
         wrong: "Fue James Watt quien desarrolló la máquina de vapor eficiente que impulsó la Revolución Industrial. Curiosamente era escocés, pero su invento transformó principalmente a Inglaterra.",

@@ -1,7 +1,8 @@
-// src/features/courses/data/england/intro-data.js
-
 import { CHARACTERS } from "../../../invasion/data/characters.js";
 import { course as courseArteEngland } from "./arte-england.js";
+import { course as courseCocinaEngland } from "./cocina-england.js";
+import { course as courseHistoryEngland } from "./history-england.js";
+import { course as courseMitologiaEngland } from "./mitologia-england.js";
 
 // Mismo helper que en scotland/intro-data.js — se repite acá porque son
 // carpetas hermanas y así cada región queda independiente. Si en algún
@@ -80,13 +81,7 @@ export const introCocinaEngland = {
     "El ritual del té inglés",
     "El pub: corazón de la vida inglesa",
   ],
-  // TODO: reemplazar por construirRewards(courseCocinaEngland) cuando se
-  // active este curso (agregarle rewardCards/rewardXp/rewardPuntos a
-  // su archivo cocina-england.js)
-  rewards: [
-    { name: "Catador Imperial", type: "Título desbloqueado", img: "/img/Comida.jpg" },
-    { name: "Taza de Afternoon Tea", type: "Artefacto cultural", img: "/img/Comida.jpg" },
-  ],
+  rewards: construirRewards(courseCocinaEngland),
 };
 
 export const introHistoryEngland = {
@@ -107,12 +102,7 @@ export const introHistoryEngland = {
     "El Imperio Británico",
     "La Revolución Industrial",
   ],
-  // TODO: reemplazar por construirRewards(courseHistoryEngland) cuando
-  // se active este curso
-  rewards: [
-    { name: "Cronista del Imperio", type: "Título desbloqueado", img: "/img/History.jpg" },
-    { name: "Pergamino de la Carta Magna", type: "Documento histórico", img: "/img/History.jpg" },
-  ],
+  rewards: construirRewards(courseHistoryEngland),
 };
 
 export const introMitologiaEngland = {
@@ -133,9 +123,5 @@ export const introMitologiaEngland = {
     "Excalibur y la Mesa Redonda",
     "El legado artúrico en la cultura moderna",
   ],
-  // se active este curso
-  rewards: [
-    { name: "Caballero de la Mesa Redonda", type: "Título desbloqueado", img: "/img/Mitologia.PNG" },
-    { name: "Excalibur", type: "Artefacto mítico", img: "/img/Mitologia.PNG" },
-  ],
+  rewards: construirRewards(courseMitologiaEngland),
 };

@@ -129,13 +129,16 @@ export default function Navbar() {
               {badge && <span className="nav-event-badge">{badge}</span>}
             </Link>
           ))}
+          <Link to="/campus" onClick={() => setMenuOpen(false)}>
+            Campus
+            <span className="nav-event-badge">Próx.</span>
+          </Link>
           <Link to="/sobre-nosotros" onClick={() => setMenuOpen(false)}>Sobre Nosotros</Link>
 
           {user ? (
             <>
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
-              <Link to="/campus" onClick={() => setMenuOpen(false)}>Campus</Link>
               {isAdmin && (
                 <Link to="/admin" onClick={() => setMenuOpen(false)}>Panel de administración</Link>
               )}
@@ -144,16 +147,13 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <>
-              <Link to="/campus" onClick={() => setMenuOpen(false)}>Campus</Link>
-              <button
-                className="btn btn-primary"
-                style={{ marginTop: "1.25rem", width: "100%", textAlign: "center" }}
-                onClick={() => { setMenuOpen(false); setAuthOpen(true); }}
-              >
-                Iniciar sesión
-              </button>
-            </>
+            <button
+              className="btn btn-primary"
+              style={{ marginTop: "1.25rem", width: "100%", textAlign: "center" }}
+              onClick={() => { setMenuOpen(false); setAuthOpen(true); }}
+            >
+              Iniciar sesión
+            </button>
           )}
         </div>
 

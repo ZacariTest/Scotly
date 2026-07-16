@@ -4,6 +4,9 @@ export const course = {
   title: "Leyendas Artúricas",
   subtitle: "El rey Arturo, Merlín y los Caballeros de la Mesa Redonda",
   img: "/img/Mitologia.PNG",
+  rewardCards: ["catriona", "catriona"],
+  rewardXp: 150,
+  rewardPuntos: 40, // "Provisiones"
 
   steps: [
     {
@@ -26,7 +29,6 @@ export const course = {
         "Beda el Venerable",
         "Thomas Malory",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! Godofredo de Monmouth transformó a Arturo en el rey ideal de la caballería medieval con su obra del siglo XII, estableciendo los elementos centrales de la leyenda.",
         wrong: "Fue Godofredo de Monmouth quien en el siglo XII convirtió a Arturo en el arquetipo del rey caballeresco con su «Historia de los Reyes de Britania».",
@@ -52,7 +54,6 @@ export const course = {
         "Nimue o Viviane, la Dama del Lago",
         "La bruja Morgause",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! Nimue o Viviane, la Dama del Lago, usa la propia magia que Merlín le enseñó para atraparlo. Una de las ironías más oscuras de la leyenda.",
         wrong: "Es Nimue o Viviane, la Dama del Lago, quien atrapa a Merlín usando la magia que él mismo le enseñó, encerrándolo para siempre en una cueva o árbol de espino.",
@@ -78,7 +79,6 @@ export const course = {
         "La unión entre Inglaterra y Gales",
         "El ciclo de las estaciones célticas",
       ],
-      correct: 1,
       feedback: {
         correct: "¡Correcto! Sin cabecera, la Mesa Redonda simboliza que todos los caballeros son iguales en honor. Una idea revolucionaria para la jerarquía medieval.",
         wrong: "La Mesa Redonda simboliza la igualdad de honor entre los caballeros: al no tener cabecera, ninguno ocupa un lugar superior, una idea radical para la Edad Media.",
@@ -104,7 +104,6 @@ export const course = {
         "T.H. White",
         "George Orwell",
       ],
-      correct: 2,
       feedback: {
         correct: "¡Correcto! T.H. White escribió «The Once and Future King» en 1958, una reinterpretación melancólica y humanista que se convirtió en una de las versiones más influyentes de la leyenda.",
         wrong: "Fue T.H. White quien en 1958 publicó «The Once and Future King», la reinterpretación moderna más influyente de la leyenda artúrica, base del musical Camelot.",

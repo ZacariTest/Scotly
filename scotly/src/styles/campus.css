@@ -1,0 +1,105 @@
+.campus-page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: color-mix(in srgb, var(--region-primary, #0e0c08) 55%, transparent);
+}
+
+.campus-card {
+  max-width: 620px;
+  width: 100%;
+  background: var(--region-primary, #0e0c08);
+  border: 1px solid var(--region-accent, #d99a28);
+  border-radius: 16px;
+  padding: 3.5rem 3rem;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(217, 154, 40, 0.08);
+}
+
+.campus-eyebrow {
+  display: block;
+  font-weight: 400;
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--region-accent, #d99a28);
+  margin-bottom: 1.5rem;
+}
+
+.campus-emblem {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.campus-title {
+  font-family: "Cinzel", serif;
+  font-weight: 500;
+  font-size: 3rem;
+  color: #ffc61c;
+  letter-spacing: 1px;
+  margin: 0 0 1.25rem;
+}
+
+.campus-badge {
+  display: inline-block;
+  background: rgba(255, 198, 28, 0.1);
+  border: 1px solid var(--region-accent, #d99a28);
+  color: #ffc61c;
+  font-family: "Cinzel", serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 24px;
+  border-radius: 999px;
+  margin-bottom: 2rem;
+}
+
+.campus-description {
+  font-family: "EB Garamond", serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #e6dcc3;
+  margin: 0 0 2.25rem;
+}
+
+.campus-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--region-accent, #4a3a1e),
+    transparent
+  );
+  margin: 0 0 1.75rem;
+}
+
+.campus-footer {
+  font-family: "EB Garamond", serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: #a89468;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .campus-page {
+    padding-top: 6rem;
+  }
+
+  .campus-card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .campus-title {
+    font-size: 2.25rem;
+  }
+
+  .campus-description {
+    font-size: 1.1rem;
+  }
+}

@@ -11,6 +11,7 @@ import Donaciones from "./pages/Donaciones";
 import GachaPage from "./pages/GachaPage";
 import CursoPagoIntro from "./pages/CursoPagoIntro";
 import AdminPage from "./pages/AdminPage";
+import CampusPage from "./pages/CampusPage";
 
 // ── Escocia ──
 import CourseArte from "./pages/CourseArte";
@@ -52,6 +53,7 @@ export default function App() {
       <Route path="/reclutamiento" element={<GachaPage />} />
       <Route path="/curso/paid/:codigo" element={<CursoPagoIntro />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/campus" element={<CampusPage />} />
 
       {/* ── Escocia ── */}
       <Route path="/curso/arte" element={<CourseArte />} />

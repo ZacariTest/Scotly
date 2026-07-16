@@ -46,4 +46,22 @@ export const COURSE_QUIZZES = {
     5: 1, // Quiz III
     7: 2, // Quiz Final
   },
+  "cocina-england": {
+    1: 2, // Quiz I
+    3: 1, // Quiz II
+    5: 1, // Quiz III
+    7: 2, // Quiz Final
+  },
+  "history-england": {
+    1: 2, // Quiz I
+    3: 1, // Quiz II
+    5: 2, // Quiz III
+    7: 1, // Quiz Final
+  },
+  "mitologia-england": {
+    1: 1, // Quiz I
+    3: 2, // Quiz II
+    5: 1, // Quiz III
+    7: 2, // Quiz Final
+  },
 };

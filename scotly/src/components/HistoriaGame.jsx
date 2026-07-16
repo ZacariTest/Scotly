@@ -1,67 +1,182 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import DialogueBox from "./DialogueBox";
-import historiaData from "./HistoriaData";
+import historiaData, { RAREZA_BONUS } from "./HistoriaData";
+
+const CAPITULO_CODIGO = "capitulo-1";
+
+const RESULTADOS_UI = {
+  heroico: {
+    titulo: "Un huésped bien recordado",
+    descripcion: "Tus respuestas dejaron una impresión clara en la casa del clan. Es probable que tu nombre se mencione la próxima vez que alguien de esta familia viaje por tus tierras.",
+  },
+  equilibrado: {
+    titulo: "Un huésped correcto",
+    descripcion: "Cumpliste con lo que se esperaba de un visitante: ni te involucraste de más, ni te desentendiste del todo. Nadie va a olvidarte, pero tampoco va a contar demasiadas historias sobre vos.",
+  },
+  discreto: {
+    titulo: "Un huésped de paso",
+    descripcion: "Preferiste no meterte en los asuntos de la casa más de lo necesario. Es una forma válida de viajar: menos riesgo, menos gloria.",
+  },
+};
 
 export default function HistoriaGame({ protagonista }) {
-  const [index, setIndex] = useState(0);
-  const capitulo = historiaData[index];
+  const { authFetch } = useAuth();
 
-  const personaje = capitulo.isProtagonista && protagonista
-    ? protagonista.nombre
-    : capitulo.character;
+  const [currentId, setCurrentId] = useState(historiaData[0].id);
+  const [imagenActual, setImagenActual] = useState(historiaData[0].image);
+  const [respuestas, setRespuestas] = useState([]); // [{ decisionId, choiceIndex }]
 
-  const avatar = capitulo.isProtagonista && protagonista
-    ? protagonista.imagen
-    : null;
+  const [recompensa, setRecompensa] = useState(null);
+  const [cargandoRecompensa, setCargandoRecompensa] = useState(false);
+  const [errorRecompensa, setErrorRecompensa] = useState(null);
+
+  const nodo = historiaData.find((n) => n.id === currentId);
+  const esFinal = !nodo.next && !nodo.choices;
+
+  useEffect(() => {
+    if (nodo.image) setImagenActual(nodo.image);
+  }, [nodo]);
+
+  // Al llegar al nodo final, se envían las respuestas al backend para que
+  // calcule (del lado del servidor) el resultado y la recompensa.
+  useEffect(() => {
+    if (!esFinal || recompensa || cargandoRecompensa) return;
+
+    async function reclamar() {
+      setCargandoRecompensa(true);
+      setErrorRecompensa(null);
+      try {
+        const res = await authFetch("/api/historia/completar-capitulo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            capitulo_codigo: CAPITULO_CODIGO,
+            protagonista_region: protagonista?.region || null,
+            protagonista_rareza: protagonista?.rareza || null,
+            respuestas,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Error al reclamar la recompensa");
+        setRecompensa(data);
+      } catch (err) {
+        console.error(err);
+        setErrorRecompensa("No se pudo registrar tu recompensa. Probá recargar la página.");
+      } finally {
+        setCargandoRecompensa(false);
+      }
+    }
+
+    reclamar();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [esFinal]);
+
+  const personaje = nodo.isProtagonista && protagonista ? protagonista.nombre : nodo.character;
+  const avatar = nodo.isProtagonista && protagonista ? protagonista.imagen : null;
 
   const handleNext = () => {
-    if (index < historiaData.length - 1) {
-      setIndex(index + 1);
-    } else {
-      console.log("Fin del capítulo");
-    }
+    if (nodo.next) setCurrentId(nodo.next);
   };
+
+  const handleChoice = (choice, choiceIndex) => {
+    setRespuestas((prev) => [...prev, { decisionId: nodo.id, choiceIndex }]);
+    setCurrentId(choice.next);
+  };
+
+  // Reacción visible en el momento si la elección coincide con la región del protagonista
+  const [reaccion, setReaccion] = useState(null);
+
+  const elegirOpcion = (choice, choiceIndex) => {
+    if (choice.region && protagonista?.region === choice.region) {
+      setReaccion(choice.reactionText || null);
+    } else {
+      setReaccion(null);
+    }
+    handleChoice(choice, choiceIndex);
+  };
+
+  if (esFinal) {
+    const tier = recompensa?.resultado; // 'heroico' | 'equilibrado' | 'discreto'
+    const infoUI = tier ? RESULTADOS_UI[tier] : null;
+
+    return (
+      <div className="historia-wrapper">
+        <div className="historia-title">Historia — Capítulo 1</div>
+
+        <div className="historia-scene">
+          <img src={imagenActual} className="historia-scene__img" alt="Escena final" />
+          <div className="historia-scene__gradient" />
+        </div>
+
+        <div className="historia-resultado">
+          <p className="historia-resultado__texto">{nodo.text}</p>
+
+          {cargandoRecompensa && <p>Calculando tu resultado...</p>}
+
+          {errorRecompensa && <p className="historia-resultado__error">{errorRecompensa}</p>}
+
+          {infoUI && (
+            <div className="historia-resultado__box">
+              <h3>{infoUI.titulo}</h3>
+              <p>{infoUI.descripcion}</p>
+              <p className="historia-resultado__recompensa">
+                +{recompensa.monedas_ganadas} monedas
+                {recompensa.puntos_ganados ? ` · +${recompensa.puntos_ganados} puntos` : ""}
+              </p>
+              {recompensa.yaReclamado && (
+                <p className="historia-resultado__aviso">
+                  Ya habías completado este capítulo antes, así que no volvimos a acreditar la recompensa.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="historia-wrapper">
-
-      {/* TÍTULO  */}
       <div className="historia-title">Historia — Capítulo 1</div>
 
-      {/* ESCENA */}
       <div className="historia-scene">
-        <img
-          src={capitulo.image}
-          className="historia-scene__img"
-          alt="Escena"
-        />
-        {/* Gradiente inferior */}
+        <img src={imagenActual} className="historia-scene__img" alt="Escena" />
         <div className="historia-scene__gradient" />
       </div>
 
-      {/* DIÁLOGO */}
-      <div className="historia-dialogue">
-        <DialogueBox
-          character={personaje}
-          avatar={avatar}
-          text={capitulo.text}
-          onNext={handleNext}
-          isLast={index === historiaData.length - 1}
-          progress={index + 1}
-          total={historiaData.length}
-        />
-      </div>
+      {nodo.choices ? (
+        <div className="historia-dialogue historia-dialogue--choices">
+          <p className="historia-dialogue__character">{personaje}</p>
+          <p className="historia-dialogue__text">{nodo.text}</p>
 
-      {/* CONTROLES esquina inferior */}
-      <div className="historia-controls">
-        <span className="historia-controls__logo">Scotly</span>
-        <div className="historia-controls__btns">
-          <button className="historia-ctrl-btn">Guardar</button>
-          <button className="historia-ctrl-btn">Cargar</button>
-          <button className="historia-ctrl-btn historia-ctrl-btn--exit">Salir</button>
+          {reaccion && <p className="historia-dialogue__reaccion">{reaccion}</p>}
+
+          <div className="historia-choices__opciones">
+            {nodo.choices.map((choice, i) => (
+              <button
+                key={i}
+                className="historia-choice-btn"
+                onClick={() => elegirOpcion(choice, i)}
+              >
+                {choice.text}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-
+      ) : (
+        <div className="historia-dialogue">
+          <DialogueBox
+            character={personaje}
+            avatar={avatar}
+            text={nodo.text}
+            onNext={handleNext}
+            isLast={false}
+            progress={1}
+            total={1}
+          />
+        </div>
+      )}
     </div>
   );
 }

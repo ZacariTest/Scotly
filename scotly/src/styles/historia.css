@@ -20,18 +20,44 @@
 /* TÍTULO */
 .historia-title {
   position: absolute;
-  top: 80px;
+  top: 28px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  color: #ffc61c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.historia-title__eyebrow {
   font-family: var(--font-title);
-  font-size: 1.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 198, 28, 0.6);
+  text-shadow: 1px 1px 0 #000;
+  white-space: nowrap;
+}
+
+.historia-title__divider {
+  width: 28px;
+  height: 2px;
+  margin: 6px 0;
+  background: linear-gradient(to right, transparent, #ffc61c, transparent);
+}
+
+.historia-title__capitulo {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
   font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
+  color: #ffc61c;
   text-shadow: 2px 2px 0 #000, 0 0 20px rgba(255,198,28,0.5);
-  pointer-events: none;
+  white-space: nowrap;
 }
 
 /* ESCENA */
@@ -188,16 +214,13 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .historia-title { font-size: 1rem; top: 70px; }
+  .historia-title { top: 18px; }
+  .historia-title__eyebrow { font-size: 0.55rem; letter-spacing: 3px; }
+  .historia-title__divider { width: 20px; margin: 4px 0; }
+  .historia-title__capitulo { font-size: 1.1rem; letter-spacing: 2px; }
   .historia-dialogue { bottom: 80px; width: 95%; }
   .dialogue-box__text { font-size: 0.9rem; }
 }
-
-
-
-
-
-
 
 .dialogue-box__content {
   display: flex;
@@ -212,4 +235,151 @@
   object-fit: cover;
   border: 2px solid #ffc61c;
   flex-shrink: 0;
+}
+
+/* ==========================================================
+   DIÁLOGOS CON CHOICES
+========================================================== */
+
+.historia-dialogue--choices {
+  background: rgba(7, 20, 16, 0.92);
+  border: 1px solid rgba(255, 198, 28, 0.2);
+  border-radius: 0 8px 8px 8px;
+  padding: 1.2rem 1.5rem 1.4rem;
+  backdrop-filter: blur(8px);
+}
+
+.historia-dialogue__character {
+  display: inline-block;
+  background: #ffc61c;
+  color: #0b1f17;
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 5px 20px 5px 16px;
+  border-radius: 4px 4px 0 0;
+  margin: -1.2rem 0 0.8rem -1.5rem;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 0 100%);
+}
+
+.historia-dialogue__text {
+  font-size: 1.05rem;
+  color: #f8f4e6;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.historia-dialogue__reaccion {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #ffc61c;
+  border-left: 2px solid rgba(255, 198, 28, 0.4);
+  padding-left: 10px;
+  margin: -0.2rem 0 1.1rem;
+  opacity: 0.9;
+}
+
+.historia-choices__opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.historia-choice-btn {
+  text-align: left;
+  background: rgba(255, 198, 28, 0.06);
+  border: 1px solid rgba(255, 198, 28, 0.25);
+  color: #f8f4e6;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.historia-choice-btn:hover {
+  background: rgba(255, 198, 28, 0.15);
+  border-color: #ffc61c;
+  transform: translateX(4px);
+}
+.historia-choice-btn:active {
+  transform: translateX(4px) scale(0.99);
+}
+
+/* ==========================================================
+   PANTALLA DE RESULTADO (fin de capítulo)
+========================================================== */
+
+.historia-resultado {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  z-index: 10;
+  background: rgba(7, 20, 16, 0.92);
+  border: 1px solid rgba(255, 198, 28, 0.2);
+  border-radius: 8px;
+  padding: 1.4rem 1.6rem;
+  backdrop-filter: blur(8px);
+}
+
+.historia-resultado__texto {
+  font-size: 1.05rem;
+  color: #f8f4e6;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.historia-resultado__error {
+  font-size: 0.9rem;
+  color: #e07070;
+}
+
+.historia-resultado__box {
+  border-top: 1px solid rgba(255, 198, 28, 0.15);
+  padding-top: 1rem;
+}
+.historia-resultado__box h3 {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffc61c;
+  margin: 0 0 0.5rem;
+}
+.historia-resultado__box p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 0.8rem;
+}
+
+.historia-resultado__recompensa {
+  display: inline-block;
+  background: #ffc61c;
+  color: #0b1f17;
+  font-family: var(--font-title);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  padding: 5px 14px;
+  border-radius: 4px;
+}
+
+.historia-resultado__aviso {
+  font-size: 0.8rem;
+  color: rgba(248, 244, 230, 0.55);
+  font-style: italic;
+  margin-top: 0.7rem !important;
+}
+
+/* RESPONSIVE — choices y resultado */
+@media (max-width: 768px) {
+  .historia-resultado { bottom: 80px; width: 95%; }
+  .historia-dialogue__text,
+  .historia-resultado__texto { font-size: 0.9rem; }
+  .historia-choice-btn { font-size: 0.88rem; padding: 9px 14px; }
 }

@@ -21,7 +21,7 @@ const RESULTADOS_UI = {
 };
 
 export default function HistoriaGame({ protagonista }) {
-  const { authFetch } = useAuth();
+  const { authFetch, updateUser } = useAuth();
 
   const [currentId, setCurrentId] = useState(historiaData[0].id);
   const [imagenActual, setImagenActual] = useState(historiaData[0].image);
@@ -60,6 +60,13 @@ export default function HistoriaGame({ protagonista }) {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Error al reclamar la recompensa");
         setRecompensa(data);
+
+        // Igual que RewardScreen: aplicamos el saldo real que ya quedó
+        // persistido en la DB, no un cálculo local, para no depender de que
+        // el user del AuthContext esté sincronizado en este momento.
+        if (data.usuario) {
+          updateUser({ monedas: data.usuario.monedas, puntos: data.usuario.puntos });
+        }
       } catch (err) {
         console.error(err);
         setErrorRecompensa("No se pudo registrar tu recompensa. Probá recargar la página.");
@@ -102,8 +109,6 @@ export default function HistoriaGame({ protagonista }) {
 
     return (
       <div className="historia-wrapper">
-        <div className="historia-title">Historia — Capítulo 1</div>
-
         <div className="historia-scene">
           <img src={imagenActual} className="historia-scene__img" alt="Escena final" />
           <div className="historia-scene__gradient" />
@@ -138,8 +143,6 @@ export default function HistoriaGame({ protagonista }) {
 
   return (
     <div className="historia-wrapper">
-      <div className="historia-title">Historia — Capítulo 1</div>
-
       <div className="historia-scene">
         <img src={imagenActual} className="historia-scene__img" alt="Escena" />
         <div className="historia-scene__gradient" />

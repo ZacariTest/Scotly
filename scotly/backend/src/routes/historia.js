@@ -94,12 +94,22 @@ router.post('/completar-capitulo', verificarToken, async (req, res) => {
 
     await connection.commit();
 
+    // Devolvemos el saldo real ya persistido (no un delta) para que el
+    // frontend lo aplique directo al AuthContext, igual que ya hace
+    // /api/invasion/resultado con data.usuario. Evita depender de que el
+    // estado local del usuario esté fresco al momento de sumar.
+    const [[usuarioActualizado]] = await connection.query(
+      'SELECT monedas, puntos FROM usuarios WHERE id = ?',
+      [usuarioId]
+    );
+
     res.json({
       resultado,
       puntos_totales: puntosTotales,
       monedas_ganadas: monedasGanadas,
       puntos_ganados: puntosGanados,
       yaReclamado,
+      usuario: usuarioActualizado,
     });
   } catch (err) {
     await connection.rollback();

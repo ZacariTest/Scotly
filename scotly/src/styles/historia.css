@@ -6,6 +6,16 @@
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
+  /* El Navbar es position:fixed y HistoriaCapitulo.jsx no está envuelto
+     en <main>, así que acá no llega el padding-top global. Lo replicamos
+     directo con la misma altura que usa el navbar. */
+  padding-top: 75px;
+}
+
+@media (max-width: 768px) {
+  .historia-page {
+    padding-top: 58px;
+  }
 }
 
 /* Wrapper */
@@ -15,49 +25,6 @@
   height: calc(100vh - 60px);
   overflow: hidden;
   background: #000;
-}
-
-/* TÍTULO */
-.historia-title {
-  position: absolute;
-  top: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  pointer-events: none;
-}
-
-.historia-title__eyebrow {
-  font-family: var(--font-title);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(255, 198, 28, 0.6);
-  text-shadow: 1px 1px 0 #000;
-  white-space: nowrap;
-}
-
-.historia-title__divider {
-  width: 28px;
-  height: 2px;
-  margin: 6px 0;
-  background: linear-gradient(to right, transparent, #ffc61c, transparent);
-}
-
-.historia-title__capitulo {
-  font-family: var(--font-title);
-  font-size: 1.5rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #ffc61c;
-  text-shadow: 2px 2px 0 #000, 0 0 20px rgba(255,198,28,0.5);
-  white-space: nowrap;
 }
 
 /* ESCENA */
@@ -212,16 +179,6 @@
   color: #e07070;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .historia-title { top: 18px; }
-  .historia-title__eyebrow { font-size: 0.55rem; letter-spacing: 3px; }
-  .historia-title__divider { width: 20px; margin: 4px 0; }
-  .historia-title__capitulo { font-size: 1.1rem; letter-spacing: 2px; }
-  .historia-dialogue { bottom: 80px; width: 95%; }
-  .dialogue-box__text { font-size: 0.9rem; }
-}
-
 .dialogue-box__content {
   display: flex;
   align-items: flex-start;
@@ -233,6 +190,7 @@
   height: 52px;
   border-radius: 10px;
   object-fit: cover;
+  object-position: center top;
   border: 2px solid #ffc61c;
   flex-shrink: 0;
 }
@@ -376,10 +334,84 @@
   margin-top: 0.7rem !important;
 }
 
-/* RESPONSIVE — choices y resultado */
+/* ==========================================================
+   RESPONSIVE (mobile)
+   En vez de superponer el diálogo sobre la imagen (como en
+   desktop), acá se apila todo en columna: la escena queda
+   arriba con su propia altura (aspect-ratio), y el diálogo /
+   choices / resultado fluyen debajo, en su propio bloque con
+   fondo sólido. Cada uno tiene su espacio, sin recortar la
+   imagen ni tapar texto.
+========================================================== */
 @media (max-width: 768px) {
-  .historia-resultado { bottom: 80px; width: 95%; }
+  .historia-wrapper {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background: #071410;
+  }
+
+  /* La escena deja de ser absoluta y pasa a ocupar su propio
+     bloque arriba, con altura fija en base a aspect-ratio */
+  .historia-scene {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    flex-shrink: 0;
+  }
+  .historia-scene__img {
+    object-fit: cover;
+    object-position: center center;
+  }
+  /* Ya no hace falta el gradiente porque el diálogo no se
+     superpone a la imagen */
+  .historia-scene__gradient {
+    display: none;
+  }
+
+  /* Diálogo, choices y resultado: ahora en flujo normal,
+     debajo de la imagen, con su propio fondo sólido */
+  .historia-dialogue,
+  .historia-resultado {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem 1.1rem 1.2rem;
+    background: rgba(7, 20, 16, 0.98);
+    border-radius: 0;
+    flex: 1;
+  }
+
+  .historia-dialogue--choices {
+    border-radius: 0;
+  }
+
+  .historia-dialogue__character {
+    margin-left: 0;
+  }
+
+  .dialogue-box__text,
   .historia-dialogue__text,
-  .historia-resultado__texto { font-size: 0.9rem; }
+  .historia-resultado__texto {
+    font-size: 0.9rem;
+  }
+
+  /* Los controles inferiores (menú, salir) pasan a ir arriba
+     de la escena, en flujo normal, en vez de flotar sobre la
+     imagen */
+  .historia-controls {
+    position: relative;
+    bottom: auto;
+    left: auto; right: auto;
+    padding: 10px 5%;
+    background: #071410;
+    order: -1;
+  }
+
   .historia-choice-btn { font-size: 0.88rem; padding: 9px 14px; }
 }

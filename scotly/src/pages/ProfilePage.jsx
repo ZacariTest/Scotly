@@ -45,8 +45,13 @@ export default function ProfilePage() {
     cargarCartas();
   }, [user, authFetch]);
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   if (!user) {
-    navigate("/");
     return null;
   }
 

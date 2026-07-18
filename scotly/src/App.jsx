@@ -12,6 +12,7 @@ import GachaPage from "./pages/GachaPage";
 import CursoPagoIntro from "./pages/CursoPagoIntro";
 import AdminPage from "./pages/AdminPage";
 import CampusPage from "./pages/CampusPage";
+import PaginaExploracion from "./pages/PaginaExploracion"
 
 // ── Escocia ──
 import CourseArte from "./pages/CourseArte";
@@ -54,6 +55,7 @@ export default function App() {
       <Route path="/curso/paid/:codigo" element={<CursoPagoIntro />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/campus" element={<CampusPage />} />
+      <Route path="/exploracion" element={<PaginaExploracion />} />
 
       {/* ── Escocia ── */}
       <Route path="/curso/arte" element={<CourseArte />} />

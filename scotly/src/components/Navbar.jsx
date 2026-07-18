@@ -139,6 +139,7 @@ export default function Navbar() {
             <>
               <Link to="/perfil" onClick={() => setMenuOpen(false)}>Mi perfil</Link>
               <Link to="/inventario" onClick={() => setMenuOpen(false)}>Mi inventario</Link>
+              <Link to="/exploracion" onClick={() => setMenuOpen(false)}>Exploración</Link>
               {isAdmin && (
                 <Link to="/admin" onClick={() => setMenuOpen(false)}>Panel de administración</Link>
               )}

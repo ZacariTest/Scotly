@@ -60,7 +60,7 @@ export default function RegionsSection({ activeRegion, onSelect }) {
         </p>
 
         <span className="regions-launch-banner__cta">
-          Ver hoja de ruta →
+          -
         </span>
       </div>
     </section>

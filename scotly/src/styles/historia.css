@@ -367,15 +367,9 @@
 }
 
 /* ==========================================================
-   RESPONSIVE (mobile)
-   En vez de superponer el diálogo sobre la imagen (como en
-   desktop), acá se apila todo en columna: la escena queda
-   arriba con su propia altura (aspect-ratio), y el diálogo /
-   choices / resultado fluyen debajo, en su propio bloque con
-   fondo sólido. Cada uno tiene su espacio, sin recortar la
-   imagen ni tapar texto.
+   RESPONSIVE (mobile / tablet vertical)
 ========================================================== */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .historia-wrapper {
     height: auto;
     display: flex;
@@ -393,8 +387,9 @@
     flex-shrink: 0;
   }
   .historia-scene__img {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
+    background: #071410;
   }
   /* Ya no hace falta el gradiente porque el diálogo no se
      superpone a la imagen */

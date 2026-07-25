@@ -65,12 +65,15 @@ export default function CharacterSelector({ selected, onToggle, onConfirm, confi
 
       <div className="inv-enemy-preview">
         <p className="inv-enemy-preview__label">Rival de temporada</p>
-        <div className="inv-enemy-preview__members">
+        <div className="inv-selector__grid">
           {CURRENT_SEASON.enemy.members.map((m) => (
-            <div key={m.id} className={`inv-enemy-chip inv-enemy-chip--${m.rarity}`}>
-              <span className="inv-enemy-chip__name">{m.name}</span>
-              <span className="inv-enemy-chip__stats">❤{m.hp} ⚔{m.attack} ⚡{m.speed}</span>
-            </div>
+            <CardDisplay
+              key={m.id}
+              character={m}
+              selected={false}
+              disabled={true}
+              onClick={undefined}
+            />
           ))}
         </div>
       </div>

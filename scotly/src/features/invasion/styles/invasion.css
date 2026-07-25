@@ -150,6 +150,69 @@
   opacity: .8;
 }
 
+/* Las cartas de enemigo reusan .inv-selector__grid, pero acá
+   se estiran para ocupar todo el ancho en vez de amontonarse
+   a la izquierda (auto-fit colapsa las columnas vacías). */
+.inv-enemy-preview .inv-selector__grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-bottom: 0;
+}
+
+/* No queremos el grisado de "disabled": son solo vista previa,
+   no seleccionables, pero deben verse con color pleno. */
+.inv-enemy-preview .inv-card--disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+/* Brillo rojo pulsante para distinguirlas como amenaza */
+.inv-enemy-preview .inv-card {
+  border-color: rgba(184, 80, 80, .35);
+  animation: inv-enemy-glow 2.6s ease-in-out infinite;
+}
+.inv-enemy-preview .inv-card--rare {
+  border-color: rgba(217, 154, 40, .4);
+  animation: inv-enemy-glow-rare 2.6s ease-in-out infinite;
+}
+.inv-enemy-preview .inv-card--epic {
+  border-color: rgba(180, 130, 255, .4);
+  animation: inv-enemy-glow-epic 2.6s ease-in-out infinite;
+}
+
+@keyframes inv-enemy-glow {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(184,80,80,.12), 0 4px 16px rgba(0,0,0,.35); }
+  50%      { box-shadow: 0 0 20px rgba(184,80,80,.5), 0 4px 16px rgba(0,0,0,.35); }
+}
+@keyframes inv-enemy-glow-rare {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(217,154,40,.18), 0 4px 16px rgba(0,0,0,.35); }
+  50%      { box-shadow: 0 0 22px rgba(217,154,40,.55), 0 4px 16px rgba(0,0,0,.35); }
+}
+@keyframes inv-enemy-glow-epic {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(180,130,255,.18), 0 4px 16px rgba(0,0,0,.35); }
+  50%      { box-shadow: 0 0 22px rgba(180,130,255,.55), 0 4px 16px rgba(0,0,0,.35); }
+}
+
+
+/* La carta de rival es una sola por fila y tiene espacio de sobra:
+   que se vea el personaje completo en vez de recortado por arriba */
+.inv-enemy-preview .inv-card__img-wrap {
+  height: 360px;
+}
+.inv-enemy-preview .inv-card__img {
+  object-fit: contain;
+  object-position: center;
+  background: rgba(4, 10, 20, .5);
+}
+
+@media (max-width: 768px) {
+  .inv-enemy-preview .inv-card__img-wrap {
+    height: 300px;
+  }
+}
+
+
+/* (chips legacy — ya no se usan en el JSX, quedan por si se
+   reutiliza el patrón en otro lado) */
 .inv-enemy-preview__members {
   display: flex;
   gap: 10px;
@@ -1291,17 +1354,3 @@
     grid-template-columns: 1fr;  /* 1 sola columna, carta full ancho */
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

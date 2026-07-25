@@ -102,9 +102,16 @@ router.post('/iniciar', verificarToken, async (req, res) => {
 
     await connection.commit();
 
+    // Mismo JOIN que /estado, para que el front tenga carta_nombre y
+    // carta_imagen apenas se inicia la exploración (sin esto, la carta
+    // se veía sin nombre ni imagen hasta recargar la página).
     const [filas] = await pool.query(
-      `SELECT id, carta_id, rareza, inicio, fin, recompensa_puntos, recompensa_monedas
-       FROM exploraciones WHERE id = ?`,
+      `SELECT e.id, e.carta_id, e.rareza, e.inicio, e.fin,
+              e.recompensa_puntos, e.recompensa_monedas,
+              c.nombre AS carta_nombre, c.imagen AS carta_imagen
+       FROM exploraciones e
+       JOIN cartas c ON c.id = e.carta_id
+       WHERE e.id = ?`,
       [resultado.insertId]
     );
 

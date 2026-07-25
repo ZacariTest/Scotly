@@ -84,6 +84,9 @@ export default function HistoriaGame({ protagonista }) {
 
   const handleNext = () => {
     if (nodo.next) setCurrentId(nodo.next);
+    // La reacción exclusiva es un subtítulo de "un solo nodo": una vez que
+    // el jugador avanza, se limpia para que no arrastre a los nodos futuros.
+    setReaccion(null);
   };
 
   const handleChoice = (choice, choiceIndex) => {
@@ -91,7 +94,9 @@ export default function HistoriaGame({ protagonista }) {
     setCurrentId(choice.next);
   };
 
-  // Reacción visible en el momento si la elección coincide con la región del protagonista
+  // Reacción visible en el momento si la elección coincide con la región del protagonista.
+  // Se setea al elegir y se muestra como subtítulo en el nodo siguiente (ver render más abajo);
+  // se limpia en handleNext, cuando el jugador avanza más allá de ese nodo.
   const [reaccion, setReaccion] = useState(null);
 
   const elegirOpcion = (choice, choiceIndex) => {
@@ -153,22 +158,27 @@ export default function HistoriaGame({ protagonista }) {
           <p className="historia-dialogue__character">{personaje}</p>
           <p className="historia-dialogue__text">{nodo.text}</p>
 
-          {reaccion && <p className="historia-dialogue__reaccion">{reaccion}</p>}
-
           <div className="historia-choices__opciones">
-            {nodo.choices.map((choice, i) => (
-              <button
-                key={i}
-                className="historia-choice-btn"
-                onClick={() => elegirOpcion(choice, i)}
-              >
-                {choice.text}
-              </button>
-            ))}
+            {nodo.choices.map((choice, i) => {
+              const esRegionPropia = choice.region && protagonista?.region === choice.region;
+              return (
+                <button
+                  key={i}
+                  className={`historia-choice-btn${esRegionPropia ? " historia-choice-btn--region" : ""}`}
+                  onClick={() => elegirOpcion(choice, i)}
+                >
+                  {choice.text}
+                  {esRegionPropia && (
+                    <span className="historia-choice-btn__badge">Tu región</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       ) : (
         <div className="historia-dialogue">
+          {reaccion && <p className="historia-dialogue__reaccion">{reaccion}</p>}
           <DialogueBox
             character={personaje}
             avatar={avatar}

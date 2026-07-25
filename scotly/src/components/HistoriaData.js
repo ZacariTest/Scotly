@@ -33,7 +33,7 @@ const historiaData = [
     id: "n1",
     character: "Narrador",
     text: "El camino de tierra sube entre brezales hacia una torre de piedra rodeada de una empalizada de madera. Se ve humo de turba saliendo del techo y ganado pastando en el cercado.",
-    image: "/img/prueba1.jpg",
+    image: "/img/CAP1.png",
     next: "n2",
   },
   {
@@ -47,7 +47,7 @@ const historiaData = [
     isProtagonista: true,
     character: "Protagonista",
     text: "Con el ganado robado todavía sin resolver, no es el mejor momento para llegar sin anunciarse. Mejor pensar bien cómo presentarme.",
-    image: "/img/prueba2.jpg",
+    image: "/img/CAP1.png",
     next: "d1",
   },
 
@@ -56,7 +56,7 @@ const historiaData = [
     id: "d1",
     character: "Centinela",
     text: "Alto ahí. Con lo que pasó esta semana, nadie entra sin decir quién es y a qué viene.",
-    image: "/img/prueba4.jpg",
+    image: "/img/CAP11.png",
     choices: [
       {
         text: '"Solo soy un viajero de paso, busco techo por una noche."',
@@ -87,17 +87,20 @@ const historiaData = [
     ],
   },
 
-  // ---------- En el patio, con el mayordomo ----------
   {
     id: "n4",
-    character: "Mayordomo",
+    character: "Centinela",
     text: "Adelante, entonces. Disculpá la desconfianza, pero con el ganado que nos falta, el jefe no quiere sorpresas.",
     next: "n5",
   },
+
+    // ---------- En el patio, con el mayordomo aqui va otra imagen de escena ----------
+
   {
     id: "n5",
     character: "Mayordomo",
     text: "Soy quien lleva las cuentas de esta casa: la avena, las rentas, el ganado. Y ahora, además, tengo que explicarle al jefe cómo faltan doce cabezas de la manada.",
+    image: "/img/CAP12.png",
     next: "n6",
   },
   {
@@ -152,8 +155,8 @@ const historiaData = [
   {
     id: "n8",
     character: "Narrador",
-    text: "En el salón principal, el lugar junto al fuego está reservado para el jefe; el resto se sienta según su rango. Un hombre mayor recita en voz baja el linaje de la familia, tal como se hace en cada visita importante.",
-    image: "/img/prueba1.jpg",
+    text: "En el salón principal, el trono junto al fuego está reservado para el jefe; el resto se sienta según su rango. Un hombre mayor recita en voz baja el linaje de la familia, tal como se hace en cada visita importante.",
+    image: "/img/CAP13.png",
     next: "n9",
   },
   {
@@ -170,12 +173,12 @@ const historiaData = [
     text: "Contame exactamente lo que viste, y no te guardes nada por miedo a ofender a nadie.",
     choices: [
       {
-        text: '"Vi lo que vi, pero no me corresponde decidir qué hacer con esa información."',
+        text: '"Vi algo aunque no me corresponde decidir que hacer con esa información."',
         basePoints: 1,
         next: "n10",
       },
       {
-        text: '"Lo que vi apunta directo al clan vecino. Merecen una respuesta a la altura." (contundente)',
+        text: '"Lo que vi apunta directo al clan vecino. Merecen un castigo a la altura." (contundente)',
         region: "Escocia",
         basePoints: 2,
         reactionText: "El jefe golpea la mesa: por fin alguien habla con la claridad que él esperaba.",
@@ -208,15 +211,16 @@ const historiaData = [
   {
     id: "n11",
     character: "Mayordomo",
-    text: "Con perdón, jefe... pero antes de decidir, quizás valga la pena escuchar qué opina nuestro visitante. Al final del día, no tiene nada que perder ni ganar en esto.",
+    text: "Perdón, jefe... pero antes de decidir, quizás valga la pena escuchar qué opina nuestro visitante. Al final del día, no tiene nada que perder ni ganar en esto.",
     next: "d4",
   },
 
-  // ---------- Decisión 4: el consejo final, la de mayor peso ----------
+  // ---------- Decisión 4: el consejo final, la de mayor peso Aqui hay otra cambio de escena----------
   {
     id: "d4",
     character: "Jefe del clan",
     text: "Está bien. Decime: si estuvieras en mi lugar, ¿qué harías con el clan vecino?",
+    image: "/img/CAP13.png",
     choices: [
       {
         text: '"No es mi lugar para aconsejar algo así. Hagan lo que consideren correcto."',
@@ -238,7 +242,7 @@ const historiaData = [
         next: "n12",
       },
       {
-        text: '"Llevaría el reclamo ante el sheriff de la zona. Para eso están las autoridades." (formal)',
+        text: '"Llevaría el reclamo ante la autoridad inglesa de la zona. Para eso están las autoridades." (formal)',
         region: "Inglaterra",
         basePoints: 2,
         reactionText: "El jefe frunce el ceño: no confía demasiado en esas cortes, pero reconoce que es un camino menos costoso que la sangre.",
@@ -257,13 +261,16 @@ const historiaData = [
   {
     id: "n13",
     character: "Narrador",
-    text: "Esa noche, el visitante come junto al fuego con el resto de la casa. Nadie más menciona el ganado robado, aunque todos piensan en lo mismo.",
+    text: "El visitante come junto al fuego con el resto de la casa. Nadie más menciona el ganado robado, aunque todos piensan en lo mismo.",
     next: "final",
   },
+// ---------- aqui va otra imagen de escena ----------
+
   {
     id: "final",
     character: "Narrador",
-    text: "A la mañana siguiente, el mayordomo despide al viajero en la puerta de la torre. Lo que decida el jefe quedará entre estas piedras... por ahora.",
+    text: "A la mañana siguiente, el mayordomo despide al viajero en la puerta de la torre. Lo que decida el jefe quedará por verse... por ahora.",
+    image: "/img/CAP17.png",
     // Sin next ni choices: este es el único nodo que debe disparar esFinal.
   },
 ];

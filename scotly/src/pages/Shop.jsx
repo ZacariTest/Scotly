@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import AuthModal from "../components/AuthModal";
 import { useAuth } from "../context/AuthContext";
+import { useEnergy } from "../context/EnergyContext";
 import Toast from "../components/Toast";
 import { TIENDA_ASSETS } from "../features/tienda/data/tiendaAssets";
 
@@ -18,6 +19,7 @@ const formatEuros = (value) =>
 
 export default function Shop() {
   const { user, authFetch, updateUser } = useAuth();
+  const { refreshEnergy } = useEnergy();
   const [category, setCategory] = useState("all");
   const [items, setItems] = useState([]);
   const [destacados, setDestacados] = useState([]);
@@ -51,6 +53,25 @@ export default function Shop() {
     cargarTienda();
   }, []);
 
+  // Feedback al volver del checkout de MercadoPago (back_urls redirige acá
+  // con ?pago=exito|pendiente|fallo)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const pago = params.get("pago");
+    if (!pago) return;
+
+    if (pago === "exito") {
+      mostrarMensaje("¡Pago aprobado! Puede tardar unos segundos en acreditarse.", "ok");
+    } else if (pago === "pendiente") {
+      mostrarMensaje("Tu pago está pendiente de confirmación.", "ok");
+    } else if (pago === "fallo") {
+      mostrarMensaje("El pago no se pudo completar.", "error");
+    }
+
+    window.history.replaceState({}, "", "/shop");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const mostrarMensaje = (texto, tipo = "ok") => {
     setMensaje({ texto, tipo });
     setTimeout(() => setMensaje(null), 3000);
@@ -67,11 +88,16 @@ export default function Shop() {
       const data = await res.json();
 
       if (!res.ok) {
-        mostrarMensaje(data.error === "Monedas insuficientes" ? "No tenés monedas suficientes." : "No se pudo completar la compra.", "error");
+        const mensajeError =
+          data.error === "Monedas insuficientes" ? "No tenés monedas suficientes." :
+          data.error === "Ya tenés la energía al máximo" ? "Ya tenés la energía al máximo." :
+          "No se pudo completar la compra.";
+        mostrarMensaje(mensajeError, "error");
         return;
       }
 
       updateUser({ monedas: user.monedas - item.precio_monedas });
+      if (data.energia_actualizada) refreshEnergy();
       mostrarMensaje(`¡${item.nombre} obtenido!`, "ok");
     } catch (err) {
       mostrarMensaje("Error de conexión.", "error");
@@ -110,11 +136,6 @@ export default function Shop() {
     const comprandoId = `moneda-${pack.id}`;
     setComprando(comprandoId);
     try {
-      // TODO(mercadopago): esta llamada acredita las monedas de forma directa
-      // porque todavía no hay pasarela de pago. Cuando se integre MercadoPago,
-      // este onClick debe abrir el checkout en vez de llamar directo al
-      // endpoint — el acreditado real se dispara desde el webhook de pago
-      // confirmado, no desde acá.
       const res = await authFetch("/api/tienda/comprar-moneda", {
         method: "POST",
         body: JSON.stringify({ item_id: pack.id }),
@@ -122,16 +143,15 @@ export default function Shop() {
       const data = await res.json();
 
       if (!res.ok) {
-        mostrarMensaje("No se pudo completar la compra.", "error");
+        mostrarMensaje(data.error || "No se pudo iniciar el pago.", "error");
+        setComprando(null);
         return;
       }
 
-      // El backend devuelve el saldo real (fuente de verdad), no lo calculamos a mano
-      updateUser({ monedas: data.monedas_totales });
-      mostrarMensaje(`¡+${pack.cantidad_otorgada} monedas acreditadas!`, "ok");
+      // Redirige al checkout de MercadoPago — el usuario paga ahí, no acá
+      window.location.href = data.init_point;
     } catch (err) {
       mostrarMensaje("Error de conexión.", "error");
-    } finally {
       setComprando(null);
     }
   };

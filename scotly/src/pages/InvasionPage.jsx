@@ -4,16 +4,23 @@ import Footer from "../components/Footer";
 import CharacterSelector from "../features/invasion/components/CharacterSelector";
 import BattleArena from "../features/invasion/components/BattleArena";
 import RewardScreen from "../features/invasion/components/RewardScreen";
+import NoEnergyModal from "../components/NoEnergyModal";
 import { simulateBattle } from "../features/invasion/engine/battleEngine";
 import { CURRENT_SEASON } from "../features/invasion/data/seasons";
+import { useEnergy } from "../context/EnergyContext";
 import "../features/invasion/styles/invasion.css";
 
 const PHASE = { SELECT: "select", BATTLE: "battle", REWARD: "reward" };
+const COSTO_INVASION = 1;
 
 export default function InvasionPage() {
   const [phase, setPhase] = useState(PHASE.SELECT);
   const [selected, setSelected] = useState([]);
   const [battleResult, setBattleResult] = useState(null);
+  const [confirmando, setConfirmando] = useState(false);
+  const [sinEnergia, setSinEnergia] = useState(null);
+
+  const { energia, energiaMax, spendEnergy } = useEnergy();
 
   const handleToggle = (char) => {
     setSelected((prev) =>
@@ -25,10 +32,24 @@ export default function InvasionPage() {
     );
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    if (confirmando) return;
+    setConfirmando(true);
+
+    const resultado = await spendEnergy(COSTO_INVASION, "invasion");
+
+    if (!resultado.ok) {
+      if (resultado.motivo === "sin_energia") {
+        setSinEnergia(resultado.estado);
+      }
+      setConfirmando(false);
+      return;
+    }
+
     const result = simulateBattle(selected, CURRENT_SEASON.enemy.members);
     setBattleResult(result);
     setPhase(PHASE.BATTLE);
+    setConfirmando(false);
     window.scrollTo({ top: 0, behavior: "instant" });
   };
 
@@ -62,20 +83,24 @@ export default function InvasionPage() {
             selected={selected}
             onToggle={handleToggle}
             onConfirm={handleConfirm}
+            confirmDisabled={confirmando || (energia != null && energia < COSTO_INVASION)}
           />
         )}
 
         {phase === PHASE.BATTLE && (
-          <BattleArena
-            result={battleResult}
-            onFinish={handleFinish}
-          />
+          <BattleArena result={battleResult} onFinish={handleFinish} />
         )}
 
         {phase === PHASE.REWARD && (
-          <RewardScreen
-            winner={battleResult?.winner}
-            onReset={handleReset}
+          <RewardScreen winner={battleResult?.winner} onReset={handleReset} />
+        )}
+
+        {sinEnergia && (
+          <NoEnergyModal
+            costo={COSTO_INVASION}
+            energiaActual={sinEnergia.energia}
+            energiaMax={sinEnergia.energia_max}
+            onClose={() => setSinEnergia(null)}
           />
         )}
 

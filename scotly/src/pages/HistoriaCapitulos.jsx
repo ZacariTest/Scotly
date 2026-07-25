@@ -1,74 +1,46 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import AuthModal from "../components/AuthModal";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import capitulos from "../components/HistoriaCapitulosData";
-import "../styles/historiaCapitulos.css";
+import HistoriaGame from "../components/HistoriaGame";
+import Toast from "../components/Toast";
+import "../styles/historia.css";
 
-const REGION_CODE = {
-  Escocia: "sc",
-  Inglaterra: "en",
-  Gales: "wa",
-};
-
-export default function HistoriaCapitulos() {
-  const navigate = useNavigate();
+export default function HistoriaCapitulo() {
   const { user } = useAuth();
-  const [authOpen, setAuthOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const protagonista = location.state?.protagonista;
+  const [toast, setToast] = useState(null);
 
-  const handleJugar = (capitulo) => {
-    if (capitulo.estado !== "disponible") return;
-    if (!user) {
-      setAuthOpen(true);
-      return;
-    }
-    navigate(capitulo.rutaSeleccion);
-  };
+  useEffect(() => {
+    if (user) return;
+
+    setToast({ tipo: "error", texto: "Debés iniciar sesión para acceder a la Historia" });
+    const timer = setTimeout(() => navigate("/"), 2000);
+    return () => clearTimeout(timer);
+  }, [user, navigate]);
+
+  if (!user) {
+    return (
+      <>
+        <Navbar />
+        <Toast message={toast} />
+        <Footer />
+      </>
+    );
+  }
+
+  if (!protagonista) {
+    return <Navigate to="/curso/historia/capitulo-1/personaje" replace />;
+  }
 
   return (
-    <>
+    <div className="historia-page">
       <Navbar />
-      <main className="hc-page">
-
-        <div className="hc-header">
-          <p className="hc-header__eyebrow">Legends of Britain</p>
-          <h1 className="hc-header__title">Historia</h1>
-        </div>
-
-        <div className="hc-body">
-          <div className="hc-list">
-            {capitulos.map((cap) => (
-              <div
-                key={cap.id}
-                className={`hc-card${cap.estado === "disponible" ? " hc-card--available" : " hc-card--locked"}`}
-              >
-                <div className="hc-card__info">
-                  <span className={`hc-card__region-badge hc-card__region-badge--${REGION_CODE[cap.region] || "sc"}`}>
-                    {cap.region}
-                  </span>
-                  <p className="hc-card__numero">Capítulo {cap.numero}</p>
-                  <p className="hc-card__titulo">{cap.titulo}</p>
-                  <p className="hc-card__desc">{cap.descripcion}</p>
-                  <p className="hc-card__estado">
-                    {cap.estado === "disponible" ? "🔓 Disponible" : "🔒 Bloqueado"}
-                  </p>
-                </div>
-
-                {cap.estado === "disponible" && (
-                  <button className="hc-card__btn" onClick={() => handleJugar(cap)}>
-                    Jugar
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </main>
+      <HistoriaGame protagonista={protagonista} />
       <Footer />
-      {authOpen && <AuthModal onClose={() => setAuthOpen(false)} />}
-    </>
+    </div>
   );
 }

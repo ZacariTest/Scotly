@@ -7,14 +7,12 @@ import { aplicarEscaladoPorNivel } from "../utils/nivelScaling";
 
 const MAX_SELECTION = 3;
 
-export default function CharacterSelector({ selected, onToggle, onConfirm }) {
+export default function CharacterSelector({ selected, onToggle, onConfirm, confirmDisabled = false }) {
   const { authFetch, user, loading: authLoading } = useAuth();
   const [ownedCharacters, setOwnedCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Esperar a que AuthContext termine de leer localStorage antes de pedir
-    // el inventario (evita que salga sin el token -> 401).
     if (authLoading) return;
 
     if (!user) {
@@ -27,7 +25,6 @@ export default function CharacterSelector({ selected, onToggle, onConfirm }) {
         const res = await authFetch("/api/inventario/cartas");
         const data = await res.json();
         if (res.ok) {
-          // Mapa código -> { nivel, cantidad } para saber qué tenés y en qué nivel.
           const infoPorCodigo = {};
           data.cartas.forEach((c) => {
             infoPorCodigo[(c.codigo ?? "").toLowerCase()] = {
@@ -52,6 +49,7 @@ export default function CharacterSelector({ selected, onToggle, onConfirm }) {
   }, [authFetch, user, authLoading]);
 
   const ready = selected.length === MAX_SELECTION;
+  const disabled = !ready || confirmDisabled;
 
   return (
     <div className="inv-selector">
@@ -104,7 +102,7 @@ export default function CharacterSelector({ selected, onToggle, onConfirm }) {
 
       <button
         className="inv-selector__confirm"
-        disabled={!ready}
+        disabled={disabled}
         onClick={onConfirm}
       >
         {ready ? "¡Defender las Highlands!" : `Elegí ${MAX_SELECTION - selected.length} personaje${MAX_SELECTION - selected.length !== 1 ? "s" : ""} más`}

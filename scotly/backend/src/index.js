@@ -13,6 +13,7 @@ import progresoRoutes from './routes/progreso.js';
 import adminRoutes from './routes/admin.js';
 import historiaRoutes from './routes/historia.js';
 import exploracionRoutes from './routes/exploracion.js';
+import energiaRoutes from './routes/energia.js';
 
 
 dotenv.config();
@@ -39,6 +40,7 @@ app.use('/api/progreso', progresoRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/historia', historiaRoutes);
 app.use('/api/exploracion', exploracionRoutes);
+app.use('/api/energia', energiaRoutes);
 
 const PORT = process.env.PORT || 3000;
 

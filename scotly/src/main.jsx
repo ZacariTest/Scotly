@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
+import { EnergyProvider } from "./context/EnergyContext";
 import { applyRegionThemeById } from "./constants/regionThemes";
 import "./styles/index.css";
 
@@ -16,7 +17,9 @@ ReactDOM.createRoot(rootEl).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <EnergyProvider>
+          <App />
+        </EnergyProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

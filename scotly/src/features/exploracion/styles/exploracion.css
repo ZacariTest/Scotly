@@ -218,6 +218,34 @@
   border-color: #d99a28;
 }
 
+.exploracion-panel__preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 420px;
+  padding: .85rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(217, 154, 40, .25);
+  background: rgba(20, 12, 6, .5);
+}
+
+.exploracion-panel__preview-img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(217, 154, 40, .25);
+  flex-shrink: 0;
+}
+
+.exploracion-panel__preview-nombre {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  color: #f8f4e6;
+  margin: 0 0 .25rem;
+}
+
 /* ══════════════════════════════════════════════
    ESTADO: exploración activa
 ══════════════════════════════════════════════ */

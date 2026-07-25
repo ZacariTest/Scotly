@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useEnergy } from "../context/EnergyContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import NoEnergyModal from "../components/NoEnergyModal";
 import { CHARACTERS } from "../features/invasion/data/characters";
 import "../styles/historiaSeleccionPersonaje.css";
 
@@ -17,14 +19,26 @@ const REGION_CODE = {
   Gales: "wa",
 };
 
+const RAREZA_LABEL = {
+  common: "Común",
+  rare: "Rara",
+  epic: "Épica",
+  legendary: "Legendaria",
+};
+
+const COSTO_CAPITULO = 1;
+
 export default function HistoriaSeleccionPersonaje() {
   const { user, authFetch } = useAuth();
+  const { spendEnergy } = useEnergy();
   const navigate = useNavigate();
   const location = useLocation();
 
   const [cartas, setCartas] = useState([]);
   const [seleccionada, setSeleccionada] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [iniciando, setIniciando] = useState(false);
+  const [sinEnergia, setSinEnergia] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -51,13 +65,29 @@ export default function HistoriaSeleccionPersonaje() {
     if (!user) navigate("/");
   }, [user, navigate]);
 
-  const handleComenzar = () => {
-    if (!seleccionada) return;
+  const handleComenzar = async () => {
+    if (!seleccionada || iniciando) return;
+    setIniciando(true);
+
+    const resultado = await spendEnergy(COSTO_CAPITULO, "historia_capitulo");
+
+    if (!resultado.ok) {
+      if (resultado.motivo === "sin_energia") {
+        setSinEnergia(resultado.estado);
+      }
+      setIniciando(false);
+      return;
+    }
 
     // La ruta de esta pantalla siempre es ".../{capitulo}/personaje".
     // Sacamos el capítulo de la URL actual en vez de hardcodearlo,
     // así funciona para cualquier capítulo sin tocar este archivo de nuevo.
     const rutaJuego = location.pathname.replace(/\/personaje\/?$/, "");
+
+    // La región del protagonista es la que usa HistoriaGame.jsx para decidir
+    // si una elección coincide con su región y disparar el reactionText
+    // exclusivo — sin esto, esa comparación siempre da false.
+    const regionSeleccionada = REGION_BY_NAME[seleccionada.nombre?.toLowerCase()];
 
     navigate(rutaJuego, {
       state: {
@@ -65,6 +95,7 @@ export default function HistoriaSeleccionPersonaje() {
           nombre: seleccionada.nombre,
           imagen: seleccionada.imagen,
           rareza: seleccionada.rareza,
+          region: regionSeleccionada,
         },
       },
     });
@@ -118,7 +149,7 @@ export default function HistoriaSeleccionPersonaje() {
                         </span>
                       )}
                       <p className="hsp-card__nombre">{c.nombre}</p>
-                      <p className={`hsp-card__rareza hsp-card__rareza--${c.rareza}`}>{c.rareza}</p>
+                      <p className={`hsp-card__rareza hsp-card__rareza--${c.rareza}`}>{RAREZA_LABEL[c.rareza] || c.rareza}</p>
                     </div>
                   );
                 })}
@@ -127,10 +158,10 @@ export default function HistoriaSeleccionPersonaje() {
               <div className="hsp-actions">
                 <button
                   className="hsp-btn"
-                  disabled={!seleccionada}
+                  disabled={!seleccionada || iniciando}
                   onClick={handleComenzar}
                 >
-                  Comenzar historia
+                  {iniciando ? "Cargando..." : "Comenzar historia"}
                 </button>
               </div>
             </>
@@ -139,6 +170,15 @@ export default function HistoriaSeleccionPersonaje() {
 
       </main>
       <Footer />
+
+      {sinEnergia && (
+        <NoEnergyModal
+          costo={COSTO_CAPITULO}
+          energiaActual={sinEnergia.energia}
+          energiaMax={sinEnergia.energia_max}
+          onClose={() => setSinEnergia(null)}
+        />
+      )}
     </>
   );
 }

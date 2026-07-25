@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { applyRegionTheme } from "../../../constants/regionThemes";
+import { useEnergy } from "../../../context/EnergyContext";
+import NoEnergyModal from "../../../components/NoEnergyModal";
 import "../styles/course-intro.css";
 
 const RAREZA_LABEL = {
@@ -9,6 +11,8 @@ const RAREZA_LABEL = {
   Rare: "Rara",
   Common: "Común",
 };
+
+const COSTO_CURSO = 1;
 
 function translateRewardType(type) {
   if (!type) return type;
@@ -21,10 +25,30 @@ function translateRewardType(type) {
 
 export default function CourseIntro({ course }) {
   const navigate = useNavigate();
+  const { energia, spendEnergy } = useEnergy();
+  const [iniciando, setIniciando] = useState(false);
+  const [sinEnergia, setSinEnergia] = useState(null);
 
   useEffect(() => {
     applyRegionTheme(course.region);
   }, [course.region]);
+
+  const handleComenzar = async () => {
+    if (iniciando) return;
+    setIniciando(true);
+
+    const resultado = await spendEnergy(COSTO_CURSO, `curso_${course.codigo ?? course.title}`);
+
+    if (!resultado.ok) {
+      if (resultado.motivo === "sin_energia") {
+        setSinEnergia(resultado.estado);
+      }
+      setIniciando(false);
+      return;
+    }
+
+    navigate(course.playerRoute);
+  };
 
   return (
     <div className="ci-page">
@@ -61,9 +85,10 @@ export default function CourseIntro({ course }) {
 
         <button
           className="ci-start-btn"
-          onClick={() => navigate(course.playerRoute)}
+          onClick={handleComenzar}
+          disabled={iniciando || energia === 0}
         >
-          Comenzar curso →
+          {iniciando ? "Cargando..." : "Comenzar curso →"}
         </button>
 
         {/* Barra de progreso */}
@@ -113,6 +138,15 @@ export default function CourseIntro({ course }) {
           <img src="/img/Bonnie-3.png" alt="Bonnie" />
         </div>
       </aside>
+
+      {sinEnergia && (
+        <NoEnergyModal
+          costo={COSTO_CURSO}
+          energiaActual={sinEnergia.energia}
+          energiaMax={sinEnergia.energia_max}
+          onClose={() => setSinEnergia(null)}
+        />
+      )}
 
     </div>
   );

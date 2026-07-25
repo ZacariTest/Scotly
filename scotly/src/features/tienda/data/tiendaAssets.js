@@ -2,13 +2,13 @@
 export const TIENDA_ASSETS = {
   // Cosméticos / objetos / energía
   COSM_ROPAJES: {
-    img: "/img/Rop1.png",
+    img: "/img/COF.png",
   },
   OBJ_SCONES: {
-    img: "/img/Scones3.PNG",
+    img: "/img/Scones4.PNG",
   },
   ENERGIA_POCION: {
-    img: "/img/Po25.png",
+    img: "/img/Po26.png",
   },
 
   // Paquetes de monedas

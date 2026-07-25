@@ -196,6 +196,24 @@
 }
 
 /* ==========================================================
+   REACCIÓN EXCLUSIVA (subtítulo sobre el diálogo siguiente)
+========================================================== */
+
+.historia-dialogue__reaccion {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #ffc61c;
+  background: rgba(7, 20, 16, 0.92);
+  border: 1px solid rgba(255, 198, 28, 0.25);
+  border-left: 3px solid #ffc61c;
+  border-radius: 6px 6px 0 0;
+  padding: 10px 16px;
+  margin: 0 0 -1px;
+  backdrop-filter: blur(8px);
+  opacity: 1;
+}
+
+/* ==========================================================
    DIÁLOGOS CON CHOICES
 ========================================================== */
 
@@ -228,16 +246,6 @@
   margin-bottom: 1rem;
 }
 
-.historia-dialogue__reaccion {
-  font-size: 0.9rem;
-  font-style: italic;
-  color: #ffc61c;
-  border-left: 2px solid rgba(255, 198, 28, 0.4);
-  padding-left: 10px;
-  margin: -0.2rem 0 1.1rem;
-  opacity: 0.9;
-}
-
 .historia-choices__opciones {
   display: flex;
   flex-direction: column;
@@ -245,6 +253,7 @@
 }
 
 .historia-choice-btn {
+  position: relative;
   text-align: left;
   background: rgba(255, 198, 28, 0.06);
   border: 1px solid rgba(255, 198, 28, 0.25);
@@ -263,6 +272,29 @@
 }
 .historia-choice-btn:active {
   transform: translateX(4px) scale(0.99);
+}
+
+/* Opción cuya region coincide con la de la carta elegida por el jugador */
+.historia-choice-btn--region {
+  padding-right: 90px;
+  border-color: rgba(255, 198, 28, 0.55);
+  background: rgba(255, 198, 28, 0.1);
+}
+
+.historia-choice-btn__badge {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: #ffc61c;
+  color: #0b1f17;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
 }
 
 /* ==========================================================
@@ -414,4 +446,15 @@
   }
 
   .historia-choice-btn { font-size: 0.88rem; padding: 9px 14px; }
+
+  .historia-choice-btn--region {
+    padding-right: 16px;
+    padding-top: 26px;
+  }
+
+  .historia-choice-btn__badge {
+    top: 6px;
+    right: 10px;
+    transform: none;
+  }
 }

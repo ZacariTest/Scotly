@@ -2,6 +2,7 @@ import { Router } from 'express';
 import pool from '../db.js';
 import { verificarToken } from '../middleware/auth.js';
 import { CURRENT_SEASON } from '../features/invasion/data/seasons.js';
+import { recalcularNivel } from '../utils/niveles.js';
 
 const router = Router();
 
@@ -41,6 +42,10 @@ router.post('/resultado', verificarToken, async (req, res) => {
           'UPDATE usuarios SET monedas = monedas + ?, experiencia = experiencia + ? WHERE id = ?',
           [monedasGanadas, xpGanada, usuarioId]
         );
+
+        if (xpGanada > 0) {
+          await recalcularNivel(connection, usuarioId);
+        }
       }
     }
 
@@ -51,7 +56,7 @@ router.post('/resultado', verificarToken, async (req, res) => {
     );
 
     const [usuarios] = await connection.query(
-      'SELECT monedas, experiencia FROM usuarios WHERE id = ?',
+      'SELECT monedas, experiencia, nivel FROM usuarios WHERE id = ?',
       [usuarioId]
     );
 

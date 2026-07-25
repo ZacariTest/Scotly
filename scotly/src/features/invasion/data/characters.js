@@ -79,7 +79,7 @@ export const CHARACTERS = [
     id: "FOUNDERS_BONNIE",
     name: "Bonnie",
     title: "Espíritu de las Highlands",
-    img: "/img/Bonnie-3.png",
+    img: "/img/BON2.PNG",
     region: "Escocia",
     hp: 120,
     attack: 18,

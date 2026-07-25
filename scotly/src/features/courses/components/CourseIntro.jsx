@@ -135,7 +135,7 @@ export default function CourseIntro({ course }) {
         </div>
 
         <div className="ci-mascot">
-          <img src="/img/Bonnie-3.png" alt="Bonnie" />
+          <img src="/img/BON2.PNG" alt="Bonnie" />
         </div>
       </aside>
 

@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import "../styles/profile.css";
 import Toast from "../components/Toast";
 import { loadActiveRegion } from "../constants/regionThemes";
+import { obtenerProgresoNivel } from "../utils/niveles";
 
 const RARITY_LABEL = { legendary: "legendary", epic: "epic", rare: "rare", common: "common" };
 
@@ -62,6 +63,8 @@ export default function ProfilePage() {
   const activeCode    = loadActiveRegion();
   const regionLabel   = REGION_LABELS[activeCode] ?? "Escocia";
   const regionIcon    = REGION_ICONS[activeCode]  ?? "⚔";
+
+  const nivelInfo = obtenerProgresoNivel(user.experiencia ?? 0);
 
   const handleLogout = () => {
     logout();
@@ -176,6 +179,9 @@ export default function ProfilePage() {
               <p className="profile-username">{user.username}</p>
               <p className="profile-email">{user.email}</p>
               <span className="profile-region-badge">{regionIcon} Región activa: {regionLabel}</span>
+              <span className="profile-region-badge" style={{ marginTop: "0.4rem" }}>
+                🎖 Nivel {nivelInfo.nivel} · {nivelInfo.titulo}
+              </span>
             </div>
 
             <div className="profile-fav-card">
@@ -300,6 +306,28 @@ export default function ProfilePage() {
           <aside className="profile-right">
             <div className="profile-courses-card">
               <p className="profile-fav-label">Tu progreso</p>
+
+              <div className="profile-field" style={{ borderBottom: "none" }}>
+                <div className="profile-field__label">Nivel</div>
+                <div className="profile-field__val">
+                  * {nivelInfo.nivel} — {nivelInfo.titulo}
+                </div>
+              </div>
+
+              {nivelInfo.expSiguienteNivel !== null && (
+                <div className="ci-progress" style={{ marginBottom: "1rem" }}>
+                  <p className="ci-progress__label">
+                    {nivelInfo.expActual} / {nivelInfo.expSiguienteNivel} XP para el próximo nivel
+                  </p>
+                  <div className="ci-progress__bar">
+                    <div
+                      className="ci-progress__fill"
+                      style={{ width: `${Math.round(nivelInfo.progreso * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
               <div className="profile-field" style={{ borderBottom: "none" }}>
                 <div className="profile-field__label">Monedas</div>
                 <div className="profile-field__val">🪙 {user.monedas}</div>

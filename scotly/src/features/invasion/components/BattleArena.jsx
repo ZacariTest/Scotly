@@ -128,8 +128,7 @@ export default function BattleArena({ result, onFinish }) {
                 <div className={`inv-flash-overlay inv-flash-overlay--${flashMap[c.name]}`} />
               )}
               <div className="inv-arena__portrait inv-arena__portrait--player">
-                <img src={c.img} alt={c.name} onError={e => e.target.style.display = "none"} />
-                <span className="inv-arena__portrait-fallback"></span>
+                <img src={c.img} alt={c.name} />
               </div>
               <HealthBar current={c.currentHp} max={c.hp} name={c.name} side="player" />
               {activeChar === c.name && (
@@ -161,8 +160,7 @@ export default function BattleArena({ result, onFinish }) {
                 <div className={`inv-flash-overlay inv-flash-overlay--${flashMap[c.name]}`} />
               )}
               <div className="inv-arena__portrait inv-arena__portrait--enemy">
-                <img src={c.img} alt={c.name} onError={e => e.target.style.display = "none"} />
-                <span className="inv-arena__portrait-fallback"></span>
+                <img src={c.img} alt={c.name} />
               </div>
               <HealthBar current={c.currentHp} max={c.hp} name={c.name} side="enemy" />
               {activeChar === c.name && (

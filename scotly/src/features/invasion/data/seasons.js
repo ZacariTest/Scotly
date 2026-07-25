@@ -51,7 +51,7 @@ export const CURRENT_SEASON = {
         id: "e_jefe",
         name: "Jefe del Clan",
         title: "Líder de la Invasión",
-        img: "/img/G1.PNG",
+        img: "/img/ww4.PNG",
         hp: 140,
         attack: 22,
         speed: 9,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import { getNivel } from "../../../utils/level";
+import { obtenerProgresoNivel } from "../../../utils/niveles";
 import Toast from "../../../components/Toast";
 
 const RESULTADO_MAP = { player: "victoria", enemy: "derrota", draw: "empate" };
@@ -26,7 +26,7 @@ export default function RewardScreen({ winner, onReset }) {
 
         setRecompensa({ monedas: data.monedas_ganadas, xp: data.xp_ganada });
         setYaReclamado(data.yaReclamado);
-        updateUser({ monedas: data.usuario.monedas, experiencia: data.usuario.experiencia });
+        updateUser({ monedas: data.usuario.monedas, experiencia: data.usuario.experiencia, nivel: data.usuario.nivel });
         setEstado("ok");
       } catch (err) {
         console.error("Error al registrar resultado de Invasión:", err);
@@ -75,7 +75,7 @@ export default function RewardScreen({ winner, onReset }) {
           )}
           {user && (
             <p style={{ textAlign: "center", opacity: 0.7, fontSize: "0.85rem" }}>
-              Nivel actual: {getNivel(user.experiencia)}
+              Nivel actual: {obtenerProgresoNivel(user.experiencia).nivel}
             </p>
           )}
         </>

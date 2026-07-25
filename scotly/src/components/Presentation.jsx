@@ -1,4 +1,4 @@
-import mascot from "/img/Bonnie-3.png";
+import mascot from "/img/BON2.PNG";
 import WelcomeChest from "./WelcomeChest";
 
 export default function Presentation({ onOpenAuth, userLoggedIn }) {

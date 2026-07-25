@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CardLevelUpModal from "../features/inventory/components/CardLevelUpModal";
+import { aplicarEscaladoPorNivel } from "../features/invasion/utils/nivelScaling";
 import "../features/invasion/styles/invasion.css";
 import "../styles/inventory.css";
 import "../features/inventory/styles/cardModal.css";
@@ -26,7 +27,7 @@ export default function InventoryPage() {
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading]     = useState(true);
   const [nivelMaximo, setNivelMaximo] = useState(7);
-  const [cartaSeleccionada, setCartaSeleccionada] = useState(null);
+  const [cartaSeleccionadaId, setCartaSeleccionadaId] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -42,6 +43,10 @@ export default function InventoryPage() {
             name: c.nombre,
             title: "",
             img: c.imagen,
+            // Stats base sin escalar (tal como están en la tabla `cartas`).
+            // El escalado por nivel se aplica al vuelo en `inventoryEscalado`,
+            // igual que hace Invasion — así no hay que resincronizar nada
+            // manualmente cuando cambia el nivel.
             hp: c.hp,
             attack: c.ataque,
             speed: c.velocidad,
@@ -70,8 +75,14 @@ export default function InventoryPage() {
     if (!user) navigate("/");
   }, [user, navigate]);
 
+  // Stats visibles = stats base + escalado por nivel (mismo criterio que Invasion).
+  const inventoryEscalado = useMemo(
+    () => inventory.map((c) => aplicarEscaladoPorNivel(c, c.nivel)),
+    [inventory]
+  );
+
   const filtered = useMemo(() => {
-    return inventory
+    return inventoryEscalado
       .filter((c) => {
         if (activeTab !== "all" && c.rarity !== activeTab) return false;
         return (
@@ -86,7 +97,7 @@ export default function InventoryPage() {
         if (sort === "rarity") return RARITY_ORDER[a.rarity] - RARITY_ORDER[b.rarity];
         return 0;
       });
-  }, [inventory, search, sort, activeTab]);
+  }, [inventoryEscalado, search, sort, activeTab]);
 
   const stats = {
     total:  inventory.length,
@@ -99,10 +110,12 @@ export default function InventoryPage() {
     setInventory((prev) =>
       prev.map((c) => (c.id === cartaId ? { ...c, nivel, cantidad } : c))
     );
-    setCartaSeleccionada((prev) =>
-      prev && prev.id === cartaId ? { ...prev, nivel, cantidad } : prev
-    );
   };
+
+  const cartaSeleccionada = useMemo(
+    () => inventoryEscalado.find((c) => c.id === cartaSeleccionadaId) ?? null,
+    [inventoryEscalado, cartaSeleccionadaId]
+  );
 
   if (!user) return null;
 
@@ -179,7 +192,7 @@ export default function InventoryPage() {
               <div
                 key={card.id}
                 className={`inv-card inv-card--${card.rarity}`}
-                onClick={() => setCartaSeleccionada(card)}
+                onClick={() => setCartaSeleccionadaId(card.id)}
                 role="button"
                 tabIndex={0}
               >
@@ -227,7 +240,7 @@ export default function InventoryPage() {
         <CardLevelUpModal
           card={cartaSeleccionada}
           nivelMaximo={nivelMaximo}
-          onClose={() => setCartaSeleccionada(null)}
+          onClose={() => setCartaSeleccionadaId(null)}
           onLevelUp={handleLevelUp}
         />
       )}

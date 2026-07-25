@@ -71,7 +71,7 @@ export default function WelcomeChest({ onOpenAuth, userLoggedIn }) {
                 </h2>
 
                 <p className="wc-desc">
-                  Para celebrar el inicio de Scotly, cada viajero que llegue hoy recibirá una <strong>carta épica exclusiva</strong> — Bonnie, Guía de las Highlands. No estará disponible de ninguna otra forma.
+                  Para celebrar el inicio de Scotly, cada viajero que llegue hoy recibirá una <strong>carta épica exclusiva.</strong> Bonnie, Guía de las Highlands. No estará disponible de ninguna otra forma.
                 </p>
 
                 <div className="wc-reward-preview">

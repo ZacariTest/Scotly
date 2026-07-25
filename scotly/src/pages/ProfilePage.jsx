@@ -8,7 +8,7 @@ import Toast from "../components/Toast";
 import { loadActiveRegion } from "../constants/regionThemes";
 import { obtenerProgresoNivel } from "../utils/niveles";
 
-const RARITY_LABEL = { legendary: "legendary", epic: "epic", rare: "rare", common: "common" };
+const RARITY_LABEL = { legendary: "Legendaria", epic: "Épica", rare: "Rara", common: "Común" };
 
 export default function ProfilePage() {
   const { user, logout, authFetch, updateProfile, changePassword } = useAuth();

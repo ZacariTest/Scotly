@@ -11,6 +11,13 @@ import "../features/inventory/styles/cardModal.css";
 
 const RARITY_ORDER = { legendary: 0, epic: 1, rare: 2, common: 3 };
 
+const RARITY_LABEL = {
+  legendary: "Legendaria",
+  epic: "Épica",
+  rare: "Rara",
+  common: "Común",
+};
+
 const TABS = [
   { key: "all",    label: "Todas" },
   { key: "epic",   label: "Épicas" },
@@ -197,7 +204,9 @@ export default function InventoryPage() {
                 tabIndex={0}
               >
 
-                <span className="inv-card__rarity-label">{card.rarity}</span>
+                <span className="inv-card__rarity-label">
+                  {RARITY_LABEL[card.rarity] || card.rarity}
+                </span>
                 <span className="inv-card__nivel-badge">Nv. {card.nivel}</span>
 
                 <div className="inv-card__img-wrap">

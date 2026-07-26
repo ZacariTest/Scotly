@@ -17,7 +17,7 @@ export default function FinalMessage({ onAuth }) {
 
           <a
             className="cta cta--secondary"
-            href="/downloads/scotly.apk"
+            href="/downloads/Scotly.apk"
             download
           >
             <svg

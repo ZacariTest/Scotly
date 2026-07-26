@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.scotly.twa",
+        "sha256_cert_fingerprints": ["9F:51:3B:60:49:D4:8A:1D:86:10:64:A2:EE:59:E4:85:E5:2A:F6:5F:7B:A6:17:88:F1:EB:F4:A3:DB:6F:46:A4"]
+      }
+    }]

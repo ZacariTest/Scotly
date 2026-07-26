@@ -1326,21 +1326,88 @@ html, body {
   max-width: 800px;
   margin: auto;
 }
-.final-message .title { font-size: 2.3rem; font-weight: bold; }
+
+.final-message .eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.final-message .title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+.final-message .title-accent {
+  color: var(--color-accent);
+}
+
 .final-message .subtitle { font-size: 1rem; margin-top: 1rem; }
-.final-message .cta {
-  margin-top: 1rem;
-  background-color: var(--color-accent);
-  color: var(--color-primary);
+
+.final-message .cta-group {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.final-message .cta,
+.final-message .cta--secondary {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.2;
+  cursor: pointer;
+  box-sizing: border-box;
   padding: 0.8rem 2rem;
   border-radius: 9999px;
   transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  border: 2px solid var(--color-accent);
+}
+
+.final-message .cta {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
 }
 .final-message .cta:hover { transform: scale(1.05); }
+
+.final-message .cta--secondary {
+  background-color: rgba(217, 154, 40, 0.12);
+  color: #f3f3f3;
+}
+.final-message .cta--secondary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.final-message .cta-icon {
+  flex-shrink: 0;
+}
 
 @media (max-width: 768px) {
   .final-message { padding: 4rem 1rem; }
   .final-message .title { font-size: 1.8rem; }
+  .final-message .cta-group {
+    flex-direction: column;
+    align-items: center;
+  }
+  .final-message .cta,
+  .final-message .cta--secondary {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
 }
 
 /* ==========================================================

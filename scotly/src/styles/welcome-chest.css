@@ -287,14 +287,14 @@
   padding: 2.5rem;
   max-width: 380px;
   width: 90%;
-  max-height: 90vh;        /* NUEVO: nunca supera el viewport */
-  overflow-y: auto;        /* NUEVO: scroll interno si el contenido no entra */
+  max-height: 90vh;        
+  overflow-y: auto;        
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
   position: relative;
-  overflow-x: hidden;      /* cambiado de overflow: hidden a overflow-x para no cortar el scroll-y */
+  overflow-x: hidden;      
   animation: wc-modal-in .45s cubic-bezier(.16,1,.3,1);
 }
 
@@ -334,13 +334,13 @@
   to   { opacity: 1; transform: rotateY(0deg) scale(1); }
 }
 
-/* Brillo de rareza épica */
+
 .wc-card--epic {
   border-color: rgba(180,130,255,.4);
   box-shadow: 0 0 0 1px rgba(180,130,255,.15), 0 8px 40px rgba(180,130,255,.15);
 }
 
-/* Efecto shine animado */
+
 .wc-card__shine {
   position: absolute;
   inset: 0;
@@ -378,7 +378,7 @@
 }
 
 .wc-card__img-wrap {
-  height: 220px;           /* antes 160px — deja ver la cara completa */
+  height: 220px;           
   background: #071020;
   position: relative;
   overflow: hidden;
@@ -387,7 +387,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 5%;  /* deja más aire arriba, menos corte de pelo */
+  object-position: center 5%;  
   filter: brightness(.85);
 }
 .wc-card__img-overlay {
@@ -490,8 +490,8 @@
   .wc-inner { grid-template-columns: 1fr; gap: 2rem; }
   .wc-chest-wrap { display: none; }
   .wc-title { font-size: 2.2rem; }
+  .wc-reward-preview { display: none; }
 }
 @media (max-width: 600px) {
   .wc-modal { padding: 1.75rem 1.25rem; }
-  .wc-reward-preview { flex-direction: column; align-items: flex-start; gap: .4rem; }
 }

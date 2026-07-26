@@ -47,6 +47,11 @@ export function applyRegionTheme(region) {
     rootEl.style.backgroundImage = theme.bgImage ?? "none";
     rootEl.style.backgroundColor = theme["--region-primary"];
   }
+
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", theme["--region-primary"]);
+  }
 }
 
 const REGION_ID_MAP = {

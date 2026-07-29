@@ -39,7 +39,7 @@ export default function Hero() {
           </p>
           <div className="hero-btns">
             <button className="hero-btn" onClick={() => navigate("/cursos")}>
-              Explorar Escocia
+              Explorar cursos
             </button>
             <button className="hero-btn hero-btn--ghost" onClick={() => {
               document.getElementById("regions-section")?.scrollIntoView({ behavior: "smooth" });
